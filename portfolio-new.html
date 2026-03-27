@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shreeya Jangid</title>
+    <title>Shreeya Jangid | Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -20,83 +20,50 @@
 
         body {
             font-family: 'Space Grotesk', sans-serif;
-            background: #000;
-            color: #fff;
+            background: #0a0e27;
+            color: #ffffff;
             overflow-x: hidden;
         }
 
-        /* ANIMATED BLOB BACKGROUNDS */
-        .blob {
+        /* ANIMATED BACKGROUND */
+        body::before {
+            content: '';
             position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 0, 110, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255, 183, 0, 0.1) 0%, transparent 50%);
+            animation: bgShift 8s ease-in-out infinite;
             z-index: -1;
-            filter: blur(120px);
-            mix-blend-mode: multiply;
-            opacity: 0.4;
         }
 
-        .blob-1 {
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, #ff006e, transparent);
-            top: -200px;
-            left: -200px;
-            animation: float1 20s ease-in-out infinite;
-        }
-
-        .blob-2 {
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, #00d4ff, transparent);
-            bottom: -200px;
-            right: -200px;
-            animation: float2 25s ease-in-out infinite;
-        }
-
-        .blob-3 {
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, #ffb700, transparent);
-            top: 50%;
-            right: 10%;
-            animation: float3 30s ease-in-out infinite;
-        }
-
-        @keyframes float1 {
+        @keyframes bgShift {
             0%, 100% { transform: translate(0, 0); }
-            33% { transform: translate(100px, -100px); }
-            66% { transform: translate(-50px, 50px); }
+            50% { transform: translate(50px, 50px); }
         }
 
-        @keyframes float2 {
-            0%, 100% { transform: translate(0, 0); }
-            33% { transform: translate(-100px, 100px); }
-            66% { transform: translate(50px, -50px); }
-        }
-
-        @keyframes float3 {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(100px, -50px) rotate(180deg); }
-        }
-
-        /* FIXED NAVIGATION */
+        /* NAVIGATION */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            height: 80px;
+            padding: 40px 80px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            padding: 0 80px;
+            align-items: center;
             z-index: 1000;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            animation: navSlideIn 0.8s ease;
+            background: rgba(10, 14, 39, 0.7);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            animation: slideDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        @keyframes navSlideIn {
+        @keyframes slideDown {
             from { transform: translateY(-100%); }
             to { transform: translateY(0); }
         }
@@ -109,31 +76,31 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradFlow 3s ease infinite;
+            animation: logoGlow 3s ease infinite;
             cursor: pointer;
         }
 
-        @keyframes gradFlow {
+        @keyframes logoGlow {
             0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
         }
 
         .nav-links {
             display: flex;
-            gap: 60px;
+            gap: 50px;
             list-style: none;
         }
 
         .nav-links a {
             color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
-            position: relative;
-            transition: all 0.3s ease;
             cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
         .nav-links a::after {
@@ -144,7 +111,7 @@
             width: 0;
             height: 2px;
             background: linear-gradient(90deg, #ff006e, #00d4ff);
-            transition: width 0.5s ease;
+            transition: width 0.4s ease;
         }
 
         .nav-links a:hover {
@@ -155,116 +122,18 @@
             width: 100%;
         }
 
-        /* MAIN CONTENT */
-        main {
-            position: relative;
-            z-index: 2;
-        }
-
+        /* MAIN SECTIONS */
         section {
             min-height: 100vh;
-            padding: 120px 80px;
+            padding: 150px 80px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            animation: fadeIn 1s ease-out;
         }
 
-        .section-content {
-            max-width: 1400px;
-            width: 100%;
-            animation: sectionFadeIn 1s ease;
-        }
-
-        @keyframes sectionFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* HERO */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            text-align: center;
-            padding-top: 80px;
-        }
-
-        .hero-content {
-            max-width: 900px;
-            animation: heroScale 1s ease;
-        }
-
-        @keyframes heroScale {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        h1 {
-            font-size: clamp(60px, 12vw, 150px);
-            font-weight: 700;
-            line-height: 1;
-            margin-bottom: 30px;
-            letter-spacing: -2px;
-            background: linear-gradient(135deg, #ffffff, #00d4ff, #ff006e, #ffb700);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: textGradient 4s ease infinite;
-        }
-
-        @keyframes textGradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .subtitle {
-            font-size: 20px;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 60px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            animation: subtitleSlide 0.8s ease 0.2s backwards;
-            line-height: 1.6;
-        }
-
-        @keyframes subtitleSlide {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .cta {
-            display: flex;
-            gap: 30px;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: ctaSlide 0.8s ease 0.4s backwards;
-        }
-
-        @keyframes ctaSlide {
+        @keyframes fadeIn {
             from {
                 opacity: 0;
                 transform: translateY(30px);
@@ -273,6 +142,72 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        .content {
+            max-width: 1300px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* HERO SECTION */
+        .hero-section {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(60px, 15vw, 160px);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 30px;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #ffffff, #00d4ff, #ff006e, #ffb700);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleFlow 4s ease infinite;
+        }
+
+        @keyframes titleFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .tagline {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 60px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: slideUp 0.8s ease 0.2s backwards;
+            letter-spacing: 1px;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .buttons {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: slideUp 0.8s ease 0.4s backwards;
         }
 
         .btn {
@@ -286,7 +221,7 @@
             text-transform: uppercase;
             cursor: pointer;
             border-radius: 8px;
-            transition: all 0.4s ease;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
             overflow: hidden;
         }
@@ -297,7 +232,7 @@
             inset: 0;
             background: linear-gradient(135deg, #ff006e, #00d4ff);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.5s ease;
             z-index: -1;
             border-radius: 8px;
         }
@@ -305,8 +240,8 @@
         .btn:hover {
             color: #fff;
             border-color: transparent;
-            transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.4);
         }
 
         .btn:hover::before {
@@ -319,45 +254,69 @@
             color: #fff;
         }
 
-        /* SECTIONS */
+        /* SECTION TITLES */
         h2 {
+            font-family: 'Playfair Display', serif;
             font-size: clamp(48px, 10vw, 100px);
-            font-weight: 700;
-            margin-bottom: 60px;
+            font-weight: 900;
+            margin-bottom: 80px;
             letter-spacing: -1px;
+            text-align: center;
         }
 
+        /* CARDS */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.08), rgba(255, 0, 110, 0.05));
+            border: 1px solid rgba(0, 212, 255, 0.15);
             padding: 40px;
-            border-radius: 12px;
-            transition: all 0.5s ease;
+            border-radius: 15px;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
             position: relative;
             overflow: hidden;
+            animation: cardSlide 0.8s ease-out backwards;
         }
+
+        @keyframes cardSlide {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
 
         .card::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), transparent);
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.2), transparent);
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
         }
 
         .card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(0, 212, 255, 0.3);
-            transform: translateY(-10px);
-            box-shadow: 0 30px 80px rgba(0, 212, 255, 0.2);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(255, 0, 110, 0.1));
+            border-color: rgba(0, 212, 255, 0.4);
+            transform: translateY(-15px);
+            box-shadow: 0 30px 80px rgba(0, 212, 255, 0.25);
         }
 
         .card:hover::before {
@@ -370,19 +329,19 @@
             font-weight: 700;
         }
 
-        .card p {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .meta {
+        .card-meta {
             font-size: 12px;
             color: #ffb700;
             font-weight: 600;
             margin-bottom: 15px;
             letter-spacing: 1px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.7;
+            margin-bottom: 20px;
         }
 
         .tags {
@@ -404,93 +363,108 @@
 
         .tag:hover {
             background: rgba(0, 212, 255, 0.3);
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         /* TABS */
         .tabs {
             display: flex;
             gap: 15px;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
             flex-wrap: wrap;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            justify-content: center;
+            border-bottom: 2px solid rgba(0, 212, 255, 0.1);
             padding-bottom: 30px;
+            animation: slideUp 0.8s ease 0.1s backwards;
         }
 
         .tab-btn {
-            padding: 10px 24px;
+            padding: 12px 28px;
             background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(0, 212, 255, 0.3);
             color: rgba(255, 255, 255, 0.7);
-            font-size: 12px;
-            font-weight: 600;
+            font-size: 11px;
+            font-weight: 700;
             letter-spacing: 1px;
             text-transform: uppercase;
             cursor: pointer;
-            border-radius: 6px;
-            transition: all 0.3s ease;
+            border-radius: 8px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .tab-btn:hover {
-            border-color: rgba(0, 212, 255, 0.5);
+            border-color: rgba(0, 212, 255, 0.6);
             color: #00d4ff;
+            transform: translateY(-3px);
         }
 
         .tab-btn.active {
             background: linear-gradient(135deg, #ff006e, #00d4ff);
             border-color: transparent;
             color: #fff;
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+            transform: translateY(-5px);
         }
 
         .tab-content {
             display: none;
-            animation: fadeIn 0.5s ease;
+            opacity: 0;
+            animation: fadeInContent 0.6s ease forwards;
         }
 
         .tab-content.active {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            opacity: 1;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        @keyframes fadeInContent {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* CV SECTION */
-        .cv-box {
-            background: rgba(255, 255, 255, 0.05);
+        .cv-container {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 0, 110, 0.05));
             border: 2px solid rgba(0, 212, 255, 0.2);
             padding: 100px;
-            border-radius: 16px;
+            border-radius: 20px;
             text-align: center;
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
-            transition: all 0.5s ease;
+            transition: all 0.6s ease;
         }
 
-        .cv-box:hover {
+        .cv-container:hover {
             border-color: rgba(0, 212, 255, 0.5);
-            background: rgba(255, 255, 255, 0.08);
-            transform: scale(1.02);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(255, 0, 110, 0.1));
+            transform: scale(1.03);
+            box-shadow: 0 30px 80px rgba(0, 212, 255, 0.25);
         }
 
-        .cv-box h3 {
-            font-size: 36px;
+        .cv-container h3 {
+            font-size: 48px;
             margin-bottom: 20px;
+            font-weight: 900;
+            font-family: 'Playfair Display', serif;
         }
 
-        .cv-box p {
+        .cv-container p {
             font-size: 16px;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 50px;
             line-height: 1.8;
         }
 
         /* CONTACT */
-        .contact-content {
+        .contact-center {
             text-align: center;
             max-width: 700px;
             margin: 0 auto;
@@ -501,7 +475,8 @@
             gap: 30px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 50px;
+            margin-top: 60px;
+            animation: slideUp 0.8s ease 0.2s backwards;
         }
 
         .contact-link {
@@ -516,9 +491,10 @@
             text-transform: uppercase;
             border-radius: 8px;
             cursor: pointer;
-            transition: all 0.4s ease;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
             overflow: hidden;
+            display: inline-block;
         }
 
         .contact-link::before {
@@ -527,15 +503,16 @@
             inset: 0;
             background: linear-gradient(135deg, #ff006e, #00d4ff);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.5s ease;
             z-index: -1;
+            border-radius: 8px;
         }
 
         .contact-link:hover {
             color: #fff;
             border-color: transparent;
-            transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.4);
         }
 
         .contact-link:hover::before {
@@ -546,7 +523,7 @@
         footer {
             padding: 60px 80px;
             text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
             color: rgba(255, 255, 255, 0.5);
             font-size: 13px;
         }
@@ -554,276 +531,311 @@
         .visitor-count {
             margin-top: 20px;
             color: #00d4ff;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
             nav {
-                padding: 0 40px;
+                padding: 30px 40px;
             }
 
             .nav-links {
-                gap: 30px;
+                gap: 25px;
+                font-size: 10px;
             }
 
             section {
-                padding: 80px 40px;
+                padding: 100px 40px;
             }
 
             .grid, .tab-content {
                 grid-template-columns: 1fr;
             }
 
-            .cv-box {
-                padding: 50px 30px;
+            h1 {
+                font-size: clamp(40px, 8vw, 80px);
             }
 
             h2 {
-                font-size: 40px;
+                font-size: clamp(36px, 8vw, 60px);
+            }
+
+            .cv-container {
+                padding: 50px 30px;
+            }
+
+            .tabs {
+                gap: 10px;
+            }
+
+            .tab-btn {
+                padding: 10px 20px;
+                font-size: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- ANIMATED BLOBS -->
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-
     <!-- NAVIGATION -->
     <nav>
-        <div class="logo" onclick="scrollToSection(0)">SJ</div>
+        <div class="logo" onclick="scrollToSection('hero')">SJ</div>
         <ul class="nav-links">
-            <li><a onclick="scrollToSection(1)">About</a></li>
-            <li><a onclick="scrollToSection(2)">Experience</a></li>
-            <li><a onclick="scrollToSection(3)">Research</a></li>
-            <li><a onclick="scrollToSection(4)">CV</a></li>
-            <li><a onclick="scrollToSection(5)">Contact</a></li>
+            <li><a onclick="scrollToSection('about')">About</a></li>
+            <li><a onclick="scrollToSection('experience')">Experience</a></li>
+            <li><a onclick="scrollToSection('research')">Research</a></li>
+            <li><a onclick="scrollToSection('cv')">CV</a></li>
+            <li><a onclick="scrollToSection('contact')">Contact</a></li>
         </ul>
     </nav>
 
-    <main>
-        <!-- HERO -->
-        <section class="hero">
-            <div class="section-content hero-content">
-                <h1>Where Brain<br>Meets Boardrooms</h1>
-                <p class="subtitle">Clinical Neuropsychiatrist × Luxury Strategist × Human Performance Researcher</p>
-                <div class="cta">
-                    <button class="btn btn-primary" onclick="scrollToSection(1)">Explore</button>
-                    <button class="btn" onclick="scrollToSection(4)">Download CV</button>
-                </div>
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero-section">
+        <div class="content">
+            <h1>Where Brain<br>Meets Boardrooms</h1>
+            <p class="tagline">Clinical Neuropsychiatrist × Luxury Strategist × Human Performance Researcher</p>
+            <div class="buttons">
+                <button class="btn btn-primary" onclick="scrollToSection('about')">Explore</button>
+                <button class="btn" onclick="scrollToSection('cv')">Download CV</button>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- ABOUT -->
-        <section>
-            <div class="section-content">
-                <h2>About</h2>
-                <div class="grid">
-                    <div class="card">
-                        <h3>Who I Am</h3>
-                        <p>Clinical neuropsychiatrist and people strategist from India. Pursuing MSc in Clinical Neuropsychiatry at University of Birmingham. Fascinated by how the brain shapes behavior and performance in high-stakes environments.</p>
-                    </div>
-                    <div class="card">
-                        <h3>Research</h3>
-                        <p>Executive dysfunction following mild traumatic brain injury and its cascading effects on emotional regulation and occupational functioning. Bridging neuroscience with workplace wellbeing.</p>
-                    </div>
-                    <div class="card">
-                        <h3>Interests</h3>
-                        <p>Luxury strategy, motorsports, HR operations, and organizational excellence. Elected Student Representative & Ambassador. Fluent in English and Hindi, learning French.</p>
-                    </div>
+    <!-- ABOUT SECTION -->
+    <section id="about">
+        <div class="content">
+            <h2>About Me</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Who I Am</h3>
+                    <p>Clinical neuropsychiatrist and people strategist from India. Pursuing MSc in Clinical Neuropsychiatry at University of Birmingham. Fascinated by how the brain shapes behavior and performance in high-stakes environments.</p>
                 </div>
-            </div>
-        </section>
-
-        <!-- EXPERIENCE -->
-        <section>
-            <div class="section-content">
-                <h2>Experience</h2>
-                <div class="tabs">
-                    <button class="tab-btn active" onclick="switchTab(event, 'uk')">UK</button>
-                    <button class="tab-btn" onclick="switchTab(event, 'clinical')">Clinical</button>
-                    <button class="tab-btn" onclick="switchTab(event, 'org')">Org</button>
-                    <button class="tab-btn" onclick="switchTab(event, 'vol')">Volunteer</button>
+                <div class="card">
+                    <h3>My Focus</h3>
+                    <p>Executive dysfunction following mild traumatic brain injury and its cascading effects on emotional regulation and occupational functioning. Bridging neuroscience with workplace wellbeing and organizational excellence.</p>
                 </div>
-
-                <div id="uk" class="tab-content active">
-                    <div class="card">
-                        <h3>Student Ambassador</h3>
-                        <p class="meta">College of Medicine & Health · UoB | 2024 – Present</p>
-                        <p>Open days, outreach events, prospective student engagement. Bridging institutional communication with authentic postgraduate perspective.</p>
-                        <div class="tags">
-                            <span class="tag">Outreach</span>
-                            <span class="tag">Speaking</span>
-                            <span class="tag">Engagement</span>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>Student Representative</h3>
-                        <p class="meta">MSc Neuropsychiatry · UoB | 2024 – Present</p>
-                        <p>Elected cohort representative gathering feedback and advocating for improvements to postgraduate experience.</p>
-                        <div class="tags">
-                            <span class="tag">Leadership</span>
-                            <span class="tag">Advocacy</span>
-                            <span class="tag">Rep</span>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>Academic Shadowing</h3>
-                        <p class="meta">Birmingham & Solihull Mental Health NHS Trust | 2024 – Present</p>
-                        <p>Specialist NHS neuropsychiatry unit. Patient assessments, MDT discussions, TBI sequelae management.</p>
-                        <div class="tags">
-                            <span class="tag">NHS</span>
-                            <span class="tag">Neuropsych</span>
-                            <span class="tag">Clinical</span>
-                        </div>
-                    </div>
+                <div class="card">
+                    <h3>Beyond Academia</h3>
+                    <p>Passionate about luxury strategy, motorsports, HR operations, and building high-performance teams. Elected Student Representative & Ambassador at UoB. Fluent in English and Hindi, learning French.</p>
                 </div>
-
-                <div id="clinical" class="tab-content">
-                    <div class="card">
-                        <h3>Clinical & Counselling Psychology Intern</h3>
-                        <p class="meta">Cognizavest · India | 2023 – 2024</p>
-                        <p>Client intake, psychometric assessments, therapeutic documentation. Developed clinical competencies alongside qualified psychologists.</p>
-                        <div class="tags">
-                            <span class="tag">Clinical</span>
-                            <span class="tag">Counselling</span>
-                            <span class="tag">Psychometric</span>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>NHS Academic Shadowing</h3>
-                        <p class="meta">Mental Health NHS Trust | 2024 – Present</p>
-                        <p>Neuropsychiatry setting. Consultations, history-taking, MDT meetings across TBI and complex presentations.</p>
-                        <div class="tags">
-                            <span class="tag">Neuropsych</span>
-                            <span class="tag">TBI</span>
-                            <span class="tag">MDT</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="org" class="tab-content">
-                    <div class="card">
-                        <h3>Studio Operations & Client Experience</h3>
-                        <p class="meta">Abhinav Designs · India | 2023</p>
-                        <p>HR support, studio operations, client experience in luxury interior design. Built onboarding systems and managed project documentation.</p>
-                        <div class="tags">
-                            <span class="tag">HR</span>
-                            <span class="tag">Ops</span>
-                            <span class="tag">Luxury</span>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>Operations & Sponsorships</h3>
-                        <p class="meta">Coreografia MUJ · Manipal University | 2021 – 2023</p>
-                        <p>Sponsorship outreach, hospitality coordination, event logistics for university dance collective.</p>
-                        <div class="tags">
-                            <span class="tag">Sponsorships</span>
-                            <span class="tag">Events</span>
-                            <span class="tag">Hospitality</span>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>Org Psychology Intern</h3>
-                        <p class="meta">Remote · India | 2022 – 2023</p>
-                        <p>Team coordination, workflow optimization, communication in distributed environments.</p>
-                        <div class="tags">
-                            <span class="tag">Psychology</span>
-                            <span class="tag">Remote</span>
-                            <span class="tag">Teams</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="vol" class="tab-content">
-                    <div class="card">
-                        <h3>Wellness Program Volunteer</h3>
-                        <p class="meta">Aashray Care Home · India | 2022 – 2023</p>
-                        <p>HIV/AIDS awareness sessions, psychosocial wellness. Reduced stigma, increased health literacy, community support.</p>
-                        <div class="tags">
-                            <span class="tag">Health</span>
-                            <span class="tag">Awareness</span>
-                            <span class="tag">Community</span>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>Social Outreach Volunteer</h3>
-                        <p class="meta">Jeevan Jyothi Old Age Home · India | 2021 – 2022</p>
-                        <p>Engagement activities, companionship for elderly residents. Built empathetic communication skills and social inclusion.</p>
-                        <div class="tags">
-                            <span class="tag">Care</span>
-                            <span class="tag">Social</span>
-                            <span class="tag">Outreach</span>
-                        </div>
+                <div class="card">
+                    <h3>Skills & Interests</h3>
+                    <div class="tags" style="margin-top: 20px;">
+                        <span class="tag">Neuropsychiatry</span>
+                        <span class="tag">Research</span>
+                        <span class="tag">HR Ops</span>
+                        <span class="tag">Leadership</span>
+                        <span class="tag">Strategy</span>
+                        <span class="tag">Luxury</span>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- RESEARCH -->
-        <section>
-            <div class="section-content">
-                <h2>Research</h2>
-                <div class="grid">
-                    <div class="card">
-                        <h3>Executive Dysfunction Following mTBI</h3>
-                        <p class="meta">MSc Dissertation | University of Birmingham | Submission: August 2025</p>
-                        <p>Systematic literature review examining how executive dysfunction cascades into emotional dysregulation and occupational impairment. Synthesizes neuropsychiatric and occupational health literature.</p>
-                        <div class="tags">
-                            <span class="tag">mTBI</span>
-                            <span class="tag">Executive Fn</span>
-                            <span class="tag">Occupational</span>
-                            <span class="tag">Systematic Review</span>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>Environmental Perspectives: Attitudes, Values & Self-Control</h3>
-                        <p class="meta">Jan – Apr 2024 | Manipal University Jaipur</p>
-                        <p>Mixed-methods exploration of environmental attitudes, personal values, and self-control. Used SCS, EPVQ, EAI with descriptive statistics, correlation, t-test analyses.</p>
-                        <div class="tags">
-                            <span class="tag">Environmental</span>
-                            <span class="tag">Psychology</span>
-                            <span class="tag">Mixed Methods</span>
-                            <span class="tag">Quantitative</span>
-                        </div>
+    <!-- EXPERIENCE SECTION -->
+    <section id="experience">
+        <div class="content">
+            <h2>Experience</h2>
+            
+            <div class="tabs">
+                <button class="tab-btn active" onclick="openTab(event, 'uk-tab')">UK Based</button>
+                <button class="tab-btn" onclick="openTab(event, 'clinical-tab')">Clinical</button>
+                <button class="tab-btn" onclick="openTab(event, 'org-tab')">Organisational</button>
+                <button class="tab-btn" onclick="openTab(event, 'vol-tab')">Volunteering</button>
+            </div>
+
+            <!-- UK Tab -->
+            <div id="uk-tab" class="tab-content active">
+                <div class="card">
+                    <h3>Student Ambassador</h3>
+                    <p class="card-meta">College of Medicine & Health · University of Birmingham | 2024 – Present</p>
+                    <p>Representing the college at open days, outreach events, and prospective student engagements. Bridging institutional communication with authentic postgraduate perspective.</p>
+                    <div class="tags">
+                        <span class="tag">Outreach</span>
+                        <span class="tag">Public Speaking</span>
+                        <span class="tag">Student Engagement</span>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- CV -->
-        <section>
-            <div class="section-content">
-                <div class="cv-box">
-                    <h3>Curriculum Vitae</h3>
-                    <p>Download my comprehensive professional CV to explore my complete educational background, research experience, and expertise across clinical neuropsychiatry, research methodology, and leadership.</p>
-                    <button class="btn btn-primary" onclick="downloadCV()">📥 Download CV</button>
+                <div class="card">
+                    <h3>Student Representative</h3>
+                    <p class="card-meta">MSc Clinical Neuropsychiatry · University of Birmingham | 2024 – Present</p>
+                    <p>Elected cohort representative gathering feedback, raising programme issues, and improving the postgraduate student experience across the cohort.</p>
+                    <div class="tags">
+                        <span class="tag">Leadership</span>
+                        <span class="tag">Advocacy</span>
+                        <span class="tag">Cohort Representation</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Academic Shadowing — Neuropsychiatry</h3>
+                    <p class="card-meta">Birmingham & Solihull Mental Health NHS Trust | 2024 – Present</p>
+                    <p>Clinical exposure in specialist NHS neuropsychiatry unit. Observing patient assessments, MDT discussions, and management of TBI sequelae and neuropsychiatric presentations.</p>
+                    <div class="tags">
+                        <span class="tag">NHS</span>
+                        <span class="tag">Neuropsychiatry</span>
+                        <span class="tag">Clinical Observation</span>
+                        <span class="tag">MDT</span>
+                    </div>
                 </div>
             </div>
-        </section>
 
-        <!-- CONTACT -->
-        <section>
-            <div class="section-content contact-content">
-                <h2>Let's Connect</h2>
-                <p style="font-size: 18px; color: rgba(255, 255, 255, 0.7); margin: 30px 0 50px 0; line-height: 1.7;">Research collaboration, career opportunities, or discussing the intersection of neuroscience and luxury — I'd love to hear from you.</p>
-                <div class="contact-links">
-                    <a href="mailto:shreeyaj232@gmail.com" class="contact-link">📧 Email</a>
-                    <a href="https://www.linkedin.com/in/shreeya-jangid" target="_blank" class="contact-link">🔗 LinkedIn</a>
+            <!-- Clinical Tab -->
+            <div id="clinical-tab" class="tab-content">
+                <div class="card">
+                    <h3>Clinical & Counselling Psychology Intern</h3>
+                    <p class="card-meta">Cognizavest, India | 2023 – 2024</p>
+                    <p>Client intake, psychometric assessments, and therapeutic documentation. Developed clinical competencies alongside qualified psychologists across diverse presenting issues.</p>
+                    <div class="tags">
+                        <span class="tag">Clinical Psychology</span>
+                        <span class="tag">Counselling</span>
+                        <span class="tag">Psychometrics</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>NHS Academic Shadowing</h3>
+                    <p class="card-meta">Birmingham & Solihull Mental Health NHS Trust | 2024 – Present</p>
+                    <p>Specialist clinical exposure within an NHS neuropsychiatry setting. Observing consultations, history-taking, and MDT meetings across TBI, functional neurological disorders, and complex presentations.</p>
+                    <div class="tags">
+                        <span class="tag">Neuropsychiatry</span>
+                        <span class="tag">TBI</span>
+                        <span class="tag">NHS</span>
+                        <span class="tag">MDT</span>
+                    </div>
                 </div>
             </div>
-        </section>
-    </main>
+
+            <!-- Organisational Tab -->
+            <div id="org-tab" class="tab-content">
+                <div class="card">
+                    <h3>Studio Operations & Client Experience Associate</h3>
+                    <p class="card-meta">Abhinav Designs — Interior Design Studio, India | 2023</p>
+                    <p>Managed HR support, studio operations, and client experience in luxury interior design context. Built onboarding systems, managed project documentation, and optimized internal workflows.</p>
+                    <div class="tags">
+                        <span class="tag">HR Operations</span>
+                        <span class="tag">Client Experience</span>
+                        <span class="tag">Luxury</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Operations & Sponsorships Crew</h3>
+                    <p class="card-meta">Coreografia MUJ · Manipal University Jaipur | 2021 – 2023</p>
+                    <p>Led sponsorship outreach, hospitality coordination, and event logistics for university dance collective. Balanced external business relationships with an active performance role.</p>
+                    <div class="tags">
+                        <span class="tag">Sponsorships</span>
+                        <span class="tag">Event Operations</span>
+                        <span class="tag">Hospitality</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Organisational Psychology Intern</h3>
+                    <p class="card-meta">Remote, India | 2022 – 2023</p>
+                    <p>Applied org psychology principles supporting team coordination, workflow optimization, and communication structures in a distributed environment.</p>
+                    <div class="tags">
+                        <span class="tag">Org Psychology</span>
+                        <span class="tag">Remote Teams</span>
+                        <span class="tag">Workflow Optimization</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Volunteering Tab -->
+            <div id="vol-tab" class="tab-content">
+                <div class="card">
+                    <h3>Wellness Program Volunteer</h3>
+                    <p class="card-meta">Aashray Care Home, India | 2022 – 2023</p>
+                    <p>Delivered HIV/AIDS awareness sessions and psychosocial wellness programmes. Reduced stigma, increased health literacy, and provided community-based support for vulnerable residents.</p>
+                    <div class="tags">
+                        <span class="tag">Health Awareness</span>
+                        <span class="tag">Psychosocial Support</span>
+                        <span class="tag">Community</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Social Outreach Volunteer</h3>
+                    <p class="card-meta">Jeevan Jyothi Old Age Home, India | 2021 – 2022</p>
+                    <p>Facilitated engagement activities and companionship for elderly residents. Built skills in empathetic communication and cross-generational engagement for social inclusion.</p>
+                    <div class="tags">
+                        <span class="tag">Elderly Care</span>
+                        <span class="tag">Social Inclusion</span>
+                        <span class="tag">Community Outreach</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESEARCH SECTION -->
+    <section id="research">
+        <div class="content">
+            <h2>Research & Projects</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Executive Dysfunction Following Mild Traumatic Brain Injury</h3>
+                    <p class="card-meta">MSc Dissertation · University of Birmingham | Submission: August 2025</p>
+                    <p>A systematic literature review examining how executive dysfunction arising from mild TBI cascades into disrupted emotional regulation and impaired occupational functioning. Synthesises neuropsychiatric and occupational health literature to surface clinical and workplace implications.</p>
+                    <div class="tags">
+                        <span class="tag">mTBI</span>
+                        <span class="tag">Executive Function</span>
+                        <span class="tag">Emotional Regulation</span>
+                        <span class="tag">Occupational Health</span>
+                        <span class="tag">Systematic Review</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Environmental Perspectives: Attitudes, Values & Self-Control</h3>
+                    <p class="card-meta">Jan – Apr 2024 | Manipal University Jaipur</p>
+                    <p>Explored the relationship between environmental attitudes, personal values, and self-control among BBA and BCom students using mixed-methods approach. Utilized SCS, EPVQ, and EAI with descriptive statistics, correlation, and t-test analyses.</p>
+                    <div class="tags">
+                        <span class="tag">Environmental Psychology</span>
+                        <span class="tag">Self-Control</span>
+                        <span class="tag">Mixed Methods</span>
+                        <span class="tag">Quantitative Analysis</span>
+                        <span class="tag">Values & Attitudes</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CV SECTION -->
+    <section id="cv">
+        <div class="content">
+            <div class="cv-container">
+                <h3>Curriculum Vitae</h3>
+                <p>Download my comprehensive professional CV to explore my complete educational background, professional experience, research publications, and skills across clinical neuropsychiatry, research methodology, HR operations, and leadership.</p>
+                <button class="btn btn-primary" onclick="downloadCV()">📥 Download CV</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+        <div class="content contact-center">
+            <h2>Let's Connect</h2>
+            <p style="font-size: 18px; color: rgba(255, 255, 255, 0.8); margin: 30px 0 0 0; line-height: 1.8;">Whether it's research collaboration, career opportunities, or a shared passion for the intersection of neuroscience and luxury — I'd love to hear from you.</p>
+            <div class="contact-links">
+                <a href="mailto:shreeyaj232@gmail.com" class="contact-link">📧 Email</a>
+                <a href="https://www.linkedin.com/in/shreeya-jangid" target="_blank" class="contact-link">🔗 LinkedIn</a>
+            </div>
+        </div>
+    </section>
 
     <!-- FOOTER -->
     <footer>
         <p>&copy; 2026 Shreeya Jangid</p>
-        <div class="visitor-count">Visitors: <span id="visitorCount">0</span></div>
+        <div class="visitor-count">👥 Visitors: <span id="visitorCount">0</span></div>
     </footer>
 
     <script>
+        // Initialize visitor counter
         function initVisitorCounter() {
             let count = localStorage.getItem('visitorCount') || 0;
             count = parseInt(count) + 1;
@@ -831,23 +843,38 @@
             document.getElementById('visitorCount').textContent = count;
         }
 
-        function scrollToSection(index) {
-            const sections = document.querySelectorAll('section');
-            sections[index].scrollIntoView({ behavior: 'smooth' });
+        // Scroll to section
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: 'smooth' });
         }
 
-        function switchTab(event, tabId) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
-            event.target.classList.add('active');
-            document.getElementById(tabId).classList.add('active');
+        // Tab switching - FULLY WORKING
+        function openTab(evt, tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(tab => tab.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+
+            // Show the current tab
+            const currentTab = document.getElementById(tabName);
+            if (currentTab) {
+                currentTab.classList.add('active');
+            }
+
+            // Add active class to clicked button
+            evt.currentTarget.classList.add('active');
         }
 
+        // Download CV
         function downloadCV() {
-            alert('Please upload your CV file and update this link. Use Ctrl+P to save as PDF for now.');
+            alert('Please create and upload your CV file, then update this link. For now, you can save this page as PDF using Ctrl+P or Cmd+P.');
         }
 
+        // Initialize
         initVisitorCounter();
     </script>
 </body>
