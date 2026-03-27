@@ -26,7 +26,7 @@
             position: relative;
         }
 
-        /* ANIMATED BACKGROUND GRADIENT */
+        /* ANIMATED BACKGROUND */
         body::before {
             content: '';
             position: fixed;
@@ -36,26 +36,43 @@
             bottom: 0;
             background: linear-gradient(
                 -45deg,
-                #1a237e,
-                #6a1b9a,
-                #00838f,
-                #ff6f00,
-                #d32f2f,
-                #1a237e
+                #1a237e 0%,
+                #6a1b9a 25%,
+                #00838f 50%,
+                #ff6f00 75%,
+                #d32f2f 100%
             );
             background-size: 400% 400%;
-            animation: gradientFlow 15s ease infinite;
-            z-index: -1;
-            opacity: 0.1;
+            animation: gradientAnimation 15s ease infinite;
+            z-index: -2;
         }
 
-        @keyframes gradientFlow {
+        @keyframes gradientAnimation {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        /* CURSOR GLOW */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 80%, rgba(255, 0, 110, 0.1) 0%, transparent 50%);
+            z-index: -1;
+            pointer-events: none;
+            animation: gradientShift 8s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, 30px); }
+        }
+
+        /* CURSOR */
         body {
             cursor: none;
         }
@@ -68,10 +85,8 @@
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
-            mix-blend-mode: screen;
-            opacity: 0.7;
             transform: translate(-50%, -50%);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.6), inset 0 0 10px rgba(0, 212, 255, 0.2);
             transition: all 0.05s ease-out;
         }
 
@@ -79,7 +94,29 @@
             width: 50px;
             height: 50px;
             border-color: #ff006e;
-            box-shadow: 0 0 40px rgba(255, 0, 110, 0.8);
+            box-shadow: 0 0 40px rgba(255, 0, 110, 0.8), inset 0 0 10px rgba(255, 0, 110, 0.3);
+        }
+
+        .cursor-trail {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.6), transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            animation: trailFade 0.6s ease-out forwards;
+        }
+
+        @keyframes trailFade {
+            from {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0);
+            }
         }
 
         /* NAVIGATION */
@@ -88,69 +125,84 @@
             top: 0;
             left: 0;
             right: 0;
-            padding: 40px 60px;
+            padding: 40px 80px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            background: rgba(10, 14, 39, 0.5);
+            background: rgba(10, 14, 39, 0.3);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            animation: slideDownNav 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes slideDownNav {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .logo {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 900;
             background: linear-gradient(135deg, #00d4ff, #ff006e, #ffb700);
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: -2px;
-            animation: glow 3s ease-in-out infinite;
-        }
-
-        @keyframes glow {
-            0%, 100% { text-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
-            50% { text-shadow: 0 0 40px rgba(255, 0, 110, 0.5); }
+            animation: gradientShift 3s ease infinite;
         }
 
         .nav-menu {
             display: flex;
-            gap: 50px;
+            gap: 60px;
             list-style: none;
         }
 
         .nav-menu a {
             color: #fff;
             text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 12px;
+            font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
             position: relative;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .nav-menu a::after {
+        .nav-menu a::before {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: -8px;
             left: 0;
             width: 0;
-            height: 2px;
+            height: 3px;
             background: linear-gradient(90deg, #00d4ff, #ff006e);
-            transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 2px;
         }
 
-        .nav-menu a:hover::after {
+        .nav-menu a:hover {
+            color: #00d4ff;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .nav-menu a:hover::before {
             width: 100%;
         }
 
         /* SECTIONS */
         section {
             min-height: 100vh;
-            padding: 120px 80px;
+            padding: 150px 80px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -165,8 +217,9 @@
             left: -100%;
             width: 200%;
             height: 100%;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.05), transparent);
-            animation: shimmer 8s ease-in-out infinite;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            animation: shimmer 6s ease-in-out infinite;
+            pointer-events: none;
         }
 
         @keyframes shimmer {
@@ -181,16 +234,26 @@
             width: 100%;
         }
 
-        /* LANDING PAGE */
-        .landing {
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+        /* SCROLL ANIMATIONS */
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
         }
 
-        .landing-content {
-            animation: fadeInUp 1.2s ease-out;
+        .fade-in-left {
+            animation: fadeInLeft 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .fade-in-right {
+            animation: fadeInRight 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .scale-in {
+            animation: scaleIn 0.8s ease-out forwards;
+            opacity: 0;
+            transform: scale(0.8);
         }
 
         @keyframes fadeInUp {
@@ -204,25 +267,67 @@
             }
         }
 
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* LANDING PAGE */
+        .landing {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 120px;
+        }
+
         .landing-badge {
             display: inline-block;
-            padding: 12px 30px;
+            padding: 14px 36px;
             background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
+            border: 1px solid rgba(0, 212, 255, 0.4);
             border-radius: 50px;
             color: #00d4ff;
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 2px;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             backdrop-filter: blur(10px);
-            animation: slideInDown 0.8s ease-out;
+            animation: slideInDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         @keyframes slideInDown {
             from {
                 opacity: 0;
-                transform: translateY(-30px);
+                transform: translateY(-40px);
             }
             to {
                 opacity: 1;
@@ -231,17 +336,17 @@
         }
 
         h1 {
-            font-size: clamp(48px, 12vw, 140px);
+            font-size: clamp(52px, 12vw, 140px);
             font-weight: 900;
             line-height: 1.1;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             letter-spacing: -3px;
             background: linear-gradient(135deg, #00d4ff, #ff006e, #ffb700, #00d4ff);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: textShimmer 4s ease infinite, slideInUp 1s ease-out 0.2s backwards;
+            animation: slideInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s backwards, textShimmer 4s ease infinite;
         }
 
         @keyframes textShimmer {
@@ -253,7 +358,7 @@
         @keyframes slideInUp {
             from {
                 opacity: 0;
-                transform: translateY(40px);
+                transform: translateY(50px);
             }
             to {
                 opacity: 1;
@@ -262,13 +367,13 @@
         }
 
         .subtitle {
-            font-size: 24px;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 60px;
-            max-width: 800px;
+            font-size: 22px;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 70px;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
-            animation: slideInUp 1s ease-out 0.4s backwards;
+            animation: slideInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s backwards;
             font-weight: 300;
             letter-spacing: 1px;
         }
@@ -278,7 +383,7 @@
             gap: 30px;
             justify-content: center;
             flex-wrap: wrap;
-            animation: slideInUp 1s ease-out 0.6s backwards;
+            animation: slideInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.45s backwards;
         }
 
         .btn {
@@ -287,14 +392,15 @@
             background: transparent;
             color: #00d4ff;
             font-size: 13px;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 2px;
             text-transform: uppercase;
             cursor: pointer;
             border-radius: 50px;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
             overflow: hidden;
+            font-family: 'Space Mono', monospace;
         }
 
         .btn::before {
@@ -306,13 +412,13 @@
             height: 100%;
             background: linear-gradient(90deg, #00d4ff, #ff006e);
             z-index: -1;
-            transition: left 0.5s ease;
+            transition: left 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .btn:hover {
             color: white;
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-            transform: translateY(-3px);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.6);
+            transform: translateY(-5px) scale(1.05);
         }
 
         .btn:hover::before {
@@ -323,39 +429,19 @@
             background: linear-gradient(135deg, #00d4ff, #ff006e);
             border-color: transparent;
             color: white;
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.6);
         }
 
         /* ABOUT SECTION */
         .about {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 80px;
+            gap: 100px;
             align-items: center;
-        }
-
-        .about-visual {
-            position: relative;
-            height: 500px;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 0, 110, 0.1));
-            border-radius: 20px;
-            border: 2px solid rgba(0, 212, 255, 0.2);
-            overflow: hidden;
-        }
-
-        .about-visual::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.2), transparent);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-30px); }
         }
 
         .about-text h2 {
@@ -364,6 +450,7 @@
             color: #fff;
             font-weight: 900;
             line-height: 1.2;
+            animation: fadeInLeft 0.8s ease-out 0.1s backwards;
         }
 
         .about-text p {
@@ -371,6 +458,15 @@
             color: rgba(255, 255, 255, 0.8);
             margin-bottom: 30px;
             line-height: 1.8;
+            animation: fadeInLeft 0.8s ease-out;
+        }
+
+        .about-text p:nth-of-type(2) {
+            animation-delay: 0.1s;
+        }
+
+        .about-text p:nth-of-type(3) {
+            animation-delay: 0.2s;
         }
 
         .tags {
@@ -378,6 +474,7 @@
             flex-wrap: wrap;
             gap: 12px;
             margin-top: 40px;
+            animation: fadeInLeft 0.8s ease-out 0.3s backwards;
         }
 
         .tag {
@@ -387,16 +484,17 @@
             color: #00d4ff;
             border-radius: 50px;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .tag:hover {
             background: linear-gradient(135deg, #00d4ff, #ff006e);
             border-color: transparent;
             color: white;
-            transform: scale(1.1);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
         }
 
         /* EXPERIENCE SECTION */
@@ -406,6 +504,7 @@
 
         .experience h1 {
             margin-bottom: 80px;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .exp-tabs {
@@ -414,20 +513,23 @@
             margin-bottom: 80px;
             justify-content: center;
             flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.1s backwards;
         }
 
         .tab-btn {
-            padding: 12px 30px;
-            background: transparent;
+            padding: 12px 32px;
+            background: rgba(0, 212, 255, 0.05);
             border: 2px solid rgba(0, 212, 255, 0.3);
             color: #fff;
             cursor: pointer;
             border-radius: 50px;
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 800;
             text-transform: uppercase;
-            transition: all 0.4s ease;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
+            overflow: hidden;
+            font-family: 'Space Mono', monospace;
         }
 
         .tab-btn::before {
@@ -438,20 +540,25 @@
             border-radius: 50px;
             z-index: -1;
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .tab-btn:hover {
+            border-color: rgba(0, 212, 255, 0.6);
+            transform: translateY(-5px);
+        }
+
+        .tab-btn:hover::before {
+            opacity: 1;
         }
 
         .tab-btn.active {
             border-color: transparent;
             color: white;
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.4);
         }
 
         .tab-btn.active::before {
-            opacity: 1;
-        }
-
-        .tab-btn:hover::before {
             opacity: 1;
         }
 
@@ -471,9 +578,10 @@
             border: 1px solid rgba(0, 212, 255, 0.2);
             padding: 40px;
             border-radius: 15px;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
             overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .exp-card::before {
@@ -483,16 +591,17 @@
             right: -50%;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(255, 0, 110, 0.1), transparent);
+            background: radial-gradient(circle, rgba(255, 0, 110, 0.15), transparent);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
         }
 
         .exp-card:hover {
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(0, 212, 255, 0.12);
             border-color: rgba(0, 212, 255, 0.5);
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);
+            transform: translateY(-12px);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.25);
         }
 
         .exp-card:hover::before {
@@ -504,6 +613,8 @@
             justify-content: space-between;
             align-items: start;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
         .exp-title {
@@ -515,20 +626,21 @@
         .exp-date {
             font-size: 13px;
             color: rgba(255, 255, 255, 0.5);
-            font-weight: 600;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
 
         .exp-company {
             font-size: 14px;
             color: #ffb700;
             margin-bottom: 15px;
-            font-weight: 700;
+            font-weight: 800;
         }
 
         .exp-desc {
             font-size: 15px;
             color: rgba(255, 255, 255, 0.8);
-            line-height: 1.7;
+            line-height: 1.8;
             margin-bottom: 20px;
         }
 
@@ -539,13 +651,19 @@
         }
 
         .skill-badge {
-            padding: 6px 12px;
-            background: rgba(255, 183, 0, 0.1);
-            border: 1px solid rgba(255, 183, 0, 0.3);
+            padding: 6px 14px;
+            background: rgba(255, 183, 0, 0.12);
+            border: 1px solid rgba(255, 183, 0, 0.4);
             color: #ffb700;
             border-radius: 20px;
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .skill-badge:hover {
+            background: rgba(255, 183, 0, 0.25);
+            transform: scale(1.1);
         }
 
         /* RESEARCH SECTION */
@@ -555,6 +673,7 @@
 
         .research h1 {
             margin-bottom: 80px;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .research-grid {
@@ -568,9 +687,10 @@
             border: 1px solid rgba(255, 0, 110, 0.2);
             padding: 50px;
             border-radius: 20px;
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
             overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .research-card::before {
@@ -580,16 +700,17 @@
             left: -50%;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(255, 183, 0, 0.1), transparent);
+            background: radial-gradient(circle, rgba(255, 183, 0, 0.15), transparent);
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
         }
 
         .research-card:hover {
-            background: rgba(255, 0, 110, 0.1);
+            background: rgba(255, 0, 110, 0.12);
             border-color: rgba(255, 0, 110, 0.5);
             transform: translateY(-15px);
-            box-shadow: 0 30px 80px rgba(255, 0, 110, 0.2);
+            box-shadow: 0 30px 80px rgba(255, 0, 110, 0.25);
         }
 
         .research-card:hover::before {
@@ -604,7 +725,7 @@
             color: #ffb700;
             border-radius: 50px;
             font-size: 11px;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 1px;
             margin-bottom: 25px;
         }
@@ -613,13 +734,14 @@
             font-size: 32px;
             color: #fff;
             margin-bottom: 15px;
-            font-weight: 800;
+            font-weight: 900;
         }
 
         .research-meta {
             font-size: 13px;
             color: rgba(255, 255, 255, 0.5);
             margin-bottom: 25px;
+            font-weight: 700;
         }
 
         .research-desc {
@@ -637,12 +759,18 @@
 
         .research-tag {
             padding: 8px 16px;
-            background: rgba(255, 183, 0, 0.1);
-            border: 1px solid rgba(255, 183, 0, 0.3);
+            background: rgba(255, 183, 0, 0.12);
+            border: 1px solid rgba(255, 183, 0, 0.4);
             color: #ffb700;
             border-radius: 20px;
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .research-tag:hover {
+            background: rgba(255, 183, 0, 0.25);
+            transform: scale(1.1);
         }
 
         /* CV SECTION */
@@ -652,45 +780,56 @@
         }
 
         .cv-box {
-            background: rgba(0, 212, 255, 0.05);
+            background: rgba(0, 212, 255, 0.08);
             border: 2px solid rgba(0, 212, 255, 0.3);
-            padding: 80px;
+            padding: 100px;
             border-radius: 25px;
             text-align: center;
-            max-width: 600px;
-            animation: fadeInUp 1s ease-out;
+            max-width: 700px;
+            animation: scaleIn 0.8s ease-out;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .cv-box:hover {
+            border-color: rgba(0, 212, 255, 0.6);
+            background: rgba(0, 212, 255, 0.12);
+            transform: scale(1.02);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);
         }
 
         .cv-box h2 {
             font-size: 48px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             color: #fff;
+            font-weight: 900;
         }
 
         .cv-box p {
             font-size: 16px;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 50px;
+            line-height: 1.7;
         }
 
         .download-btn {
-            padding: 16px 50px;
+            padding: 18px 60px;
             background: linear-gradient(135deg, #00d4ff, #ff006e);
             border: none;
             color: white;
-            font-size: 14px;
-            font-weight: 700;
+            font-size: 13px;
+            font-weight: 800;
             letter-spacing: 2px;
             text-transform: uppercase;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+            font-family: 'Space Mono', monospace;
         }
 
         .download-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.5);
+            transform: translateY(-8px) scale(1.08);
+            box-shadow: 0 30px 80px rgba(0, 212, 255, 0.5);
         }
 
         /* CONTACT SECTION */
@@ -706,14 +845,16 @@
 
         .contact-content h1 {
             margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .contact-subtitle {
             font-size: 18px;
             color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 60px;
+            margin-bottom: 70px;
             max-width: 600px;
             font-weight: 300;
+            animation: fadeInUp 0.8s ease-out 0.1s backwards;
         }
 
         .contact-links {
@@ -721,29 +862,48 @@
             gap: 30px;
             justify-content: center;
             flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
         }
 
         .contact-link {
-            padding: 16px 40px;
+            padding: 16px 50px;
             border: 2px solid #00d4ff;
             background: transparent;
             color: #00d4ff;
             text-decoration: none;
             font-size: 13px;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 2px;
             text-transform: uppercase;
             border-radius: 50px;
-            transition: all 0.4s ease;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .contact-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #00d4ff, #ff006e);
+            z-index: -1;
+            transition: left 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .contact-link:hover {
-            background: linear-gradient(135deg, #00d4ff, #ff006e);
-            border-color: transparent;
             color: white;
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+            border-color: transparent;
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.4);
+        }
+
+        .contact-link:hover::before {
+            left: 0;
         }
 
         /* FOOTER */
@@ -753,11 +913,13 @@
             border-top: 1px solid rgba(0, 212, 255, 0.1);
             color: rgba(255, 255, 255, 0.5);
             font-size: 13px;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .visitor-count {
             margin-top: 20px;
             color: #00d4ff;
+            font-weight: 700;
         }
 
         /* RESPONSIVE */
@@ -766,17 +928,18 @@
                 padding: 30px 40px;
             }
 
+            .nav-menu {
+                gap: 30px;
+                font-size: 10px;
+            }
+
             section {
-                padding: 80px 40px;
+                padding: 100px 40px;
             }
 
             .about {
                 grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .exp-tabs {
-                flex-direction: column;
+                gap: 60px;
             }
 
             h1 {
@@ -784,7 +947,11 @@
             }
 
             .cv-box {
-                padding: 40px;
+                padding: 50px;
+            }
+
+            .exp-tabs {
+                flex-direction: column;
             }
 
             .contact-links {
@@ -811,9 +978,9 @@
 
     <!-- LANDING -->
     <section class="landing">
-        <div class="section-content landing-content">
+        <div class="section-content">
             <div class="landing-badge">Clinical Neuroscientist & Strategist</div>
-            <h1>Where Brain Meets Boardrooms</h1>
+            <h1>Where Brain<br>Meets Boardrooms</h1>
             <p class="subtitle">Exploring the intersection of neuropsychiatry, human performance, and luxury excellence</p>
             <div class="cta-group">
                 <button class="btn btn-primary" onclick="scrollToSection(1)">Explore</button>
@@ -824,20 +991,21 @@
 
     <!-- ABOUT -->
     <section class="about">
-        <div class="about-visual"></div>
-        <div class="section-content">
+        <div class="about-text">
             <h2>About Me</h2>
             <p>I'm Shreeya Jangid, a clinical neuropsychiatrist and people strategist from India, now pursuing my MSc in Clinical Neuropsychiatry at the University of Birmingham. I'm fascinated by how the brain shapes behavior and performance in high-stakes environments.</p>
             <p>My research focuses on executive dysfunction following mild traumatic brain injury and its occupational impact. Beyond academia, I'm passionate about luxury strategy, motorsports, HR operations, and building high-performance teams.</p>
+            <p>As an elected Student Representative and Ambassador, I advocate for people as passionately as I pursue research. Fluent in English and Hindi, currently learning French.</p>
             <div class="tags">
                 <span class="tag">Neuropsychiatry</span>
                 <span class="tag">Luxury Strategy</span>
                 <span class="tag">Motorsports</span>
                 <span class="tag">HR Operations</span>
                 <span class="tag">Research</span>
-                <span class="tag">Public Speaking</span>
+                <span class="tag">Leadership</span>
             </div>
         </div>
+        <div class="about-text"></div>
     </section>
 
     <!-- EXPERIENCE -->
@@ -865,7 +1033,7 @@
                     <div class="exp-skills">
                         <span class="skill-badge">Outreach</span>
                         <span class="skill-badge">Public Speaking</span>
-                        <span class="skill-badge">Student Engagement</span>
+                        <span class="skill-badge">Engagement</span>
                     </div>
                 </div>
 
@@ -877,7 +1045,7 @@
                         </div>
                         <div class="exp-date">2024 – Present</div>
                     </div>
-                    <p class="exp-desc">Elected cohort representative — gathering feedback, raising programme issues, and improving postgraduate student experience across the cohort.</p>
+                    <p class="exp-desc">Elected cohort representative — gathering feedback, raising programme issues, and improving postgraduate student experience.</p>
                     <div class="exp-skills">
                         <span class="skill-badge">Leadership</span>
                         <span class="skill-badge">Advocacy</span>
@@ -893,7 +1061,7 @@
                         </div>
                         <div class="exp-date">2024 – Present</div>
                     </div>
-                    <p class="exp-desc">Clinical exposure in specialist NHS neuropsychiatry unit. Observing patient assessments, MDT discussions, and management of TBI sequelae and neuropsychiatric presentations.</p>
+                    <p class="exp-desc">Clinical exposure in specialist NHS neuropsychiatry unit. Observing patient assessments, MDT discussions, and management of TBI sequelae.</p>
                     <div class="exp-skills">
                         <span class="skill-badge">NHS</span>
                         <span class="skill-badge">Neuropsychiatry</span>
@@ -912,7 +1080,7 @@
                         </div>
                         <div class="exp-date">2023 – 2024</div>
                     </div>
-                    <p class="exp-desc">Client intake, psychometric assessments, and therapeutic documentation. Developed clinical competencies alongside qualified psychologists across diverse presenting issues.</p>
+                    <p class="exp-desc">Client intake, psychometric assessments, and therapeutic documentation. Developed clinical competencies alongside qualified psychologists.</p>
                     <div class="exp-skills">
                         <span class="skill-badge">Clinical Psychology</span>
                         <span class="skill-badge">Counselling</span>
@@ -928,7 +1096,7 @@
                         </div>
                         <div class="exp-date">2024 – Present</div>
                     </div>
-                    <p class="exp-desc">Specialist clinical exposure within neuropsychiatry setting. Consultations, history-taking, and MDT meetings across TBI, functional neurological disorders, and complex presentations.</p>
+                    <p class="exp-desc">Specialist clinical exposure within neuropsychiatry setting. Consultations, history-taking, and MDT meetings.</p>
                     <div class="exp-skills">
                         <span class="skill-badge">Neuropsychiatry</span>
                         <span class="skill-badge">TBI</span>
@@ -947,7 +1115,7 @@
                         </div>
                         <div class="exp-date">2023</div>
                     </div>
-                    <p class="exp-desc">HR support, studio operations, and client experience in luxury interior design. Built onboarding systems and managed project documentation and internal workflows.</p>
+                    <p class="exp-desc">HR support, studio operations, and client experience in luxury interior design. Built onboarding systems and managed project documentation.</p>
                     <div class="exp-skills">
                         <span class="skill-badge">HR Operations</span>
                         <span class="skill-badge">Client Experience</span>
@@ -963,7 +1131,7 @@
                         </div>
                         <div class="exp-date">2021 – 2023</div>
                     </div>
-                    <p class="exp-desc">Led sponsorship outreach, hospitality coordination, and event logistics for university dance collective. Balanced external business relationships with active performance role.</p>
+                    <p class="exp-desc">Led sponsorship outreach, hospitality coordination, and event logistics for university dance collective.</p>
                     <div class="exp-skills">
                         <span class="skill-badge">Sponsorships</span>
                         <span class="skill-badge">Event Operations</span>
@@ -979,7 +1147,7 @@
                         </div>
                         <div class="exp-date">2022 – 2023</div>
                     </div>
-                    <p class="exp-desc">Applied org psychology principles supporting team coordination, workflow optimization, and communication structures in distributed environments.</p>
+                    <p class="exp-desc">Applied org psychology principles supporting team coordination, workflow optimization, and communication.</p>
                     <div class="exp-skills">
                         <span class="skill-badge">Org Psychology</span>
                         <span class="skill-badge">Remote Teams</span>
@@ -998,7 +1166,7 @@
                         </div>
                         <div class="exp-date">2022 – 2023</div>
                     </div>
-                    <p class="exp-desc">Delivered HIV/AIDS awareness sessions and psychosocial wellness programmes. Worked to reduce stigma, increase health literacy, and provide community-based support for vulnerable residents.</p>
+                    <p class="exp-desc">Delivered HIV/AIDS awareness sessions and psychosocial wellness programmes. Reduced stigma and provided community support.</p>
                     <div class="exp-skills">
                         <span class="skill-badge">Health Awareness</span>
                         <span class="skill-badge">Psychosocial</span>
@@ -1012,9 +1180,9 @@
                             <div class="exp-title">Social Outreach Volunteer</div>
                             <div class="exp-company">Jeevan Jyothi Old Age Home · India</div>
                         </div>
-                        <div class="exp-date">2021 – 2022</div>
+                        <div class="exp-date">2021 �� 2022</div>
                     </div>
-                    <p class="exp-desc">Facilitated engagement activities and companionship for elderly residents. Built empathetic communication skills and cross-generational engagement, contributing to social inclusion.</p>
+                    <p class="exp-desc">Facilitated engagement activities and companionship for elderly residents. Built empathetic communication skills.</p>
                     <div class="exp-skills">
                         <span class="skill-badge">Elderly Care</span>
                         <span class="skill-badge">Social Inclusion</span>
@@ -1033,7 +1201,7 @@
                 <span class="research-badge">MSc Dissertation</span>
                 <h3>Executive Dysfunction Following mTBI</h3>
                 <p class="research-meta">University of Birmingham · Submission: August 2025</p>
-                <p class="research-desc">A systematic literature review examining how executive dysfunction arising from mild TBI cascades into disrupted emotional regulation and impaired occupational functioning. Synthesises neuropsychiatric and occupational health literature to surface clinical and workplace implications.</p>
+                <p class="research-desc">A systematic literature review examining how executive dysfunction arising from mild TBI cascades into disrupted emotional regulation and impaired occupational functioning. Synthesises neuropsychiatric and occupational health literature.</p>
                 <div class="research-tags">
                     <span class="research-tag">mTBI</span>
                     <span class="research-tag">Executive Function</span>
@@ -1046,7 +1214,7 @@
                 <span class="research-badge">Jan – Apr 2024</span>
                 <h3>Environmental Perspectives: Attitudes, Values & Self-Control</h3>
                 <p class="research-meta">Manipal University Jaipur</p>
-                <p class="research-desc">Explored the relationship between environmental attitudes, personal values, and self-control among BBA and BCom students. Mixed-methods approach using SCS, EPVQ, and EAI with descriptive statistics, correlation, and t-test analyses.</p>
+                <p class="research-desc">Explored the relationship between environmental attitudes, personal values, and self-control among BBA and BCom students. Mixed-methods approach using SCS, EPVQ, and EAI with statistical analyses.</p>
                 <div class="research-tags">
                     <span class="research-tag">Environmental Psychology</span>
                     <span class="research-tag">Self-Control</span>
@@ -1061,7 +1229,7 @@
     <section class="cv">
         <div class="section-content cv-box">
             <h2>Curriculum Vitae</h2>
-            <p>Download my comprehensive professional CV to explore my complete educational background, research experience, and expertise.</p>
+            <p>Download my comprehensive professional CV to explore my complete educational background, research experience, and expertise across clinical neuropsychiatry and leadership.</p>
             <button class="download-btn" onclick="downloadCV()">📥 Download CV</button>
         </div>
     </section>
@@ -1085,11 +1253,25 @@
     </footer>
 
     <script>
-        // Custom Cursor
+        // Custom Cursor with Trail
         const cursor = document.querySelector('.cursor');
+        let mouseX = 0, mouseY = 0;
+
         document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+
+            // Create trail
+            if (Math.random() > 0.8) {
+                const trail = document.createElement('div');
+                trail.className = 'cursor-trail';
+                trail.style.left = mouseX + 'px';
+                trail.style.top = mouseY + 'px';
+                document.body.appendChild(trail);
+                setTimeout(() => trail.remove(), 600);
+            }
         });
 
         document.addEventListener('mousedown', () => {
@@ -1115,6 +1297,21 @@
             const sections = document.querySelectorAll('section');
             sections[index].scrollIntoView({ behavior: 'smooth' });
         }
+
+        // Intersection Observer for Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
 
         // Tab Switching
         function switchTab(event, tabId) {
