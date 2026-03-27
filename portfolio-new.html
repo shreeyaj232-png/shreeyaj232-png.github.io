@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shreeya Jangid | Where Brain Meets Boardrooms</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&family=Inter:wght@100;300;400;600;700;900&display=swap" rel="stylesheet">
+    <title>Shreeya Jangid</title>
     <style>
         * {
             margin: 0;
@@ -14,73 +11,15 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            font-family: 'Poppins', sans-serif;
-            background: #000;
-            color: #fff;
+            font-family: 'Arial', sans-serif;
+            background: #fff;
+            color: #000;
             overflow-x: hidden;
-            position: relative;
+            letter-spacing: -0.5px;
         }
 
-        /* ANIMATED BACKGROUND BLOBS */
-        .blob {
-            position: fixed;
-            z-index: -1;
-            filter: blur(100px);
-            opacity: 0.3;
-            mix-blend-mode: screen;
-        }
-
-        .blob-1 {
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, #ff006e, transparent);
-            top: -100px;
-            left: -100px;
-            animation: blob1Move 15s ease-in-out infinite;
-        }
-
-        .blob-2 {
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, #00d4ff, transparent);
-            bottom: -100px;
-            right: -100px;
-            animation: blob2Move 20s ease-in-out infinite;
-        }
-
-        .blob-3 {
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, #ffb700, transparent);
-            top: 50%;
-            right: 10%;
-            animation: blob3Move 18s ease-in-out infinite;
-        }
-
-        @keyframes blob1Move {
-            0%, 100% { transform: translate(0, 0); }
-            33% { transform: translate(100px, -50px); }
-            66% { transform: translate(-50px, 100px); }
-        }
-
-        @keyframes blob2Move {
-            0%, 100% { transform: translate(0, 0); }
-            33% { transform: translate(-100px, 50px); }
-            66% { transform: translate(50px, -100px); }
-        }
-
-        @keyframes blob3Move {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(50px, 50px) rotate(180deg); }
-            100% { transform: translate(0, 0) rotate(360deg); }
-        }
-
-        /* SMOOTH PAGE TRANSITIONS */
+        /* KINETIC GRID BACKGROUND */
         body::before {
             content: '';
             position: fixed;
@@ -88,309 +27,191 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(0, 212, 255, 0.1));
-            animation: screenFlicker 0.3s ease-out;
-            pointer-events: none;
-            z-index: 9998;
+            background: linear-gradient(45deg, #fff 25%, transparent 25%) -50px 0,
+                        linear-gradient(-45deg, #fff 25%, transparent 25%) -50px 0,
+                        linear-gradient(45deg, transparent 75%, #fff 75%) -50px 0,
+                        linear-gradient(-45deg, transparent 75%, #fff 75%) -50px 0;
+            background-size: 100px 100px;
+            background-color: #f0f0f0;
+            z-index: -1;
+            animation: gridShift 20s linear infinite;
         }
 
-        @keyframes screenFlicker {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 0.5; }
+        @keyframes gridShift {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
         }
 
-        /* CURSOR */
-        body {
-            cursor: none;
+        /* GENERATIVE TEXT ANIMATION */
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
         }
 
-        .cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #00d4ff;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
-            transition: all 0.1s ease-out;
-        }
-
-        .cursor::after {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: cursorRing 1.5s ease-in-out infinite;
-        }
-
-        @keyframes cursorRing {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-            100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
-        }
-
-        .cursor.active {
-            width: 30px;
-            height: 30px;
-            border-color: #ff006e;
-            box-shadow: 0 0 30px rgba(255, 0, 110, 0.8);
-        }
-
-        /* NAVIGATION */
+        /* NAVIGATION - BOLD & SIMPLE */
         nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 50px 80px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 999;
-            background: transparent;
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            animation: navSlide 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        @keyframes navSlide {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .logo {
-            font-size: 36px;
+            top: 20px;
+            left: 30px;
+            z-index: 1000;
+            font-size: 24px;
             font-weight: 900;
-            background: linear-gradient(135deg, #ff006e, #00d4ff, #ffb700);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientFlow 3s ease infinite;
             letter-spacing: -1px;
         }
 
-        @keyframes gradientFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .logo {
+            animation: glitch 0.3s ease infinite;
+            cursor: pointer;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 50px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: rgba(255, 255, 255, 0.8);
+        nav a {
+            position: fixed;
+            color: #000;
             text-decoration: none;
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 1000;
+            transition: all 0.2s ease;
         }
 
-        .nav-links a::before {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #ff006e, #00d4ff);
-            transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        nav a:hover {
+            transform: rotate(5deg) scale(1.2);
         }
 
-        .nav-links a:hover {
-            color: #00d4ff;
-        }
+        .nav-about { top: 20px; right: 30px; }
+        .nav-exp { top: 60px; right: 30px; }
+        .nav-research { top: 100px; right: 30px; }
+        .nav-cv { top: 140px; right: 30px; }
+        .nav-contact { top: 180px; right: 30px; }
 
-        .nav-links a:hover::before {
-            width: 100%;
-        }
-
-        /* MAIN SECTIONS */
+        /* BRUTALIST LAYOUT */
         section {
             min-height: 100vh;
-            padding: 120px 80px;
+            padding: 80px 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            border-bottom: 3px solid #000;
+            background: #fff;
+        }
+
+        section:nth-child(odd) {
+            background: #f5f5f5;
+        }
+
+        section:nth-child(even) {
+            background: #fff;
+        }
+
+        /* PSEUDO-3D GRID */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 100%;
+            perspective: 1000px;
+        }
+
+        .grid-item {
+            background: #000;
+            color: #fff;
+            padding: 40px;
+            border: 2px solid #000;
+            transform: perspective(800px) rotateX(0deg) rotateY(0deg);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            position: relative;
             overflow: hidden;
         }
 
-        section::before {
+        .grid-item:hover {
+            transform: perspective(800px) rotateX(5deg) rotateY(10deg) translateZ(20px);
+            box-shadow: -10px 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .grid-item::before {
             content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.1), transparent);
-            animation: radiusMove 20s ease-in-out infinite;
-            pointer-events: none;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
         }
 
-        @keyframes radiusMove {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(100px, 100px); }
+        @keyframes shimmer {
+            0% { transform: translate(-100%, -100%); }
+            100% { transform: translate(100%, 100%); }
         }
 
-        .content-wrapper {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 1400px;
-            animation: contentFadeIn 1.2s ease-out;
-        }
-
-        @keyframes contentFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(50px) rotateX(10deg);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) rotateX(0);
-            }
-        }
-
-        /* LANDING PAGE */
-        .hero-section {
-            perspective: 1000px;
-        }
-
-        .hero-content {
-            text-align: center;
-            animation: heroSlideUp 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s backwards;
-        }
-
-        @keyframes heroSlideUp {
-            from {
-                opacity: 0;
-                transform: translateY(100px) scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .hero-badge {
-            display: inline-block;
-            padding: 14px 36px;
-            background: rgba(0, 212, 255, 0.08);
-            border: 1px solid rgba(0, 212, 255, 0.4);
-            border-radius: 50px;
-            color: #00d4ff;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin-bottom: 50px;
-            backdrop-filter: blur(10px);
-            animation: badgeFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes badgeFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(60px, 15vw, 160px);
-            font-weight: 900;
-            line-height: 1;
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, #ffffff, #00d4ff, #ff006e, #ffffff);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: titleGradient 4s ease infinite;
-            letter-spacing: -3px;
-        }
-
-        @keyframes titleGradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .hero-subtitle {
-            font-size: 22px;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 80px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            animation: subtitleFade 1s ease-out 0.4s backwards;
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
-
-        @keyframes subtitleFade {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 30px;
+        /* HERO SECTION */
+        .hero {
+            flex-direction: column;
             justify-content: center;
-            flex-wrap: wrap;
-            animation: buttonsSlide 1s ease-out 0.6s backwards;
+            align-items: flex-start;
         }
 
-        @keyframes buttonsSlide {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .hero-text {
+            max-width: 900px;
         }
 
+        h1 {
+            font-size: clamp(48px, 15vw, 200px);
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 20px;
+            letter-spacing: -3px;
+            animation: titleGlitch 0.5s ease infinite;
+        }
+
+        @keyframes titleGlitch {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(-3px, -3px); }
+            50% { transform: translate(3px, 3px); }
+            75% { transform: translate(-3px, 3px); }
+        }
+
+        h2 {
+            font-size: clamp(36px, 10vw, 120px);
+            font-weight: 900;
+            margin-bottom: 40px;
+            letter-spacing: -2px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            line-height: 1.6;
+            max-width: 700px;
+            margin-bottom: 50px;
+            font-weight: 400;
+        }
+
+        /* KINETIC BUTTONS */
         .btn {
-            padding: 18px 50px;
-            border: 2px solid #00d4ff;
-            background: transparent;
-            color: #00d4ff;
+            display: inline-block;
+            padding: 16px 40px;
+            background: #000;
+            color: #fff;
+            border: 2px solid #000;
+            text-decoration: none;
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 2px;
             text-transform: uppercase;
             cursor: pointer;
-            border-radius: 50px;
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            font-family: 'Inter', sans-serif;
+            margin-right: 20px;
+            margin-bottom: 20px;
         }
 
         .btn::before {
@@ -400,1082 +221,497 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, #00d4ff, #ff006e);
+            background: #ff006e;
+            transition: left 0.4s ease;
             z-index: -1;
-            transition: left 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .btn::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3), transparent);
-            opacity: 0;
-            transition: opacity 0.6s ease;
-            border-radius: 50px;
         }
 
         .btn:hover {
-            color: white;
-            box-shadow: 0 0 50px rgba(0, 212, 255, 0.6), inset 0 0 50px rgba(255, 255, 255, 0.1);
-            transform: translateY(-8px) scale(1.05);
+            color: #fff;
+            transform: translate(-5px, -5px);
+            box-shadow: 5px 5px 0 #000, 10px 10px 0 #ff006e;
         }
 
         .btn:hover::before {
             left: 0;
         }
 
-        .btn:hover::after {
-            opacity: 1;
+        .btn-secondary {
+            background: #fff;
+            color: #000;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #ff006e, #00d4ff);
-            border-color: transparent;
-            color: white;
+        .btn-secondary::before {
+            background: #00d4ff;
         }
 
-        /* ABOUT SECTION */
-        .about-grid {
+        .btn-secondary:hover {
+            box-shadow: 5px 5px 0 #000, 10px 10px 0 #00d4ff;
+        }
+
+        /* CONTENT BLOCKS */
+        .content {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .cards {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 100px;
-            align-items: center;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
         }
 
-        .about-text h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 64px;
-            margin-bottom: 40px;
+        .card {
+            background: #fff;
+            border: 3px solid #000;
+            padding: 35px;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+        }
+
+        section:nth-child(odd) .card {
+            background: #000;
             color: #fff;
+        }
+
+        .card:hover {
+            transform: translate(-8px, -8px);
+            box-shadow: 8px 8px 0 #ff006e, 16px 16px 0 #00d4ff;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
             font-weight: 900;
-            line-height: 1.1;
-            animation: headlineSlide 0.8s ease-out backwards;
         }
 
-        @keyframes headlineSlide {
-            from {
-                opacity: 0;
-                transform: translateX(-100px) rotateY(20deg);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0) rotateY(0);
-            }
+        .card p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
 
-        .about-text p {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 30px;
-            line-height: 1.9;
-            animation: textSlide 0.8s ease-out backwards;
-        }
-
-        .about-text p:nth-of-type(1) { animation-delay: 0.1s; }
-        .about-text p:nth-of-type(2) { animation-delay: 0.2s; }
-        .about-text p:nth-of-type(3) { animation-delay: 0.3s; }
-
-        @keyframes textSlide {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .tags-container {
+        .tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 50px;
-            animation: tagsSlide 0.8s ease-out 0.4s backwards;
-        }
-
-        @keyframes tagsSlide {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            gap: 8px;
         }
 
         .tag {
-            padding: 10px 22px;
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            color: #00d4ff;
-            border-radius: 50px;
-            font-size: 12px;
-            font-weight: 600;
+            padding: 6px 12px;
+            background: #ff006e;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            border: 1px solid #000;
+            transition: all 0.2s ease;
             cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tag::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, #ff006e, #00d4ff);
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.5s ease;
         }
 
         .tag:hover {
-            border-color: transparent;
-            color: white;
-            transform: translateY(-8px) scale(1.1);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+            background: #00d4ff;
+            transform: scale(1.1);
         }
 
-        .tag:hover::before {
-            opacity: 1;
-        }
-
-        .about-visual {
-            perspective: 1000px;
-            animation: visualFloat 1s ease-out backwards;
-        }
-
-        @keyframes visualFloat {
-            from {
-                opacity: 0;
-                transform: translateX(100px) rotateY(-20deg);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0) rotateY(0);
-            }
-        }
-
-        .about-visual-box {
-            width: 100%;
-            height: 500px;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 0, 110, 0.1));
-            border-radius: 20px;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            position: relative;
-            overflow: hidden;
-            animation: boxHover 4s ease-in-out infinite;
-        }
-
-        @keyframes boxHover {
-            0%, 100% { transform: translateY(0) rotateX(0deg) rotateZ(0deg); }
-            25% { transform: translateY(-20px) rotateX(5deg) rotateZ(2deg); }
-            50% { transform: translateY(-40px) rotateX(-5deg) rotateZ(-2deg); }
-            75% { transform: translateY(-20px) rotateX(5deg) rotateZ(2deg); }
-        }
-
-        .about-visual-box::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 50% 0%, rgba(0, 212, 255, 0.3), transparent);
-            animation: shimmerMove 3s ease-in-out infinite;
-        }
-
-        @keyframes shimmerMove {
-            0%, 100% { transform: translateY(-100%); }
-            50% { transform: translateY(0); }
-        }
-
-        /* EXPERIENCE SECTION */
-        .experience-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 80px;
-            text-align: center;
-            margin-bottom: 100px;
-            animation: titleAppear 1s ease-out backwards;
-        }
-
-        @keyframes titleAppear {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .tabs-container {
+        /* TABS */
+        .tabs {
             display: flex;
-            gap: 20px;
-            margin-bottom: 100px;
-            justify-content: center;
+            gap: 10px;
+            margin-bottom: 50px;
             flex-wrap: wrap;
-            animation: tabsSlide 0.8s ease-out 0.2s backwards;
-        }
-
-        @keyframes tabsSlide {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            border-bottom: 3px solid #000;
+            padding-bottom: 20px;
         }
 
         .tab-btn {
-            padding: 12px 30px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.7);
-            cursor: pointer;
-            border-radius: 50px;
+            padding: 12px 24px;
+            background: transparent;
+            border: 2px solid #000;
+            color: #000;
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
-        }
-
-        .tab-btn::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, #ff006e, #00d4ff, #ffb700);
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.6s ease;
         }
 
         .tab-btn:hover {
-            color: white;
-            border-color: rgba(0, 212, 255, 0.3);
-            transform: translateY(-8px);
-        }
-
-        .tab-btn:hover::before {
-            opacity: 1;
+            background: #ff006e;
+            color: #fff;
+            transform: translate(-3px, -3px);
         }
 
         .tab-btn.active {
-            color: white;
-            border-color: transparent;
-            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+            background: #000;
+            color: #fff;
+            box-shadow: 4px 4px 0 #ff006e;
         }
 
-        .tab-btn.active::before {
-            opacity: 1;
-        }
-
-        .exp-content {
+        .tab-content {
             display: none;
         }
 
-        .exp-content.active {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 25px;
-            animation: contentReveal 0.8s ease-out;
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
         }
 
-        @keyframes contentReveal {
-            from {
-                opacity: 0;
-                filter: blur(10px);
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                filter: blur(0);
-                transform: translateY(0);
-            }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .exp-card {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(255, 0, 110, 0.02));
-            border: 1px solid rgba(0, 212, 255, 0.15);
-            padding: 40px;
-            border-radius: 15px;
-            transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        /* GLITCH TEXT EFFECT */
+        .glitch-text {
             position: relative;
-            overflow: hidden;
-            animation: cardSlide 0.8s ease-out backwards;
-        }
-
-        @keyframes cardSlide {
-            from {
-                opacity: 0;
-                transform: translateY(50px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .exp-card:nth-child(1) { animation-delay: 0.1s; }
-        .exp-card:nth-child(2) { animation-delay: 0.2s; }
-        .exp-card:nth-child(3) { animation-delay: 0.3s; }
-
-        .exp-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.2), transparent);
-            opacity: 0;
-            transition: opacity 0.6s ease;
-            pointer-events: none;
-        }
-
-        .exp-card:hover {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 0, 110, 0.08));
-            border-color: rgba(0, 212, 255, 0.4);
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 30px 80px rgba(0, 212, 255, 0.2);
-        }
-
-        .exp-card:hover::before {
-            opacity: 1;
-        }
-
-        .exp-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .exp-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: #00d4ff;
-        }
-
-        .exp-date {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.5);
-            font-weight: 600;
-        }
-
-        .exp-company {
-            font-size: 13px;
-            color: #ffb700;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .exp-desc {
-            font-size: 15px;
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .skills {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .skill {
-            padding: 6px 14px;
-            background: rgba(255, 183, 0, 0.1);
-            border: 1px solid rgba(255, 183, 0, 0.3);
-            color: #ffb700;
-            border-radius: 20px;
-            font-size: 10px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .skill:hover {
-            background: rgba(255, 183, 0, 0.3);
-            transform: translateY(-3px) scale(1.1);
-        }
-
-        /* RESEARCH SECTION */
-        .research-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 80px;
-            text-align: center;
-            margin-bottom: 100px;
-            animation: titleAppear 1s ease-out backwards;
-        }
-
-        .research-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 50px;
-        }
-
-        .research-card {
-            background: linear-gradient(135deg, rgba(255, 0, 110, 0.05), rgba(255, 183, 0, 0.02));
-            border: 1px solid rgba(255, 0, 110, 0.15);
-            padding: 60px;
-            border-radius: 20px;
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            overflow: hidden;
-            animation: cardSlide 0.8s ease-out backwards;
-        }
-
-        .research-card:nth-child(1) { animation-delay: 0.1s; }
-        .research-card:nth-child(2) { animation-delay: 0.2s; }
-
-        .research-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255, 183, 0, 0.2), transparent);
-            opacity: 0;
-            transition: opacity 0.8s ease;
-            pointer-events: none;
-        }
-
-        .research-card:hover {
-            background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(255, 183, 0, 0.08));
-            border-color: rgba(255, 0, 110, 0.4);
-            transform: translateY(-20px) scale(1.02) rotateX(5deg);
-            box-shadow: 0 40px 100px rgba(255, 0, 110, 0.2);
-        }
-
-        .research-card:hover::before {
-            opacity: 1;
-        }
-
-        .research-badge {
             display: inline-block;
-            padding: 10px 20px;
-            background: rgba(255, 183, 0, 0.2);
-            border: 1px solid rgba(255, 183, 0, 0.5);
-            color: #ffb700;
-            border-radius: 50px;
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            margin-bottom: 25px;
         }
 
-        .research-card h3 {
-            font-size: 36px;
-            color: #fff;
-            margin-bottom: 15px;
-            font-weight: 800;
-            line-height: 1.2;
-        }
-
-        .research-meta {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 25px;
-            font-weight: 700;
-        }
-
-        .research-desc {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.8;
-            margin-bottom: 30px;
-        }
-
-        .research-tags {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .research-tag {
-            padding: 8px 16px;
-            background: rgba(255, 183, 0, 0.1);
-            border: 1px solid rgba(255, 183, 0, 0.3);
-            color: #ffb700;
-            border-radius: 20px;
-            font-size: 10px;
-            font-weight: 700;
-            transition: all 0.3s ease;
-        }
-
-        .research-tag:hover {
-            background: rgba(255, 183, 0, 0.3);
-            transform: scale(1.1);
-        }
-
-        /* CV SECTION */
-        .cv-box {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.08), rgba(255, 0, 110, 0.04));
-            border: 2px solid rgba(0, 212, 255, 0.25);
-            padding: 120px;
-            border-radius: 30px;
-            text-align: center;
-            max-width: 800px;
-            animation: cvPop 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            transition: all 0.8s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        @keyframes cvPop {
-            from {
-                opacity: 0;
-                transform: scale(0.8) rotateY(20deg);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) rotateY(0);
-            }
-        }
-
-        .cv-box::before {
-            content: '';
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
             position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, rgba(0, 212, 255, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.6s ease;
-            pointer-events: none;
-            border-radius: 30px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
         }
 
-        .cv-box:hover {
-            border-color: rgba(0, 212, 255, 0.5);
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.12), rgba(255, 0, 110, 0.08));
-            transform: scale(1.05) translateY(-20px);
-            box-shadow: 0 40px 100px rgba(0, 212, 255, 0.25);
-        }
-
-        .cv-box:hover::before {
-            opacity: 1;
-        }
-
-        .cv-box h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 64px;
-            margin-bottom: 25px;
-            color: #fff;
-            font-weight: 900;
-        }
-
-        .cv-box p {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.75);
-            margin-bottom: 60px;
-            line-height: 1.8;
-        }
-
-        .download-btn {
-            padding: 18px 60px;
-            background: linear-gradient(135deg, #ff006e, #00d4ff, #ffb700);
-            border: none;
-            color: white;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .download-btn::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, #ffb700, #00d4ff, #ff006e);
-            opacity: 0;
-            transition: opacity 0.6s ease;
-            border-radius: 50px;
+        .glitch-text::before {
+            animation: glitchBefore 0.3s ease infinite;
+            color: #ff006e;
             z-index: -1;
+            left: -2px;
         }
 
-        .download-btn:hover {
-            transform: translateY(-10px) scale(1.1);
-            box-shadow: 0 40px 100px rgba(0, 212, 255, 0.5);
-        }
-
-        .download-btn:hover::before {
-            opacity: 1;
-        }
-
-        /* CONTACT SECTION */
-        .contact-text h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 80px;
-            text-align: center;
-            margin-bottom: 40px;
-            animation: titleAppear 1s ease-out backwards;
-        }
-
-        .contact-subtitle {
-            font-size: 18px;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 80px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            animation: subtitleFade 1s ease-out 0.2s backwards;
-        }
-
-        .contact-buttons {
-            display: flex;
-            gap: 40px;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: buttonsSlide 1s ease-out 0.4s backwards;
-        }
-
-        .contact-btn {
-            padding: 18px 60px;
-            border: 2px solid #00d4ff;
-            background: transparent;
+        .glitch-text::after {
+            animation: glitchAfter 0.3s ease infinite;
             color: #00d4ff;
-            text-decoration: none;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            overflow: hidden;
+            z-index: -2;
+            left: 2px;
         }
 
-        .contact-btn::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, #ff006e, #00d4ff);
-            opacity: 0;
-            transition: opacity 0.7s ease;
-            z-index: -1;
-            border-radius: 50px;
+        @keyframes glitchBefore {
+            0% { clip-path: inset(0 0 0 0); }
+            20% { clip-path: inset(10% 0 85% 0); }
+            40% { clip-path: inset(50% 0 30% 0); }
+            60% { clip-path: inset(20% 0 60% 0); }
+            80% { clip-path: inset(40% 0 20% 0); }
+            100% { clip-path: inset(0 0 0 0); }
         }
 
-        .contact-btn:hover {
-            color: white;
-            border-color: transparent;
-            transform: translateY(-15px) scale(1.1);
-            box-shadow: 0 30px 80px rgba(0, 212, 255, 0.4);
-        }
-
-        .contact-btn:hover::before {
-            opacity: 1;
+        @keyframes glitchAfter {
+            0% { clip-path: inset(0 0 0 0); }
+            20% { clip-path: inset(60% 0 10% 0); }
+            40% { clip-path: inset(30% 0 40% 0); }
+            60% { clip-path: inset(80% 0 5% 0); }
+            80% { clip-path: inset(10% 0 70% 0); }
+            100% { clip-path: inset(0 0 0 0); }
         }
 
         /* FOOTER */
         footer {
-            padding: 60px 80px;
+            padding: 80px 40px;
             text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 12px;
-            animation: footerFade 1s ease-out;
-        }
-
-        @keyframes footerFade {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            border-top: 3px solid #000;
+            background: #000;
+            color: #fff;
         }
 
         .visitor-count {
-            margin-top: 20px;
-            color: #00d4ff;
+            font-size: 14px;
             font-weight: 700;
+            letter-spacing: 1px;
         }
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
-            nav {
-                padding: 30px 40px;
+            nav a {
+                position: static;
+                display: block;
+                margin: 10px 0;
             }
 
-            .nav-links {
-                gap: 20px;
+            .nav-about, .nav-exp, .nav-research, .nav-cv, .nav-contact {
+                position: static !important;
             }
 
-            section {
-                padding: 80px 40px;
+            h1 {
+                font-size: 48px;
             }
 
-            .about-grid {
+            h2 {
+                font-size: 40px;
+            }
+
+            .btn {
+                display: block;
+                margin-bottom: 15px;
+            }
+
+            .cards {
                 grid-template-columns: 1fr;
-                gap: 50px;
-            }
-
-            .hero-title {
-                font-size: clamp(40px, 10vw, 80px);
-            }
-
-            .about-visual-box {
-                height: 350px;
-            }
-
-            .cv-box {
-                padding: 50px 30px;
-            }
-
-            .exp-card,
-            .research-card {
-                padding: 30px;
-            }
-
-            .contact-buttons {
-                flex-direction: column;
-                gap: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- ANIMATED BLOBS -->
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-
-    <!-- CUSTOM CURSOR -->
-    <div class="cursor"></div>
-
     <!-- NAVIGATION -->
     <nav>
-        <div class="logo">SJ</div>
-        <ul class="nav-links">
-            <li><a onclick="scrollTo(0)">Home</a></li>
-            <li><a onclick="scrollTo(1)">About</a></li>
-            <li><a onclick="scrollTo(2)">Experience</a></li>
-            <li><a onclick="scrollTo(3)">Research</a></li>
-            <li><a onclick="scrollTo(4)">CV</a></li>
-            <li><a onclick="scrollTo(5)">Contact</a></li>
-        </ul>
+        <div class="logo" onclick="scrollTo(0)">SJ</div>
+        <a href="#" class="nav-about" onclick="scrollTo(1)">About</a>
+        <a href="#" class="nav-exp" onclick="scrollTo(2)">Experience</a>
+        <a href="#" class="nav-research" onclick="scrollTo(3)">Research</a>
+        <a href="#" class="nav-cv" onclick="scrollTo(4)">CV</a>
+        <a href="#" class="nav-contact" onclick="scrollTo(5)">Contact</a>
     </nav>
 
-    <!-- HERO SECTION -->
-    <section class="hero-section">
-        <div class="content-wrapper">
-            <div class="hero-content">
-                <div class="hero-badge">Clinical Neuroscientist & Strategist</div>
-                <h1 class="hero-title">Where Brain<br>Meets Boardrooms</h1>
-                <p class="hero-subtitle">Exploring the intersection of neuropsychiatry, human performance, and luxury excellence</p>
-                <div class="cta-buttons">
-                    <button class="btn btn-primary" onclick="scrollTo(1)">Explore</button>
-                    <button class="btn" onclick="scrollTo(4)">Download CV</button>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="content hero-text">
+            <h1 data-text="SHREEYA" class="glitch-text">SHREEYA</h1>
+            <h1 data-text="JANGID" class="glitch-text">JANGID</h1>
+            <p class="subtitle">Clinical Neuropsychiatrist × Luxury Strategist × Human Performance Researcher</p>
+            <p class="subtitle" style="font-size: 14px; margin-top: -30px;">Where Brain Meets Boardrooms</p>
+            <div style="margin-top: 50px;">
+                <button class="btn" onclick="scrollTo(1)">Explore</button>
+                <button class="btn btn-secondary" onclick="scrollTo(4)">Download CV</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section>
+        <div class="content">
+            <h2>About</h2>
+            <div class="cards">
+                <div class="card">
+                    <h3>Who I Am</h3>
+                    <p>Clinical neuropsychiatrist and people strategist from India, pursuing MSc in Clinical Neuropsychiatry at University of Birmingham. Fascinated by how the brain shapes behavior and performance in high-stakes environments.</p>
+                </div>
+                <div class="card">
+                    <h3>Research Focus</h3>
+                    <p>Executive dysfunction following mild traumatic brain injury and its cascading effects on emotional regulation and occupational functioning. Bridging neuroscience with workplace wellbeing.</p>
+                </div>
+                <div class="card">
+                    <h3>Beyond Academia</h3>
+                    <p>Passionate about luxury strategy, motorsports, HR operations, and the intersection of neuroscience with organizational excellence. Elected Student Representative & Ambassador.</p>
+                </div>
+                <div class="card">
+                    <h3>Skills</h3>
+                    <div class="tags">
+                        <span class="tag">Neuropsychiatry</span>
+                        <span class="tag">Research</span>
+                        <span class="tag">HR Ops</span>
+                        <span class="tag">Leadership</span>
+                        <span class="tag">Strategy</span>
+                        <span class="tag">Public Speaking</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ABOUT SECTION -->
+    <!-- EXPERIENCE -->
     <section>
-        <div class="content-wrapper about-grid">
-            <div class="about-visual">
-                <div class="about-visual-box"></div>
-            </div>
-            <div class="about-text">
-                <h2>About Me</h2>
-                <p>I'm Shreeya Jangid, a clinical neuropsychiatrist and people strategist from India, now pursuing my MSc in Clinical Neuropsychiatry at the University of Birmingham. I'm fascinated by how the brain shapes behavior and performance in high-stakes environments.</p>
-                <p>My research focuses on executive dysfunction following mild traumatic brain injury and its occupational impact. Beyond academia, I'm passionate about luxury strategy, motorsports, HR operations, and building high-performance teams.</p>
-                <p>As an elected Student Representative and Ambassador, I advocate for people as passionately as I pursue research. Fluent in English and Hindi, currently learning French.</p>
-                <div class="tags-container">
-                    <span class="tag">Neuropsychiatry</span>
-                    <span class="tag">Luxury Strategy</span>
-                    <span class="tag">Motorsports</span>
-                    <span class="tag">HR Operations</span>
-                    <span class="tag">Research</span>
-                    <span class="tag">Leadership</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- EXPERIENCE SECTION -->
-    <section>
-        <div class="content-wrapper">
-            <h1 class="experience-title">Experience</h1>
-            <div class="tabs-container">
-                <button class="tab-btn active" onclick="switchTab(event, 'uk')">UK Based</button>
+        <div class="content">
+            <h2>Experience</h2>
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab(event, 'uk')">UK</button>
                 <button class="tab-btn" onclick="switchTab(event, 'clinical')">Clinical</button>
-                <button class="tab-btn" onclick="switchTab(event, 'org')">Organisational</button>
-                <button class="tab-btn" onclick="switchTab(event, 'vol')">Volunteering</button>
+                <button class="tab-btn" onclick="switchTab(event, 'org')">Org</button>
+                <button class="tab-btn" onclick="switchTab(event, 'vol')">Volunteer</button>
             </div>
 
-            <!-- UK Based -->
-            <div id="uk" class="exp-content active">
-                <div class="exp-card">
-                    <div class="exp-header">
-                        <div>
-                            <div class="exp-title">Student Ambassador</div>
-                            <div class="exp-company">College of Medicine & Health · University of Birmingham</div>
+            <!-- UK -->
+            <div id="uk" class="tab-content active">
+                <div class="cards">
+                    <div class="card">
+                        <h3>Student Ambassador</h3>
+                        <p><strong>College of Medicine & Health · UoB</strong></p>
+                        <p>2024 – Present</p>
+                        <p>Open days, outreach events, prospective student engagement. Bridging institutional communication with authentic postgraduate perspective.</p>
+                        <div class="tags" style="margin-top: 15px;">
+                            <span class="tag">Outreach</span>
+                            <span class="tag">Public Speaking</span>
                         </div>
-                        <div class="exp-date">2024 – Present</div>
                     </div>
-                    <p class="exp-desc">Representing the college at open days, outreach events, and prospective student engagements — bridging institutional communication with authentic postgraduate experience.</p>
-                    <div class="skills">
-                        <span class="skill">Outreach</span>
-                        <span class="skill">Public Speaking</span>
-                        <span class="skill">Engagement</span>
-                    </div>
-                </div>
-
-                <div class="exp-card">
-                    <div class="exp-header">
-                        <div>
-                            <div class="exp-title">Student Representative</div>
-                            <div class="exp-company">MSc Clinical Neuropsychiatry · University of Birmingham</div>
+                    <div class="card">
+                        <h3>Student Representative</h3>
+                        <p><strong>MSc Clinical Neuropsychiatry · UoB</strong></p>
+                        <p>2024 – Present</p>
+                        <p>Elected cohort representative gathering feedback and advocating for improvements to postgraduate experience.</p>
+                        <div class="tags" style="margin-top: 15px;">
+                            <span class="tag">Leadership</span>
+                            <span class="tag">Advocacy</span>
                         </div>
-                        <div class="exp-date">2024 – Present</div>
                     </div>
-                    <p class="exp-desc">Elected cohort representative — gathering feedback, raising programme issues, and improving postgraduate student experience.</p>
-                    <div class="skills">
-                        <span class="skill">Leadership</span>
-                        <span class="skill">Advocacy</span>
-                        <span class="skill">Representation</span>
-                    </div>
-                </div>
-
-                <div class="exp-card">
-                    <div class="exp-header">
-                        <div>
-                            <div class="exp-title">Academic Shadowing</div>
-                            <div class="exp-company">Birmingham & Solihull Mental Health NHS Trust</div>
+                    <div class="card">
+                        <h3>Academic Shadowing</h3>
+                        <p><strong>Birmingham & Solihull Mental Health NHS Trust</strong></p>
+                        <p>2024 – Present</p>
+                        <p>Specialist NHS neuropsychiatry unit. Patient assessments, MDT discussions, TBI sequelae management.</p>
+                        <div class="tags" style="margin-top: 15px;">
+                            <span class="tag">NHS</span>
+                            <span class="tag">Neuropsychiatry</span>
                         </div>
-                        <div class="exp-date">2024 – Present</div>
-                    </div>
-                    <p class="exp-desc">Clinical exposure in specialist NHS neuropsychiatry unit. Observing patient assessments, MDT discussions, and management of TBI sequelae.</p>
-                    <div class="skills">
-                        <span class="skill">NHS</span>
-                        <span class="skill">Neuropsychiatry</span>
-                        <span class="skill">Clinical</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Clinical -->
-            <div id="clinical" class="exp-content">
-                <div class="exp-card">
-                    <div class="exp-header">
-                        <div>
-                            <div class="exp-title">Clinical & Counselling Psychology Intern</div>
-                            <div class="exp-company">Cognizavest · India</div>
+            <!-- CLINICAL -->
+            <div id="clinical" class="tab-content">
+                <div class="cards">
+                    <div class="card">
+                        <h3>Clinical & Counselling Psychology Intern</h3>
+                        <p><strong>Cognizavest · India</strong></p>
+                        <p>2023 – 2024</p>
+                        <p>Client intake, psychometric assessments, therapeutic documentation. Developed clinical competencies alongside qualified psychologists.</p>
+                        <div class="tags" style="margin-top: 15px;">
+                            <span class="tag">Clinical Psych</span>
+                            <span class="tag">Counselling</span>
                         </div>
-                        <div class="exp-date">2023 – 2024</div>
                     </div>
-                    <p class="exp-desc">Client intake, psychometric assessments, and therapeutic documentation. Developed clinical competencies alongside qualified psychologists.</p>
-                    <div class="skills">
-                        <span class="skill">Clinical Psychology</span>
-                        <span class="skill">Counselling</span>
-                        <span class="skill">Psychometrics</span>
-                    </div>
-                </div>
-
-                <div class="exp-card">
-                    <div class="exp-header">
-                        <div>
-                            <div class="exp-title">NHS Academic Shadowing</div>
-                            <div class="exp-company">Birmingham & Solihull Mental Health NHS Trust</div>
+                    <div class="card">
+                        <h3>NHS Academic Shadowing</h3>
+                        <p><strong>Mental Health NHS Trust</strong></p>
+                        <p>2024 – Present</p>
+                        <p>Neuropsychiatry setting. Consultations, history-taking, MDT meetings across TBI and complex presentations.</p>
+                        <div class="tags" style="margin-top: 15px;">
+                            <span class="tag">Neuropsych</span>
+                            <span class="tag">TBI</span>
                         </div>
-                        <div class="exp-date">2024 – Present</div>
-                    </div>
-                    <p class="exp-desc">Specialist clinical exposure within neuropsychiatry setting. Consultations, history-taking, and MDT meetings.</p>
-                    <div class="skills">
-                        <span class="skill">Neuropsychiatry</span>
-                        <span class="skill">TBI</span>
-                        <span class="skill">MDT</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Organisational -->
-            <div id="org" class="exp-content">
-                <div class="exp-card">
-                    <div class="exp-header">
-                        <div>
-                            <div class="exp-title">Studio Operations & Client Experience</div>
-                            <div class="exp-company">Abhinav Designs · India</div>
+            <!-- ORG -->
+            <div id="org" class="tab-content">
+                <div class="cards">
+                    <div class="card">
+                        <h3>Studio Operations & Client Experience</h3>
+                        <p><strong>Abhinav Designs · India</strong></p>
+                        <p>2023</p>
+                        <p>HR support, studio operations, client experience in luxury interior design. Built onboarding systems.</p>
+                        <div class="tags" style="margin-top: 15px;">
+                            <span class="tag">HR Ops</span>
+                            <span class="tag">Luxury</span>
                         </div>
-                        <div class="exp-date">2023</div>
                     </div>
-                    <p class="exp-desc">HR support, studio operations, and client experience in luxury interior design. Built onboarding systems and managed project documentation.</p>
-                    <div class="skills">
-                        <span class="skill">HR Operations</span>
-                        <span class="skill">Client Experience</span>
-                        <span class="skill">Luxury</span>
-                    </div>
-                </div>
-
-                <div class="exp-card">
-                    <div class="exp-header">
-                        <div>
-                            <div class="exp-title">Operations & Sponsorships Crew</div>
-                            <div class="exp-company">Coreografia MUJ · Manipal University Jaipur</div>
+                    <div class="card">
+                        <h3>Operations & Sponsorships</h3>
+                        <p><strong>Coreografia MUJ · Manipal University</strong></p>
+                        <p>2021 – 2023</p>
+                        <p>Sponsorship outreach, hospitality, event logistics for dance collective. Active performance role.</p>
+                        <div class="tags" style="margin-top: 15px;">
+                            <span class="tag">Sponsorships</span>
+                            <span class="tag">Events</span>
                         </div>
-                        <div class="exp-date">2021 – 2023</div>
                     </div>
-                    <p class="exp-desc">Led sponsorship outreach, hospitality coordination, and event logistics for university dance collective.</p>
-                    <div class="skills">
-                        <span class="skill">Sponsorships</span>
-                        <span class="skill">Event Operations</span>
-                        <span class="skill">Hospitality</span>
-                    </div>
-                </div>
-
-                <div class="exp-card">
-                    <div class="exp-header">
-                        <div>
-                            <div class="exp-title">Organisational Psychology Intern</div>
-                            <div class="exp-company">Remote · India</div>
+                    <div class="card">
+                        <h3>Org Psychology Intern</h3>
+                        <p><strong>Remote · India</strong></p>
+                        <p>2022 – 2023</p>
+                        <p>Team coordination, workflow optimization, communication in distributed environments.</p>
+                        <div class="tags" style="margin-top: 15px;">
+                            <span class="tag">Org Psych</span>
+                            <span class="tag">Remote</span>
                         </div>
-                        <div class="exp-date">2022 – 2023</div>
-                    </div>
-                    <p class="exp-desc">Applied org psychology principles supporting team coordination, workflow optimization, and communication.</p>
-                    <div class="skills">
-                        <span class="skill">Org Psychology</span>
-                        <span class="skill">Remote Teams</span>
-                        <span class="skill">Workflow</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Volunteering -->
-            <div id="vol" class="exp-content">
-                <div class="exp-card">
-                    <div class="exp-header">
-                        <div>
-                            <div class="exp-title">Wellness Program Volunteer</div>
-                            <div class="exp-company">Aashray Care Home · India</div>
+            <!-- VOLUNTEER -->
+            <div id="vol" class="tab-content">
+                <div class="cards">
+                    <div class="card">
+                        <h3>Wellness Program Volunteer</h3>
+                        <p><strong>Aashray Care Home · India</strong></p>
+                        <p>2022 – 2023</p>
+                        <p>HIV/AIDS awareness sessions, psychosocial wellness. Reduced stigma, increased health literacy.</p>
+                        <div class="tags" style="margin-top: 15px;">
+                            <span class="tag">Health</span>
+                            <span class="tag">Community</span>
                         </div>
-                        <div class="exp-date">2022 – 2023</div>
                     </div>
-                    <p class="exp-desc">Delivered HIV/AIDS awareness sessions and psychosocial wellness programmes. Reduced stigma and provided community support.</p>
-                    <div class="skills">
-                        <span class="skill">Health Awareness</span>
-                        <span class="skill">Psychosocial</span>
-                        <span class="skill">Community</span>
-                    </div>
-                </div>
-
-                <div class="exp-card">
-                    <div class="exp-header">
-                        <div>
-                            <div class="exp-title">Social Outreach Volunteer</div>
-                            <div class="exp-company">Jeevan Jyothi Old Age Home · India</div>
+                    <div class="card">
+                        <h3>Social Outreach Volunteer</h3>
+                        <p><strong>Jeevan Jyothi Old Age Home · India</strong></p>
+                        <p>2021 – 2022</p>
+                        <p>Engagement activities, companionship for elderly residents. Built empathetic communication skills.</p>
+                        <div class="tags" style="margin-top: 15px;">
+                            <span class="tag">Elderly Care</span>
+                            <span class="tag">Social</span>
                         </div>
-                        <div class="exp-date">2021 – 2022</div>
-                    </div>
-                    <p class="exp-desc">Facilitated engagement activities and companionship for elderly residents. Built empathetic communication skills.</p>
-                    <div class="skills">
-                        <span class="skill">Elderly Care</span>
-                        <span class="skill">Social Inclusion</span>
-                        <span class="skill">Outreach</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- RESEARCH SECTION -->
+    <!-- RESEARCH -->
     <section>
-        <div class="content-wrapper">
-            <h1 class="research-title">Research</h1>
-            <div class="research-grid">
-                <div class="research-card">
-                    <span class="research-badge">MSc Dissertation</span>
+        <div class="content">
+            <h2>Research</h2>
+            <div class="cards">
+                <div class="card">
                     <h3>Executive Dysfunction Following mTBI</h3>
-                    <p class="research-meta">University of Birmingham · Submission: August 2025</p>
-                    <p class="research-desc">A systematic literature review examining how executive dysfunction arising from mild TBI cascades into disrupted emotional regulation and impaired occupational functioning.</p>
-                    <div class="research-tags">
-                        <span class="research-tag">mTBI</span>
-                        <span class="research-tag">Executive Function</span>
-                        <span class="research-tag">Emotional Regulation</span>
-                        <span class="research-tag">Occupational Health</span>
+                    <p><strong>MSc Dissertation</strong></p>
+                    <p>University of Birmingham • Submission: August 2025</p>
+                    <p>Systematic literature review examining how executive dysfunction cascades into emotional dysregulation and occupational impairment.</p>
+                    <div class="tags" style="margin-top: 15px;">
+                        <span class="tag">mTBI</span>
+                        <span class="tag">Executive Function</span>
+                        <span class="tag">Occupational Health</span>
                     </div>
                 </div>
-
-                <div class="research-card">
-                    <span class="research-badge">Jan – Apr 2024</span>
+                <div class="card">
                     <h3>Environmental Perspectives: Attitudes, Values & Self-Control</h3>
-                    <p class="research-meta">Manipal University Jaipur</p>
-                    <p class="research-desc">Explored the relationship between environmental attitudes, personal values, and self-control among BBA and BCom students using mixed-methods approach.</p>
-                    <div class="research-tags">
-                        <span class="research-tag">Environmental Psychology</span>
-                        <span class="research-tag">Self-Control</span>
-                        <span class="research-tag">Mixed Methods</span>
-                        <span class="research-tag">Quantitative</span>
+                    <p><strong>Jan – Apr 2024</strong></p>
+                    <p>Manipal University Jaipur</p>
+                    <p>Mixed-methods exploration of environmental attitudes, personal values, and self-control among students using SCS, EPVQ, EAI.</p>
+                    <div class="tags" style="margin-top: 15px;">
+                        <span class="tag">Environmental Psych</span>
+                        <span class="tag">Mixed Methods</span>
+                        <span class="tag">Quantitative</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CV SECTION -->
+    <!-- CV -->
     <section>
-        <div class="content-wrapper">
-            <div class="cv-box">
-                <h2>Curriculum Vitae</h2>
-                <p>Download my comprehensive professional CV to explore my complete educational background, research experience, and expertise across clinical neuropsychiatry and leadership.</p>
-                <button class="download-btn" onclick="downloadCV()">📥 Download CV</button>
-            </div>
+        <div class="content" style="text-align: center;">
+            <h2>Curriculum Vitae</h2>
+            <p style="font-size: 16px; margin: 30px 0 50px 0; line-height: 1.7;">Download my comprehensive professional CV to explore my complete educational background, research experience, and expertise across clinical neuropsychiatry and leadership.</p>
+            <button class="btn" onclick="downloadCV()">📥 Download CV</button>
         </div>
     </section>
 
-    <!-- CONTACT SECTION -->
-    <section>
-        <div class="content-wrapper contact-text">
-            <h1>Let's Connect</h1>
-            <p class="contact-subtitle">Whether it's research collaboration, career opportunities, or discussing the intersection of neuroscience and luxury — I'd love to hear from you.</p>
-            <div class="contact-buttons">
-                <a href="mailto:shreeyaj232@gmail.com" class="contact-btn">Email</a>
-                <a href="https://www.linkedin.com/in/shreeya-jangid" target="_blank" class="contact-btn">LinkedIn</a>
+    <!-- CONTACT -->
+    <section class="hero">
+        <div class="content">
+            <h2>Let's Connect</h2>
+            <p class="subtitle">Research collaboration, career opportunities, or discussing neuroscience × luxury — I'd love to hear from you.</p>
+            <div style="margin-top: 50px;">
+                <a href="mailto:shreeyaj232@gmail.com" class="btn">📧 Email</a>
+                <a href="https://www.linkedin.com/in/shreeya-jangid" target="_blank" class="btn btn-secondary">🔗 LinkedIn</a>
             </div>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        <p>&copy; 2026 Shreeya Jangid</p>
-        <div class="visitor-count">Visitors: <span id="visitorCount">0</span></div>
+        <p>&copy; 2026 SHREEYA JANGID</p>
+        <p class="visitor-count" style="margin-top: 20px;">VISITORS: <span id="visitorCount">0</span></p>
     </footer>
 
     <script>
-        // CUSTOM CURSOR
-        const cursor = document.querySelector('.cursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-
-        document.addEventListener('mousedown', () => {
-            cursor.classList.add('active');
-        });
-
-        document.addEventListener('mouseup', () => {
-            cursor.classList.remove('active');
-        });
-
-        // VISITOR COUNTER
+        // Visitor Counter
         function initVisitorCounter() {
             let count = localStorage.getItem('visitorCount') || 0;
             count = parseInt(count) + 1;
@@ -1485,24 +721,24 @@
 
         initVisitorCounter();
 
-        // SMOOTH SCROLL
+        // Smooth Scroll
         function scrollTo(index) {
             const sections = document.querySelectorAll('section');
             sections[index].scrollIntoView({ behavior: 'smooth' });
         }
 
-        // TAB SWITCHING
+        // Tab Switching
         function switchTab(event, tabId) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.exp-content').forEach(content => content.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
             
             event.target.classList.add('active');
             document.getElementById(tabId).classList.add('active');
         }
 
-        // DOWNLOAD CV
+        // Download CV
         function downloadCV() {
-            alert('Please upload your CV file and update this link. For now, use Ctrl+P to save as PDF.');
+            alert('Please upload your CV and update this link. Use Ctrl+P to save as PDF for now.');
         }
     </script>
 </body>
