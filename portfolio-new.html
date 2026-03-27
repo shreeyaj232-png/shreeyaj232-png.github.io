@@ -12,14 +12,14 @@
         }
 
         :root {
-            --primary: #1a1a2e;
-            --secondary: #16213e;
+            --primary: #ffffff;
+            --secondary: #f8f9fa;
             --accent: #d4af37;
             --accent-alt: #e94560;
-            --text: #f0f0f0;
-            --text-dark: #1a1a2e;
-            --border: rgba(212, 175, 55, 0.2);
-            --bg: #0f0f1e;
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+            --border: rgba(212, 175, 55, 0.3);
+            --bg: #fafbfc;
         }
 
         html {
@@ -28,7 +28,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg);
+            background: linear-gradient(135deg, #fafbfc 0%, #f3f4f6 100%);
             color: var(--text);
             overflow-x: hidden;
             line-height: 1.6;
@@ -40,8 +40,8 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 70px;
-            background: rgba(15, 15, 30, 0.95);
+            height: 80px;
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border);
             z-index: 1000;
@@ -49,55 +49,48 @@
             align-items: center;
             justify-content: space-between;
             padding: 0 60px;
-            animation: slideDown 0.6s ease-out;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
         }
 
         .nav-brand {
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: var(--accent);
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             text-transform: uppercase;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 40px;
+            gap: 50px;
         }
 
         .nav-links a {
             color: var(--text);
             text-decoration: none;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 600;
             letter-spacing: 1px;
             text-transform: uppercase;
             position: relative;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
             cursor: pointer;
         }
 
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: -8px;
             left: 0;
             width: 0;
-            height: 2px;
-            background: var(--accent);
+            height: 3px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-alt));
             transition: width 0.3s ease;
+            border-radius: 2px;
         }
 
         .nav-links a:hover::after {
@@ -108,17 +101,18 @@
         .page {
             display: none;
             opacity: 0;
-            animation: fadeIn 0.8s ease-out forwards;
+            transform: translateY(30px);
+            animation: pageEnter 0.8s ease-out forwards;
         }
 
         .page.active {
             display: block;
         }
 
-        @keyframes fadeIn {
+        @keyframes pageEnter {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -135,6 +129,7 @@
             position: relative;
             overflow: hidden;
             padding-top: 70px;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 100%);
         }
 
         .landing-canvas {
@@ -144,6 +139,7 @@
             width: 100%;
             height: 100%;
             z-index: 1;
+            opacity: 0.6;
         }
 
         .landing-content {
@@ -158,38 +154,38 @@
             font-size: 14px;
             letter-spacing: 3px;
             text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 30px;
-            animation: fadeInUp 0.8s ease-out 0.2s backwards;
-        }
-
-        .landing-headline {
-            font-size: clamp(48px, 8vw, 120px);
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 20px;
             background: linear-gradient(135deg, var(--accent), var(--accent-alt));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+            margin-bottom: 30px;
+            animation: slideInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .landing-headline {
+            font-size: clamp(48px, 8vw, 120px);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: var(--text);
+            animation: slideInUp 0.8s ease-out 0.4s backwards;
         }
 
         .landing-subtitle {
             font-size: 18px;
-            color: rgba(240, 240, 240, 0.7);
+            color: var(--text-light);
             margin-bottom: 50px;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
-            animation: fadeInUp 0.8s ease-out 0.6s backwards;
+            animation: slideInUp 0.8s ease-out 0.6s backwards;
         }
 
         .cta-buttons {
             display: flex;
             gap: 30px;
             justify-content: center;
-            animation: fadeInUp 0.8s ease-out 0.8s backwards;
+            animation: slideInUp 0.8s ease-out 0.8s backwards;
             flex-wrap: wrap;
         }
 
@@ -202,35 +198,35 @@
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
-            border-radius: 4px;
+            border-radius: 6px;
         }
 
         .btn-primary {
-            background: var(--accent);
-            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+            color: white;
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
         }
 
         .btn-secondary {
-            background: transparent;
+            background: white;
             color: var(--accent);
             border: 2px solid var(--accent);
         }
 
         .btn-secondary:hover {
-            background: var(--accent);
-            color: var(--text-dark);
-            transform: translateY(-3px);
+            background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+            color: white;
+            transform: translateY(-5px);
         }
 
-        @keyframes fadeInUp {
+        @keyframes slideInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
@@ -249,12 +245,12 @@
 
         @keyframes bounce {
             0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-10px); }
+            50% { transform: translateX(-50%) translateY(-15px); }
         }
 
         .scroll-indicator svg {
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
             stroke: var(--accent);
             fill: none;
             stroke-width: 2;
@@ -273,31 +269,31 @@
 
         .about-left {
             position: relative;
+            height: 500px;
         }
 
         .about-canvas {
             width: 100%;
-            height: 500px;
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(233, 69, 96, 0.1));
-            border-radius: 8px;
-            border: 1px solid var(--border);
+            height: 100%;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(233, 69, 96, 0.15));
+            border-radius: 12px;
+            border: 2px solid var(--border);
             overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
         }
 
         .about-right h2 {
             font-size: 48px;
             margin-bottom: 30px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-alt));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text);
+            font-weight: 800;
         }
 
         .about-text {
             font-size: 16px;
             line-height: 1.8;
             margin-bottom: 30px;
-            color: rgba(240, 240, 240, 0.8);
+            color: var(--text-light);
         }
 
         .interests {
@@ -309,22 +305,24 @@
 
         .interest-tag {
             padding: 10px 20px;
-            background: rgba(212, 175, 55, 0.1);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(233, 69, 96, 0.1));
             border: 1px solid var(--border);
-            border-radius: 4px;
+            border-radius: 20px;
             font-size: 13px;
-            color: var(--accent);
+            color: var(--text);
             transition: all 0.3s ease;
         }
 
         .interest-tag:hover {
-            background: rgba(212, 175, 55, 0.2);
+            background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+            color: white;
             transform: translateY(-3px);
+            border-color: transparent;
         }
 
         /* ===== PAGE 3: EXPERIENCE ===== */
         .page-experience {
-            min-height: 100vh;
+            min-height: auto;
             padding: 120px 60px;
             padding-top: 120px;
         }
@@ -333,10 +331,8 @@
             font-size: 56px;
             margin-bottom: 60px;
             text-align: center;
-            background: linear-gradient(135deg, var(--accent), var(--accent-alt));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text);
+            font-weight: 800;
         }
 
         .experience-tabs {
@@ -349,51 +345,56 @@
 
         .tab-btn {
             padding: 12px 30px;
-            background: transparent;
+            background: white;
             border: 2px solid var(--border);
             color: var(--text);
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 6px;
             transition: all 0.3s ease;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 600;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
 
         .tab-btn.active {
-            background: var(--accent);
-            color: var(--text-dark);
-            border-color: var(--accent);
+            background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+            color: white;
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
         }
 
         .tab-btn:hover {
             border-color: var(--accent);
             color: var(--accent);
+            transform: translateY(-2px);
         }
 
         .tab-content {
             display: none;
+            animation: fadeIn 0.6s ease-out;
         }
 
         .tab-content.active {
             display: block;
-            animation: fadeIn 0.6s ease-out;
         }
 
         .experience-item {
-            background: rgba(212, 175, 55, 0.05);
+            background: white;
             border: 1px solid var(--border);
             padding: 30px;
             margin-bottom: 20px;
-            border-radius: 8px;
+            border-radius: 10px;
             transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
         .experience-item:hover {
-            background: rgba(212, 175, 55, 0.1);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(233, 69, 96, 0.05));
             transform: translateY(-5px);
             border-color: var(--accent);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         }
 
         .exp-header {
@@ -413,20 +414,22 @@
 
         .exp-date {
             font-size: 13px;
-            color: rgba(240, 240, 240, 0.6);
+            color: var(--text-light);
             white-space: nowrap;
+            font-weight: 600;
         }
 
         .exp-org {
             font-size: 14px;
-            color: rgba(240, 240, 240, 0.7);
+            color: var(--text);
             margin-bottom: 15px;
+            font-weight: 600;
         }
 
         .exp-desc {
             font-size: 15px;
             line-height: 1.6;
-            color: rgba(240, 240, 240, 0.8);
+            color: var(--text-light);
         }
 
         .exp-tags {
@@ -438,16 +441,17 @@
 
         .exp-tag {
             padding: 6px 12px;
-            background: rgba(233, 69, 96, 0.1);
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.1), rgba(212, 175, 55, 0.1));
             border: 1px solid rgba(233, 69, 96, 0.3);
-            border-radius: 3px;
+            border-radius: 20px;
             font-size: 12px;
             color: var(--accent-alt);
+            font-weight: 600;
         }
 
         /* ===== PAGE 4: RESEARCH ===== */
         .page-research {
-            min-height: 100vh;
+            min-height: auto;
             padding: 120px 60px;
             padding-top: 120px;
         }
@@ -456,10 +460,8 @@
             font-size: 56px;
             margin-bottom: 60px;
             text-align: center;
-            background: linear-gradient(135deg, var(--accent), var(--accent-alt));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text);
+            font-weight: 800;
         }
 
         .research-grid {
@@ -469,29 +471,31 @@
         }
 
         .research-card {
-            background: rgba(212, 175, 55, 0.05);
+            background: white;
             border: 1px solid var(--border);
             padding: 40px;
-            border-radius: 8px;
+            border-radius: 10px;
             transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
         .research-card:hover {
-            background: rgba(212, 175, 55, 0.1);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(233, 69, 96, 0.05));
             transform: translateY(-8px);
             border-color: var(--accent);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
         }
 
         .research-badge {
             display: inline-block;
             padding: 8px 16px;
-            background: rgba(212, 175, 55, 0.2);
-            border: 1px solid var(--accent);
-            color: var(--accent);
+            background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+            color: white;
             font-size: 12px;
-            border-radius: 3px;
+            border-radius: 20px;
             margin-bottom: 15px;
             font-weight: 600;
+            letter-spacing: 1px;
         }
 
         .research-title {
@@ -503,14 +507,15 @@
 
         .research-meta {
             font-size: 14px;
-            color: rgba(240, 240, 240, 0.6);
+            color: var(--text-light);
             margin-bottom: 20px;
+            font-weight: 600;
         }
 
         .research-desc {
             font-size: 16px;
             line-height: 1.7;
-            color: rgba(240, 240, 240, 0.8);
+            color: var(--text-light);
             margin-bottom: 20px;
         }
 
@@ -522,11 +527,12 @@
 
         .research-tag {
             padding: 6px 12px;
-            background: rgba(233, 69, 96, 0.1);
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.1), rgba(212, 175, 55, 0.1));
             border: 1px solid rgba(233, 69, 96, 0.3);
-            border-radius: 3px;
+            border-radius: 20px;
             font-size: 12px;
             color: var(--accent-alt);
+            font-weight: 600;
         }
 
         /* ===== PAGE 5: CV ===== */
@@ -541,125 +547,46 @@
 
         .cv-container {
             width: 100%;
-            max-width: 900px;
-            background: rgba(212, 175, 55, 0.02);
-            border: 1px solid var(--border);
-            padding: 60px;
-            border-radius: 8px;
-        }
-
-        .cv-header {
+            max-width: 800px;
             text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 30px;
-            border-bottom: 2px solid var(--border);
-        }
-
-        .cv-name {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--accent);
+            background: white;
+            border: 2px solid var(--border);
+            padding: 80px 60px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
         }
 
         .cv-title {
-            font-size: 18px;
-            color: rgba(240, 240, 240, 0.7);
-            margin-bottom: 20px;
-        }
-
-        .cv-contact {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            font-size: 14px;
-            flex-wrap: wrap;
-        }
-
-        .cv-contact a {
-            color: var(--accent);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .cv-contact a:hover {
-            color: var(--accent-alt);
-        }
-
-        .linkedin-logo {
-            width: 16px;
-            height: 16px;
-            display: inline-block;
-        }
-
-        .cv-section {
-            margin-bottom: 35px;
-        }
-
-        .cv-section-title {
-            font-size: 16px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .cv-item {
-            margin-bottom: 25px;
-        }
-
-        .cv-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 5px;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .cv-item-title {
-            font-size: 16px;
-            font-weight: 700;
+            font-size: 48px;
             color: var(--text);
+            margin-bottom: 20px;
+            font-weight: 800;
         }
 
-        .cv-item-date {
-            font-size: 13px;
-            color: rgba(240, 240, 240, 0.6);
-            white-space: nowrap;
+        .cv-subtitle {
+            font-size: 18px;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            font-weight: 600;
         }
 
-        .cv-item-org {
-            font-size: 14px;
-            color: var(--accent);
-            margin-bottom: 8px;
-        }
-
-        .cv-item-desc {
-            font-size: 14px;
-            color: rgba(240, 240, 240, 0.8);
-            line-height: 1.6;
+        .cv-description {
+            font-size: 16px;
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 50px;
         }
 
         .cv-download {
-            text-align: center;
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 1px solid var(--border);
+            display: inline-block;
         }
 
         .download-btn {
-            padding: 16px 40px;
-            background: var(--accent);
-            color: var(--text-dark);
+            padding: 16px 50px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+            color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             font-size: 14px;
             font-weight: 700;
             letter-spacing: 1px;
@@ -669,7 +596,7 @@
         }
 
         .download-btn:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
         }
 
@@ -693,15 +620,13 @@
         .contact-container h1 {
             font-size: 56px;
             margin-bottom: 30px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-alt));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text);
+            font-weight: 800;
         }
 
         .contact-subtitle {
             font-size: 18px;
-            color: rgba(240, 240, 240, 0.7);
+            color: var(--text-light);
             margin-bottom: 50px;
         }
 
@@ -714,7 +639,7 @@
 
         .contact-btn {
             padding: 16px 40px;
-            border-radius: 4px;
+            border-radius: 6px;
             font-size: 14px;
             font-weight: 700;
             letter-spacing: 1px;
@@ -727,32 +652,33 @@
         }
 
         .contact-btn-email {
-            background: var(--accent);
-            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+            color: white;
         }
 
         .contact-btn-linkedin {
-            background: transparent;
+            background: white;
             color: var(--accent);
             border: 2px solid var(--accent);
         }
 
         .contact-btn:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
         }
 
         /* ===== FOOTER ===== */
         footer {
             padding: 40px 60px;
-            border-top: 1px solid var(--border);
+            border-top: 2px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 13px;
-            color: rgba(240, 240, 240, 0.6);
+            color: var(--text-light);
             flex-wrap: wrap;
             gap: 20px;
+            background: white;
         }
 
         .visitor-counter {
@@ -763,6 +689,7 @@
         @media (max-width: 768px) {
             nav {
                 padding: 0 30px;
+                height: 70px;
             }
 
             .nav-links {
@@ -772,7 +699,7 @@
 
             .page-about {
                 grid-template-columns: 1fr;
-                padding: 120px 30px;
+                padding: 80px 30px;
                 gap: 40px;
             }
 
@@ -780,7 +707,7 @@
             .page-research,
             .page-cv,
             .page-contact {
-                padding: 120px 30px;
+                padding: 80px 30px;
             }
 
             .landing-headline {
@@ -799,11 +726,20 @@
             }
 
             .cv-container {
-                padding: 30px;
+                padding: 40px 30px;
             }
 
-            .cv-name {
-                font-size: 32px;
+            .cv-title {
+                font-size: 36px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
             }
         }
     </style>
@@ -826,14 +762,14 @@
     <section class="page page-landing active">
         <canvas id="landingCanvas" class="landing-canvas"></canvas>
         <div class="landing-content">
-            <p class="landing-tagline">Welcome to my world</p>
+            <p class="landing-tagline">Welcome</p>
             <h1 class="landing-headline">Where Brain<br>Meets Boardrooms</h1>
             <p class="landing-subtitle">
-                Exploring the intersection of clinical neuroscience, human performance, and luxury industries
+                Neuropsychiatry • Luxury Industries • Human Performance
             </p>
             <div class="cta-buttons">
                 <button class="btn btn-primary" onclick="goToPage(1)">Explore My Work</button>
-                <button class="btn btn-secondary" onclick="goToPage(4)">Download CV</button>
+                <button class="btn btn-secondary" onclick="goToPage(4)">View CV</button>
             </div>
         </div>
         <div class="scroll-indicator">
@@ -851,22 +787,21 @@
         <div class="about-right">
             <h2>About Me</h2>
             <p class="about-text">
-                I'm Shreeya Jangid, a clinical neuropsychiatrist and people strategist from India, now pursuing my MSc in Clinical Neuropsychiatry at the University of Birmingham. I'm fascinated by how the brain shapes behavior, performance, and wellbeing—especially in high-stakes environments.
+                I'm Shreeya Jangid, a clinical neuropsychiatrist and people strategist from India, now pursuing my MSc in Clinical Neuropsychiatry at the University of Birmingham.
             </p>
             <p class="about-text">
-                My academic focus centers on executive dysfunction following mild traumatic brain injury and its impact on emotional regulation and occupational functioning. Beyond research, I'm equally passionate about HR strategy, client experience, and the intersection of neuroscience with luxury and motorsports industries.
+                I'm fascinated by how the brain shapes behavior and performance—especially in high-stakes environments. My research focuses on executive dysfunction following mild traumatic brain injury and its impact on emotional regulation and workplace functioning.
             </p>
             <p class="about-text">
-                As an elected Student Representative and Ambassador, I advocate for people as passionately as I pursue research. Fluent in English and Hindi, currently learning French.
+                Beyond academia, I'm passionate about luxury strategy, motorsports, HR operations, and the intersection of neuroscience with organizational excellence. I believe in advocating for people as passionately as I pursue research.
             </p>
             <div class="interests">
                 <span class="interest-tag">Neuropsychiatry</span>
                 <span class="interest-tag">Luxury Strategy</span>
                 <span class="interest-tag">Motorsports & F1</span>
-                <span class="interest-tag">Public Speaking</span>
                 <span class="interest-tag">HR Operations</span>
                 <span class="interest-tag">Research</span>
-                <span class="interest-tag">Fashion & Aesthetics</span>
+                <span class="interest-tag">Public Speaking</span>
                 <span class="interest-tag">Dance</span>
             </div>
         </div>
@@ -874,7 +809,7 @@
 
     <!-- PAGE 3: EXPERIENCE -->
     <section class="page page-experience">
-        <h1>My Experience</h1>
+        <h1>Experience</h1>
         
         <div class="experience-tabs">
             <button class="tab-btn active" onclick="switchTab(event, 'uk')">UK Based</button>
@@ -889,11 +824,11 @@
                 <div class="exp-header">
                     <div>
                         <div class="exp-title">Student Ambassador</div>
-                        <div class="exp-org">College of Medicine & Health · University of Birmingham</div>
+                        <div class="exp-org">College of Medicine & Health, University of Birmingham</div>
                     </div>
                     <div class="exp-date">2024 – Present</div>
                 </div>
-                <p class="exp-desc">Representing the college at open days, outreach events, and prospective student engagements — bridging institutional communication with authentic postgraduate experience.</p>
+                <p class="exp-desc">Representing the college at open days, outreach events, and prospective student engagements. Bridging institutional communication with authentic postgraduate perspective.</p>
                 <div class="exp-tags">
                     <span class="exp-tag">Outreach</span>
                     <span class="exp-tag">Public Speaking</span>
@@ -904,12 +839,12 @@
             <div class="experience-item">
                 <div class="exp-header">
                     <div>
-                        <div class="exp-title">Student Representative — MSc Clinical Neuropsychiatry</div>
-                        <div class="exp-org">University of Birmingham</div>
+                        <div class="exp-title">Student Representative</div>
+                        <div class="exp-org">MSc Clinical Neuropsychiatry, University of Birmingham</div>
                     </div>
                     <div class="exp-date">2024 – Present</div>
                 </div>
-                <p class="exp-desc">Elected cohort representative — gathering feedback, raising issues with programme leadership, and improving the postgraduate student experience across the cohort.</p>
+                <p class="exp-desc">Elected cohort representative gathering feedback, raising programme issues, and advocating for improvements to postgraduate student experience.</p>
                 <div class="exp-tags">
                     <span class="exp-tag">Leadership</span>
                     <span class="exp-tag">Advocacy</span>
@@ -921,15 +856,15 @@
                 <div class="exp-header">
                     <div>
                         <div class="exp-title">Academic Shadowing — Neuropsychiatry</div>
-                        <div class="exp-org">Birmingham & Solihull Mental Health NHS Foundation Trust</div>
+                        <div class="exp-org">Birmingham & Solihull Mental Health NHS Trust</div>
                     </div>
                     <div class="exp-date">2024 – Present</div>
                 </div>
-                <p class="exp-desc">Clinical exposure in a specialist NHS neuropsychiatry unit. Observing patient assessments, MDT discussions, and management of TBI sequelae and neuropsychiatric presentations.</p>
+                <p class="exp-desc">Clinical exposure in specialist NHS neuropsychiatry unit. Observing patient assessments, MDT discussions, and management of TBI sequelae and neuropsychiatric presentations.</p>
                 <div class="exp-tags">
                     <span class="exp-tag">NHS</span>
                     <span class="exp-tag">Neuropsychiatry</span>
-                    <span class="exp-tag">Clinical Obs.</span>
+                    <span class="exp-tag">Clinical</span>
                     <span class="exp-tag">MDT</span>
                 </div>
             </div>
@@ -940,33 +875,32 @@
             <div class="experience-item">
                 <div class="exp-header">
                     <div>
-                        <div class="exp-title">Academic Shadowing — Neuropsychiatry</div>
-                        <div class="exp-org">Birmingham & Solihull Mental Health NHS Foundation Trust</div>
+                        <div class="exp-title">Clinical & Counselling Psychology Intern</div>
+                        <div class="exp-org">Cognizavest, India</div>
                     </div>
-                    <div class="exp-date">2024 – Present · UK</div>
+                    <div class="exp-date">2023 – 2024</div>
                 </div>
-                <p class="exp-desc">Specialist clinical exposure within an NHS neuropsychiatry setting. Observed consultations, history-taking, and MDT meetings across TBI, functional neurological disorders, and complex presentations.</p>
+                <p class="exp-desc">Client intake, psychometric assessments, and therapeutic documentation. Developed clinical competencies alongside qualified psychologists across diverse presenting issues.</p>
                 <div class="exp-tags">
-                    <span class="exp-tag">Neuropsychiatry</span>
-                    <span class="exp-tag">TBI</span>
-                    <span class="exp-tag">NHS</span>
-                    <span class="exp-tag">MDT</span>
+                    <span class="exp-tag">Clinical Psychology</span>
+                    <span class="exp-tag">Counselling</span>
+                    <span class="exp-tag">Psychometrics</span>
                 </div>
             </div>
 
             <div class="experience-item">
                 <div class="exp-header">
                     <div>
-                        <div class="exp-title">Clinical & Counselling Psychology Intern</div>
-                        <div class="exp-org">Cognizavest</div>
+                        <div class="exp-title">NHS Academic Shadowing</div>
+                        <div class="exp-org">Birmingham & Solihull Mental Health NHS Trust</div>
                     </div>
-                    <div class="exp-date">India</div>
+                    <div class="exp-date">2024 – Present</div>
                 </div>
-                <p class="exp-desc">Assisted with client intake, psychometric assessments, and therapeutic documentation. Developed clinical competencies alongside qualified psychologists across diverse presenting issues.</p>
+                <p class="exp-desc">Specialist clinical exposure in neuropsychiatry. Consultations, history-taking, and MDT meetings across TBI, functional neurological disorders, and complex presentations.</p>
                 <div class="exp-tags">
-                    <span class="exp-tag">Clinical Psychology</span>
-                    <span class="exp-tag">Counselling</span>
-                    <span class="exp-tag">Psychometrics</span>
+                    <span class="exp-tag">Neuropsychiatry</span>
+                    <span class="exp-tag">TBI</span>
+                    <span class="exp-tag">NHS</span>
                 </div>
             </div>
         </div>
@@ -977,11 +911,11 @@
                 <div class="exp-header">
                     <div>
                         <div class="exp-title">Studio Operations & Client Experience Associate</div>
-                        <div class="exp-org">Abhinav Designs — Interior Design Studio</div>
+                        <div class="exp-org">Abhinav Designs — Interior Design Studio, India</div>
                     </div>
-                    <div class="exp-date">India</div>
+                    <div class="exp-date">2023</div>
                 </div>
-                <p class="exp-desc">Managed HR support, studio operations, and high-touch client experience in a luxury interior design context. Built onboarding systems and oversaw project documentation and internal workflows.</p>
+                <p class="exp-desc">HR support, studio operations, and client experience in luxury interior design. Built onboarding systems, managed project documentation, and optimized internal workflows.</p>
                 <div class="exp-tags">
                     <span class="exp-tag">HR Operations</span>
                     <span class="exp-tag">Client Experience</span>
@@ -993,14 +927,14 @@
                 <div class="exp-header">
                     <div>
                         <div class="exp-title">Operations & Sponsorships Crew</div>
-                        <div class="exp-org">Coreografia MUJ · Manipal University Jaipur</div>
+                        <div class="exp-org">Coreografia MUJ, Manipal University Jaipur</div>
                     </div>
-                    <div class="exp-date">India</div>
+                    <div class="exp-date">2021 – 2023</div>
                 </div>
-                <p class="exp-desc">Led sponsorship outreach, hospitality coordination, and event logistics for a university dance collective. Balanced external business relationships with an active performance role.</p>
+                <p class="exp-desc">Led sponsorship outreach, hospitality coordination, and event logistics for university dance collective. Balanced external business relationships with active performance role.</p>
                 <div class="exp-tags">
                     <span class="exp-tag">Sponsorships</span>
-                    <span class="exp-tag">Event Ops</span>
+                    <span class="exp-tag">Event Logistics</span>
                     <span class="exp-tag">Hospitality</span>
                 </div>
             </div>
@@ -1009,15 +943,15 @@
                 <div class="exp-header">
                     <div>
                         <div class="exp-title">Organisational Psychology Intern</div>
-                        <div class="exp-org">Remote</div>
+                        <div class="exp-org">Remote, India</div>
                     </div>
-                    <div class="exp-date">India</div>
+                    <div class="exp-date">2022 – 2023</div>
                 </div>
-                <p class="exp-desc">Applied org psychology principles supporting team coordination, workflow optimisation, and communication structures in a distributed environment.</p>
+                <p class="exp-desc">Applied org psychology principles supporting team coordination, workflow optimization, and communication structures in distributed environments.</p>
                 <div class="exp-tags">
                     <span class="exp-tag">Org Psychology</span>
                     <span class="exp-tag">Remote Teams</span>
-                    <span class="exp-tag">Workflow</span>
+                    <span class="exp-tag">Workflow Optimization</span>
                 </div>
             </div>
         </div>
@@ -1028,14 +962,14 @@
                 <div class="exp-header">
                     <div>
                         <div class="exp-title">Wellness Program Volunteer</div>
-                        <div class="exp-org">Aashray Care Home</div>
+                        <div class="exp-org">Aashray Care Home, India</div>
                     </div>
-                    <div class="exp-date">India</div>
+                    <div class="exp-date">2022 – 2023</div>
                 </div>
-                <p class="exp-desc">Delivered HIV/AIDS awareness sessions and psychosocial wellness programmes. Worked to reduce stigma, increase health literacy, and provide community-based support for vulnerable residents.</p>
+                <p class="exp-desc">Delivered HIV/AIDS awareness sessions and psychosocial wellness programmes. Reduced stigma, increased health literacy, and provided community-based support for vulnerable residents.</p>
                 <div class="exp-tags">
                     <span class="exp-tag">Health Awareness</span>
-                    <span class="exp-tag">Psychosocial</span>
+                    <span class="exp-tag">Psychosocial Support</span>
                     <span class="exp-tag">Community</span>
                 </div>
             </div>
@@ -1044,15 +978,15 @@
                 <div class="exp-header">
                     <div>
                         <div class="exp-title">Social Outreach Volunteer</div>
-                        <div class="exp-org">Jeevan Jyothi Old Age Home</div>
+                        <div class="exp-org">Jeevan Jyothi Old Age Home, India</div>
                     </div>
-                    <div class="exp-date">India</div>
+                    <div class="exp-date">2021 – 2022</div>
                 </div>
-                <p class="exp-desc">Facilitated engagement activities and companionship for elderly residents. Built skills in empathetic communication and cross-generational engagement, contributing to social inclusion.</p>
+                <p class="exp-desc">Facilitated engagement activities and companionship for elderly residents. Built skills in empathetic communication and cross-generational engagement for social inclusion.</p>
                 <div class="exp-tags">
                     <span class="exp-tag">Elderly Care</span>
                     <span class="exp-tag">Social Inclusion</span>
-                    <span class="exp-tag">Outreach</span>
+                    <span class="exp-tag">Community Outreach</span>
                 </div>
             </div>
         </div>
@@ -1064,11 +998,11 @@
         
         <div class="research-grid">
             <div class="research-card">
-                <span class="research-badge">Ongoing · MSc Dissertation</span>
+                <span class="research-badge">Ongoing • MSc Dissertation</span>
                 <h3 class="research-title">Executive Dysfunction Following Mild Traumatic Brain Injury</h3>
-                <p class="research-meta">MSc Clinical Neuropsychiatry · University of Birmingham · Submission: August 2025</p>
+                <p class="research-meta">MSc Clinical Neuropsychiatry, University of Birmingham • Expected Submission: August 2025</p>
                 <p class="research-desc">
-                    A systematic literature review examining how executive dysfunction arising from mild TBI cascades into disrupted emotional regulation and impaired occupational functioning. Synthesises neuropsychiatric and occupational health literature to surface clinical and workplace implications — bridging brain injury science with real-world recovery pathways for working adults.
+                    A systematic literature review examining how executive dysfunction arising from mild TBI cascades into disrupted emotional regulation and impaired occupational functioning. Synthesises neuropsychiatric and occupational health literature to surface clinical and workplace implications—bridging brain injury science with real-world recovery pathways for working adults.
                 </p>
                 <div class="research-tags">
                     <span class="research-tag">mTBI</span>
@@ -1081,17 +1015,17 @@
 
             <div class="research-card">
                 <span class="research-badge">Jan – Apr 2024</span>
-                <h3 class="research-title">Understanding Environmental Perspectives: Attitudes, Values and Self-Control</h3>
-                <p class="research-meta">Associated with Manipal University Jaipur · Jan 2024 – Apr 2024</p>
+                <h3 class="research-title">Environmental Perspectives: Attitudes, Values & Self-Control</h3>
+                <p class="research-meta">Manipal University Jaipur, India</p>
                 <p class="research-desc">
-                    Explored the relationship between environmental attitudes, personal values, and self-control among BBA and BCom students. Mixed-methods approach using the Self-Control Scale (SCS), Environmental Values Questionnaire (EPVQ), and Environmental Attitude Inventory (EAI). Descriptive statistics, correlation, and t-test analyses revealed how these psychological factors interact in the context of environmental awareness and pro-environmental behaviour.
+                    Explored the relationship between environmental attitudes, personal values, and self-control among BBA and BCom students using mixed-methods approach. Utilized the Self-Control Scale (SCS), Environmental Values Questionnaire (EPVQ), and Environmental Attitude Inventory (EAI) with descriptive statistics, correlation, and t-test analyses. Revealed how psychological factors interact in environmental awareness and pro-environmental behaviour contexts.
                 </p>
                 <div class="research-tags">
                     <span class="research-tag">Environmental Psychology</span>
                     <span class="research-tag">Self-Control</span>
                     <span class="research-tag">Mixed Methods</span>
-                    <span class="research-tag">SCS</span>
-                    <span class="research-tag">EPVQ</span>
+                    <span class="research-tag">Quantitative Analysis</span>
+                    <span class="research-tag">Values & Attitudes</span>
                 </div>
             </div>
         </div>
@@ -1100,98 +1034,13 @@
     <!-- PAGE 5: CV -->
     <section class="page page-cv">
         <div class="cv-container">
-            <div class="cv-header">
-                <h1 class="cv-name">SHREEYA JANGID</h1>
-                <p class="cv-title">Clinical Neuropsychiatrist • People Strategist • Researcher</p>
-                <div class="cv-contact">
-                    <a href="mailto:shreeyaj232@gmail.com">shreeyaj232@gmail.com</a>
-                    <span>|</span>
-                    <a href="https://www.linkedin.com/in/shreeya-jangid" target="_blank">
-                        <svg class="linkedin-logo" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
-                        </svg>
-                        LinkedIn
-                    </a>
-                </div>
-            </div>
-
-            <div class="cv-section">
-                <h3 class="cv-section-title">Profile</h3>
-                <p class="cv-item-desc">
-                    Clinical neuropsychiatrist and people strategist with a strong foundation in neuroscience, occupational health, and HR operations. Passionate about understanding how the brain shapes performance in high-stakes environments, with particular interest in traumatic brain injury recovery and workplace wellbeing. Skilled communicator, advocate, and researcher with experience across clinical, organisational, and community settings in India and the UK.
-                </p>
-            </div>
-
-            <div class="cv-section">
-                <h3 class="cv-section-title">Education</h3>
-                <div class="cv-item">
-                    <div class="cv-item-header">
-                        <div>
-                            <div class="cv-item-title">MSc in Clinical Neuropsychiatry</div>
-                            <div class="cv-item-org">University of Birmingham, UK</div>
-                        </div>
-                        <div class="cv-item-date">2024 – 2025</div>
-                    </div>
-                    <p class="cv-item-desc">Focus: Executive dysfunction following mild TBI and its impact on emotional regulation and occupational functioning</p>
-                </div>
-                <div class="cv-item">
-                    <div class="cv-item-header">
-                        <div>
-                            <div class="cv-item-title">Bachelor of Business Administration</div>
-                            <div class="cv-item-org">Manipal University Jaipur, India</div>
-                        </div>
-                        <div class="cv-item-date">2020 – 2023</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="cv-section">
-                <h3 class="cv-section-title">Professional Experience</h3>
-                <div class="cv-item">
-                    <div class="cv-item-header">
-                        <div>
-                            <div class="cv-item-title">Student Ambassador</div>
-                            <div class="cv-item-org">College of Medicine & Health, University of Birmingham</div>
-                        </div>
-                        <div class="cv-item-date">2024 – Present</div>
-                    </div>
-                    <p class="cv-item-desc">Outreach, public speaking, student engagement at institutional level</p>
-                </div>
-                <div class="cv-item">
-                    <div class="cv-item-header">
-                        <div>
-                            <div class="cv-item-title">Student Representative</div>
-                            <div class="cv-item-org">MSc Clinical Neuropsychiatry, University of Birmingham</div>
-                        </div>
-                        <div class="cv-item-date">2024 – Present</div>
-                    </div>
-                    <p class="cv-item-desc">Leadership, advocacy, cohort representation</p>
-                </div>
-                <div class="cv-item">
-                    <div class="cv-item-header">
-                        <div>
-                            <div class="cv-item-title">Studio Operations & Client Experience Associate</div>
-                            <div class="cv-item-org">Abhinav Designs — Interior Design Studio, India</div>
-                        </div>
-                        <div class="cv-item-date">2023</div>
-                    </div>
-                    <p class="cv-item-desc">HR operations, client experience, luxury sector exposure, workflow optimisation</p>
-                </div>
-            </div>
-
-            <div class="cv-section">
-                <h3 class="cv-section-title">Skills</h3>
-                <p class="cv-item-desc">
-                    <strong>Clinical:</strong> Neuropsychiatry, psychometric assessment, clinical observation, mental health awareness<br>
-                    <strong>Research:</strong> Systematic reviews, mixed-methods design, data analysis, literature synthesis<br>
-                    <strong>Professional:</strong> HR operations, client experience, event management, sponsorships, team coordination<br>
-                    <strong>Leadership:</strong> Student representation, advocacy, public speaking, outreach<br>
-                    <strong>Languages:</strong> English (fluent), Hindi (fluent), French (intermediate)
-                </p>
-            </div>
-
+            <h1 class="cv-title">Curriculum Vitae</h1>
+            <p class="cv-subtitle">Clinical Neuropsychiatrist • People Strategist • Researcher</p>
+            <p class="cv-description">
+                Download my detailed professional CV to explore my complete educational background, professional experience, research publications, and skills across clinical neuropsychiatry, research methodology, HR operations, and leadership.
+            </p>
             <div class="cv-download">
-                <button class="download-btn" onclick="downloadCV()">📥 Save as PDF (Ctrl+P or Cmd+P)</button>
+                <button class="download-btn" onclick="downloadCV()">📥 Download CV (PDF)</button>
             </div>
         </div>
     </section>
@@ -1201,18 +1050,15 @@
         <div class="contact-container">
             <h1>Let's Connect</h1>
             <p class="contact-subtitle">
-                Whether it's research collaboration, career opportunities, or a shared passion for the intersection of neuroscience and luxury — I'd love to hear from you.
+                Whether it's research collaboration, career opportunities, or a shared passion for the intersection of neuroscience and luxury—I'd love to hear from you.
             </p>
         </div>
         <div class="contact-buttons">
             <a href="mailto:shreeyaj232@gmail.com" class="contact-btn contact-btn-email">
-                📧 Email Me
+                📧 Email
             </a>
             <a href="https://www.linkedin.com/in/shreeya-jangid" target="_blank" class="contact-btn contact-btn-linkedin">
-                <svg class="linkedin-logo" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
-                </svg>
-                LinkedIn
+                🔗 LinkedIn
             </a>
         </div>
     </section>
@@ -1253,21 +1099,19 @@
 
         // Tab switching
         function switchTab(event, tabId) {
-            // Remove active from all buttons and content
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
 
-            // Add active to clicked button and corresponding content
             event.target.classList.add('active');
             document.getElementById(tabId).classList.add('active');
         }
 
         // Download CV
         function downloadCV() {
-            alert('Press Ctrl+P (or Cmd+P on Mac) to save this page as a PDF. Select "Save as PDF" in the print dialog.');
+            alert('Please create and upload your CV file, then update the download link. For now, you can save this page as PDF using Ctrl+P or Cmd+P.');
         }
 
-        // Landing page 3D canvas animation
+        // Landing page particle animation
         function initLandingCanvas() {
             const canvas = document.getElementById('landingCanvas');
             if (!canvas) return;
@@ -1277,16 +1121,16 @@
             canvas.height = window.innerHeight;
 
             let particles = [];
-            const particleCount = 100;
+            const particleCount = 80;
 
             class Particle {
                 constructor() {
                     this.x = Math.random() * canvas.width;
                     this.y = Math.random() * canvas.height;
-                    this.vx = (Math.random() - 0.5) * 0.5;
-                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.vx = (Math.random() - 0.5) * 0.3;
+                    this.vy = (Math.random() - 0.5) * 0.3;
                     this.radius = Math.random() * 2 + 1;
-                    this.opacity = Math.random() * 0.5 + 0.2;
+                    this.opacity = Math.random() * 0.4 + 0.1;
                 }
 
                 update() {
@@ -1307,7 +1151,6 @@
                 }
             }
 
-            // Initialize particles
             for (let i = 0; i < particleCount; i++) {
                 particles.push(new Particle());
             }
@@ -1319,8 +1162,9 @@
                         const dy = particles[i].y - particles[j].y;
                         const distance = Math.sqrt(dx * dx + dy * dy);
 
-                        if (distance < 150) {
-                            ctx.strokeStyle = `rgba(212, 175, 55, ${0.1 * (1 - distance / 150)})`;
+                        if (distance < 120) {
+                            ctx.strokeStyle = `rgba(212, 175, 55, ${0.1 * (1 - distance / 120)})`;
+                            ctx.lineWidth = 1;
                             ctx.beginPath();
                             ctx.moveTo(particles[i].x, particles[i].y);
                             ctx.lineTo(particles[j].x, particles[j].y);
@@ -1359,19 +1203,18 @@
             canvas.width = canvas.offsetWidth;
             canvas.height = canvas.offsetHeight;
 
-            let animationId;
             let time = 0;
 
             function drawGradients() {
-                // Draw flowing gradient circles
-                for (let i = 0; i < 5; i++) {
-                    const x = Math.sin(time * 0.001 + i) * 100 + canvas.width / 2;
-                    const y = Math.cos(time * 0.0008 + i * 0.5) * 100 + canvas.height / 2;
-                    const radius = 50 + Math.sin(time * 0.001 + i) * 30;
+                for (let i = 0; i < 6; i++) {
+                    const x = Math.sin(time * 0.001 + i) * 80 + canvas.width / 2;
+                    const y = Math.cos(time * 0.0008 + i * 0.5) * 80 + canvas.height / 2;
+                    const radius = 60 + Math.sin(time * 0.001 + i) * 40;
 
                     const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
-                    gradient.addColorStop(0, `rgba(212, 175, 55, ${0.3})`);
-                    gradient.addColorStop(1, `rgba(233, 69, 96, ${0})`);
+                    gradient.addColorStop(0, `rgba(212, 175, 55, 0.25)`);
+                    gradient.addColorStop(0.5, `rgba(233, 69, 96, 0.15)`);
+                    gradient.addColorStop(1, `rgba(212, 175, 55, 0)`);
 
                     ctx.fillStyle = gradient;
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -1382,7 +1225,7 @@
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 drawGradients();
                 time++;
-                animationId = requestAnimationFrame(animate);
+                requestAnimationFrame(animate);
             }
 
             animate();
