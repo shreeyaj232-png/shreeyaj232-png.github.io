@@ -9,7 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 <style>
   :root{
-    /* cool serene palette */
     --ink:#253041;
     --muted:#5b6f8a;
     --muted2:#7f93ad;
@@ -32,6 +31,7 @@
 
   *{ margin:0; padding:0; box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
+
   body{
     font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     color:var(--ink);
@@ -39,9 +39,26 @@
     overflow-x:hidden;
   }
 
-  /* =========================
-     PARALLAX BACKGROUND (STRONGER)
-     ========================= */
+  /* ===== Scroll-snap chapters (desktop only) ===== */
+  @media (min-width: 980px){
+    body.snap main{
+      height: 100vh;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+    }
+    body.snap section{
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      min-height: 100vh;
+      display:flex;
+      align-items:center;
+    }
+    body.snap section#hero{
+      min-height: 100vh;
+    }
+  }
+
+  /* ===== Parallax background (strong) ===== */
   .parallax-bg{
     position:fixed;
     inset:0;
@@ -64,7 +81,6 @@
   .layer.three{background: radial-gradient(circle at 60% 70%, var(--aqua), transparent 55%); }
   .layer.four{ background: radial-gradient(circle at 25% 75%, var(--mint), transparent 55%); }
 
-  /* faint grain for depth */
   .grain{
     position:fixed;
     inset:0;
@@ -75,9 +91,26 @@
     mix-blend-mode:multiply;
   }
 
-  /* =========================
-     NAV
-     ========================= */
+  /* ===== camera transition overlay ===== */
+  .transition{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:2000;
+    opacity:0;
+    transform: perspective(900px) rotateX(0deg) rotateY(0deg) scale(1);
+    background: radial-gradient(circle at 50% 50%, rgba(111,134,255,0.10), rgba(255,255,255,0.0) 60%),
+                linear-gradient(135deg, rgba(111,134,255,0.06), rgba(106,215,221,0.06));
+    backdrop-filter: blur(0px);
+    transition: opacity .35s ease, transform .35s ease, backdrop-filter .35s ease;
+  }
+  .transition.on{
+    opacity:1;
+    transform: perspective(900px) rotateX(7deg) rotateY(-7deg) scale(1.02);
+    backdrop-filter: blur(2px);
+  }
+
+  /* ===== Nav ===== */
   nav{
     position:fixed;
     top:0; left:0; right:0;
@@ -126,9 +159,10 @@
   .nav-links a:hover{ color:#334a86; }
   .nav-links a:hover::after{ width:100%; }
 
-  /* =========================
-     GLOBAL LAYOUT
-     ========================= */
+  /* ===== Sections ===== */
+  main{
+    position:relative;
+  }
   section{
     padding: 140px 84px;
     position:relative;
@@ -143,7 +177,7 @@
   /* reveal */
   .reveal{
     opacity:0;
-    transform: translateY(28px);
+    transform: translateY(22px);
     transition: opacity .75s ease, transform .75s ease;
   }
   .reveal.active{
@@ -151,22 +185,7 @@
     transform: translateY(0);
   }
 
-  /* =========================
-     3D STAGE + HERO SCENE
-     ========================= */
-  .stage{
-    perspective: 1100px;
-    perspective-origin: 50% 30%;
-  }
-  .hero{
-    min-height: 100vh;
-    padding-top: 170px;
-    display:grid;
-    grid-template-columns: 1.15fr .85fr;
-    gap: 54px;
-    align-items:center;
-  }
-
+  /* ===== Typography (headings fixed; no parallax transforms) ===== */
   .kicker{
     font-family:"Space Mono", monospace;
     letter-spacing:3px;
@@ -175,7 +194,10 @@
     color: #4a63b0;
     margin-bottom: 18px;
   }
-
+  h1, h2{
+    isolation:isolate; /* keeps paint layer clean */
+    text-shadow: 0 1px 0 rgba(255,255,255,.55); /* crisp separation on glass */
+  }
   h1{
     font-family:"Playfair Display", serif;
     font-weight:900;
@@ -184,12 +206,38 @@
     line-height: 1.02;
     margin-bottom: 14px;
   }
+  h2{
+    font-family:"Playfair Display", serif;
+    font-weight:900;
+    letter-spacing:-.8px;
+    font-size: clamp(38px, 5.2vw, 82px);
+    line-height:1.05;
+    margin-bottom: 18px;
+  }
   .sub{
     font-size:18px;
     line-height:1.8;
     color: var(--muted);
     max-width: 640px;
     margin-bottom: 30px;
+  }
+  .lead{
+    font-size:18px;
+    line-height:1.85;
+    color: var(--muted);
+    max-width: 760px;
+    margin-bottom: 38px;
+  }
+
+  /* ===== 3D stage + hero ===== */
+  .stage{ perspective: 1100px; perspective-origin: 50% 30%; }
+  .hero{
+    min-height: 100vh;
+    padding-top: 170px;
+    display:grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap: 54px;
+    align-items:center;
   }
 
   .btns{ display:flex; gap:14px; flex-wrap:wrap; }
@@ -204,6 +252,10 @@
     letter-spacing:2px;
     text-transform:uppercase;
     cursor:pointer;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
     transition: transform .3s ease, box-shadow .3s ease, background .3s ease, color .3s ease;
   }
   .btn.primary{
@@ -217,7 +269,6 @@
     box-shadow: 0 18px 55px rgba(111,134,255,.18);
   }
 
-  /* 3D scene card that tilts with mouse */
   .scene{
     position:relative;
     transform-style: preserve-3d;
@@ -230,6 +281,7 @@
     backdrop-filter: blur(16px);
     padding: 34px;
     transform-style: preserve-3d;
+    will-change: transform;
   }
   .scene-card h3{
     font-family:"Playfair Display", serif;
@@ -246,10 +298,8 @@
     transform: translateZ(10px);
   }
 
-  /* floating deco slabs inside scene (parallax + 3D) */
   .slab{
     position:absolute;
-    inset:auto;
     width: 240px;
     height: 160px;
     background: rgba(255,255,255,.42);
@@ -257,40 +307,18 @@
     backdrop-filter: blur(12px);
     box-shadow: var(--shadow2);
     transform-style: preserve-3d;
-    will-change: transform;
+    will-change: transform, translate;
   }
   .slab.a{ top:-22px; right:-18px; }
   .slab.b{ bottom:-22px; left:-18px; width: 280px; height: 120px; }
   .slab.c{ top: 44%; right: -34px; width: 180px; height: 220px; }
 
-  /* =========================
-     SECTION HEADINGS (NO PARALLAX ON FULL BLOCKS)
-     Keep text clean: only small drift on decorative spans
-     ========================= */
-  h2{
-    font-family:"Playfair Display", serif;
-    font-weight:900;
-    letter-spacing:-.8px;
-    font-size: clamp(38px, 5.2vw, 82px);
-    line-height:1.05;
-    margin-bottom: 18px;
-  }
-  .lead{
-    font-size:18px;
-    line-height:1.85;
-    color: var(--muted);
-    max-width: 760px;
-    margin-bottom: 38px;
-  }
-
-  /* editorial grids */
+  /* ===== Cards + 3D tilt ===== */
   .grid{
     display:grid;
     grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
     gap: 22px;
   }
-
-  /* 3D cards */
   .card{
     background: var(--glass2);
     border: 1px solid var(--stroke);
@@ -305,7 +333,6 @@
     box-shadow: 0 26px 70px rgba(50,70,110,.16);
     border-color: rgba(111,134,255,.35);
   }
-
   .meta{
     font-family:"Space Mono", monospace;
     font-size: 11px;
@@ -329,7 +356,7 @@
     transform: translateZ(6px);
   }
 
-  /* tabs */
+  /* ===== Tabs ===== */
   .tabs{
     display:flex;
     gap: 10px;
@@ -376,7 +403,6 @@
     backdrop-filter: blur(14px);
   }
 
-  /* responsive */
   @media (max-width: 980px){
     nav{ padding: 18px 26px; }
     section{ padding: 110px 26px; }
@@ -384,7 +410,9 @@
   }
 </style>
 </head>
-<body>
+<body class="snap">
+  <div class="transition" id="transition"></div>
+
   <div class="parallax-bg" aria-hidden="true">
     <div class="layer one"></div>
     <div class="layer two"></div>
@@ -394,171 +422,193 @@
   <div class="grain" aria-hidden="true"></div>
 
   <nav>
-    <div class="logo" onclick="scrollToSection('hero')">SJ</div>
+    <div class="logo" onclick="go('hero')">SJ</div>
     <ul class="nav-links">
-      <li><a onclick="scrollToSection('about')">About</a></li>
-      <li><a onclick="scrollToSection('experience')">Experience</a></li>
-      <li><a onclick="scrollToSection('research')">Research</a></li>
-      <li><a onclick="scrollToSection('cv')">CV</a></li>
-      <li><a onclick="scrollToSection('contact')">Contact</a></li>
+      <li><a onclick="go('about')">About</a></li>
+      <li><a onclick="go('experience')">Experience</a></li>
+      <li><a onclick="go('research')">Research</a></li>
+      <li><a onclick="go('cv')">CV</a></li>
+      <li><a onclick="go('contact')">Contact</a></li>
     </ul>
   </nav>
 
-  <!-- HERO (3D stage) -->
-  <section id="hero" class="stage">
-    <div class="content hero reveal">
-      <div>
-        <div class="kicker">Clinical Neuropsychiatry • Strategy</div>
-        <h1>
-          Where Brain<br/>Meets Boardrooms
-        </h1>
-        <p class="sub">
-          Clinical Neuropsychiatrist × Luxury Strategist × Human Performance Researcher
+  <main id="main">
+    <!-- HERO -->
+    <section id="hero" class="stage">
+      <div class="content hero reveal">
+        <div>
+          <div class="kicker">Clinical Neuropsychiatry • Strategy</div>
+          <h1>Where Brain<br/>Meets Boardrooms</h1>
+          <p class="sub">Clinical Neuropsychiatrist × Luxury Strategist × Human Performance Researcher</p>
+          <div class="btns">
+            <button class="btn primary" onclick="go('about')">Explore</button>
+            <button class="btn" onclick="go('cv')">View CV</button>
+          </div>
+        </div>
+
+        <div class="scene" id="heroScene" aria-label="3D hero scene">
+          <div class="slab a" data-depth="0.55"></div>
+          <div class="slab b" data-depth="0.35"></div>
+          <div class="slab c" data-depth="0.75"></div>
+
+          <div class="scene-card" data-depth="0.22">
+            <h3>Shreeya Jangid</h3>
+            <p>
+              Clinical neuropsychiatrist and people strategist from India, pursuing an MSc in Clinical Neuropsychiatry at the University of Birmingham.
+              I’m fascinated by how the brain shapes behavior and performance in high‑stakes environments.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="content reveal">
+        <h2>About Me</h2>
+        <p class="lead">
+          I focus on executive dysfunction following mild traumatic brain injury (mTBI) and its occupational impact, while exploring leadership, luxury strategy, and high‑performance team building.
         </p>
+
+        <div class="grid">
+          <article class="card tilt">
+            <div class="meta">Identity</div>
+            <h4>Clinical + Strategic</h4>
+            <p>Clinical neuropsychiatrist and people strategist bridging neuroscience with real-world performance.</p>
+          </article>
+
+          <article class="card tilt">
+            <div class="meta">Research</div>
+            <h4>mTBI & Executive Function</h4>
+            <p>How executive dysfunction cascades into emotional regulation and occupational functioning.</p>
+          </article>
+
+          <article class="card tilt">
+            <div class="meta">Interests</div>
+            <h4>Luxury & Motorsports</h4>
+            <p>Luxury strategy, motorsports culture, and the psychology of elite experience and precision.</p>
+          </article>
+
+          <article class="card tilt">
+            <div class="meta">Roles</div>
+            <h4>Advocacy & Ambassadorship</h4>
+            <p>Elected Student Representative and Student Ambassador — improving student experience and outreach.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="content reveal">
+        <h2>Experience</h2>
+        <p class="lead">A curated set of roles across UK-based academic work, clinical exposure, organisational operations, and volunteering.</p>
+
+        <div class="tabs" role="tablist" aria-label="Experience tabs">
+          <button class="tab-btn active" onclick="openTab(event,'uk-tab')" role="tab" aria-controls="uk-tab">UK Based</button>
+          <button class="tab-btn" onclick="openTab(event,'clinical-tab')" role="tab" aria-controls="clinical-tab">Clinical</button>
+          <button class="tab-btn" onclick="openTab(event,'org-tab')" role="tab" aria-controls="org-tab">Organisational</button>
+          <button class="tab-btn" onclick="openTab(event,'vol-tab')" role="tab" aria-controls="vol-tab">Volunteering</button>
+        </div>
+
+        <div id="uk-tab" class="tab-content active" role="tabpanel">
+          <article class="card tilt"><div class="meta">2024–Present</div><h4>Student Ambassador</h4><p>College of Medicine & Health · University of Birmingham.</p></article>
+          <article class="card tilt"><div class="meta">2024–Present</div><h4>Student Representative</h4><p>MSc Clinical Neuropsychiatry · University of Birmingham.</p></article>
+          <article class="card tilt"><div class="meta">2024–Present</div><h4>Academic Shadowing</h4><p>Birmingham & Solihull Mental Health NHS Trust (Neuropsychiatry).</p></article>
+        </div>
+
+        <div id="clinical-tab" class="tab-content" role="tabpanel">
+          <article class="card tilt"><div class="meta">2023–2024</div><h4>Clinical & Counselling Psychology Intern</h4><p>Cognizavest · India.</p></article>
+          <article class="card tilt"><div class="meta">2024–Present</div><h4>NHS Academic Shadowing</h4><p>Neuropsychiatry · MDT exposure and specialist observation.</p></article>
+        </div>
+
+        <div id="org-tab" class="tab-content" role="tabpanel">
+          <article class="card tilt"><div class="meta">2023</div><h4>Studio Ops & Client Experience</h4><p>Abhinav Designs · India (Luxury interior design context).</p></article>
+          <article class="card tilt"><div class="meta">2021–2023</div><h4>Operations & Sponsorships</h4><p>Coreografia MUJ · Manipal University Jaipur.</p></article>
+          <article class="card tilt"><div class="meta">2022–2023</div><h4>Organisational Psychology Intern</h4><p>Remote · India (workflow & communication).</p></article>
+        </div>
+
+        <div id="vol-tab" class="tab-content" role="tabpanel">
+          <article class="card tilt"><div class="meta">2022–2023</div><h4>Wellness Program Volunteer</h4><p>Aashray Care Home · India (HIV/AIDS awareness + psychosocial wellness).</p></article>
+          <article class="card tilt"><div class="meta">2021–2022</div><h4>Social Outreach Volunteer</h4><p>Jeevan Jyothi Old Age Home · India.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESEARCH -->
+    <section id="research">
+      <div class="content reveal">
+        <h2>Research & Projects</h2>
+        <div class="grid">
+          <article class="card tilt">
+            <div class="meta">MSc Dissertation • Aug 2025</div>
+            <h4>Executive Dysfunction Following mTBI</h4>
+            <p>Systematic review on executive dysfunction, emotional regulation, and occupational functioning.</p>
+          </article>
+          <article class="card tilt">
+            <div class="meta">Jan–Apr 2024</div>
+            <h4>Environmental Perspectives</h4>
+            <p>Attitudes, values & self-control among students using mixed-methods approaches.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CV -->
+    <section id="cv">
+      <div class="content reveal">
+        <h2>Curriculum Vitae</h2>
+        <p class="lead">Put your PDF at <strong>assets/Shreeya-Jangid-CV.pdf</strong> and this button will download it.</p>
+        <button class="btn primary" id="cvBtn">Download CV</button>
+        <p id="cvStatus" class="lead" style="margin-top:16px; font-size:14px; color: var(--muted2); display:none;"></p>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="content reveal">
+        <h2>Let’s Connect</h2>
+        <p class="lead">Research collaboration, career opportunities, or conversations at the intersection of neuroscience and luxury.</p>
         <div class="btns">
-          <button class="btn primary" onclick="scrollToSection('about')">Explore</button>
-          <button class="btn" onclick="scrollToSection('cv')">View CV</button>
+          <a class="btn primary" href="mailto:shreeyaj232@gmail.com">Email</a>
+          <a class="btn" target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/shreeya-jangid">LinkedIn</a>
         </div>
       </div>
+    </section>
 
-      <div class="scene" id="heroScene" aria-label="3D hero scene">
-        <div class="slab a" data-depth="0.55"></div>
-        <div class="slab b" data-depth="0.35"></div>
-        <div class="slab c" data-depth="0.75"></div>
-
-        <div class="scene-card" data-depth="0.22">
-          <h3>Shreeya Jangid</h3>
-          <p>
-            Clinical neuropsychiatrist and people strategist from India, pursuing an MSc in Clinical Neuropsychiatry at the University of Birmingham.
-            I’m fascinated by how the brain shapes behavior and performance in high‑stakes environments.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="content reveal">
-      <h2>About Me</h2>
-      <p class="lead">
-        I focus on executive dysfunction following mild traumatic brain injury (mTBI) and its occupational impact, while exploring leadership, luxury strategy, and high‑performance team building.
-      </p>
-
-      <div class="grid">
-        <article class="card tilt">
-          <div class="meta">Identity</div>
-          <h4>Clinical + Strategic</h4>
-          <p>Clinical neuropsychiatrist and people strategist bridging neuroscience with real-world performance.</p>
-        </article>
-
-        <article class="card tilt">
-          <div class="meta">Research</div>
-          <h4>mTBI & Executive Function</h4>
-          <p>How executive dysfunction cascades into emotional regulation and occupational functioning.</p>
-        </article>
-
-        <article class="card tilt">
-          <div class="meta">Interests</div>
-          <h4>Luxury & Motorsports</h4>
-          <p>Luxury strategy, motorsports culture, and the psychology of elite experience and precision.</p>
-        </article>
-
-        <article class="card tilt">
-          <div class="meta">Roles</div>
-          <h4>Advocacy & Ambassadorship</h4>
-          <p>Elected Student Representative and Student Ambassador — improving student experience and outreach.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- EXPERIENCE (tabs) -->
-  <section id="experience">
-    <div class="content reveal">
-      <h2>Experience</h2>
-      <p class="lead">A curated set of roles across UK-based academic work, clinical exposure, organisational operations, and volunteering.</p>
-
-      <div class="tabs" role="tablist" aria-label="Experience tabs">
-        <button class="tab-btn active" onclick="openTab(event,'uk-tab')" role="tab" aria-controls="uk-tab">UK Based</button>
-        <button class="tab-btn" onclick="openTab(event,'clinical-tab')" role="tab" aria-controls="clinical-tab">Clinical</button>
-        <button class="tab-btn" onclick="openTab(event,'org-tab')" role="tab" aria-controls="org-tab">Organisational</button>
-        <button class="tab-btn" onclick="openTab(event,'vol-tab')" role="tab" aria-controls="vol-tab">Volunteering</button>
-      </div>
-
-      <div id="uk-tab" class="tab-content active" role="tabpanel">
-        <article class="card tilt"><div class="meta">2024–Present</div><h4>Student Ambassador</h4><p>College of Medicine & Health · University of Birmingham.</p></article>
-        <article class="card tilt"><div class="meta">2024–Present</div><h4>Student Representative</h4><p>MSc Clinical Neuropsychiatry · University of Birmingham.</p></article>
-        <article class="card tilt"><div class="meta">2024–Present</div><h4>Academic Shadowing</h4><p>Birmingham & Solihull Mental Health NHS Trust (Neuropsychiatry).</p></article>
-      </div>
-
-      <div id="clinical-tab" class="tab-content" role="tabpanel">
-        <article class="card tilt"><div class="meta">2023–2024</div><h4>Clinical & Counselling Psychology Intern</h4><p>Cognizavest · India.</p></article>
-        <article class="card tilt"><div class="meta">2024–Present</div><h4>NHS Academic Shadowing</h4><p>Neuropsychiatry · MDT exposure and specialist observation.</p></article>
-      </div>
-
-      <div id="org-tab" class="tab-content" role="tabpanel">
-        <article class="card tilt"><div class="meta">2023</div><h4>Studio Ops & Client Experience</h4><p>Abhinav Designs · India (Luxury interior design context).</p></article>
-        <article class="card tilt"><div class="meta">2021–2023</div><h4>Operations & Sponsorships</h4><p>Coreografia MUJ · Manipal University Jaipur.</p></article>
-        <article class="card tilt"><div class="meta">2022–2023</div><h4>Organisational Psychology Intern</h4><p>Remote · India (workflow & communication).</p></article>
-      </div>
-
-      <div id="vol-tab" class="tab-content" role="tabpanel">
-        <article class="card tilt"><div class="meta">2022–2023</div><h4>Wellness Program Volunteer</h4><p>Aashray Care Home · India (HIV/AIDS awareness + psychosocial wellness).</p></article>
-        <article class="card tilt"><div class="meta">2021–2022</div><h4>Social Outreach Volunteer</h4><p>Jeevan Jyothi Old Age Home · India.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <!-- RESEARCH -->
-  <section id="research">
-    <div class="content reveal">
-      <h2>Research & Projects</h2>
-      <div class="grid">
-        <article class="card tilt">
-          <div class="meta">MSc Dissertation • Aug 2025</div>
-          <h4>Executive Dysfunction Following mTBI</h4>
-          <p>Systematic review on executive dysfunction, emotional regulation, and occupational functioning.</p>
-        </article>
-        <article class="card tilt">
-          <div class="meta">Jan–Apr 2024</div>
-          <h4>Environmental Perspectives</h4>
-          <p>Attitudes, values & self-control among students using mixed-methods approaches.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- CV -->
-  <section id="cv">
-    <div class="content reveal">
-      <h2>Curriculum Vitae</h2>
-      <p class="lead">Hook your CV file here once you have it ready.</p>
-      <button class="btn primary" onclick="alert('Upload your CV file and replace this handler with a download link.')">Download CV</button>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="content reveal">
-      <h2>Let’s Connect</h2>
-      <p class="lead">Research collaboration, career opportunities, or conversations at the intersection of neuroscience and luxury.</p>
-      <div class="btns">
-        <a class="btn primary" href="mailto:shreeyaj232@gmail.com">Email</a>
-        <a class="btn" target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/shreeya-jangid">LinkedIn</a>
-      </div>
-    </div>
-  </section>
-
-  <footer>© 2026 Shreeya Jangid</footer>
+    <footer>© 2026 Shreeya Jangid</footer>
+  </main>
 
 <script>
-  function scrollToSection(id){
+  // ======================
+  // Camera transition scroll helper
+  // ======================
+  const transitionEl = document.getElementById('transition');
+  const mainEl = document.getElementById('main');
+
+  function go(id){
     const el = document.getElementById(id);
     if(!el) return;
-    el.scrollIntoView({behavior:'smooth', block:'start'});
+
+    // "camera" effect
+    transitionEl.classList.add('on');
+    setTimeout(() => {
+      // if scroll-snap is active, scroll the <main> container; otherwise window
+      const prefersMainScroll = document.body.classList.contains('snap') && window.matchMedia('(min-width: 980px)').matches;
+      if(prefersMainScroll){
+        // scroll main to the element's offset within document
+        const top = el.offsetTop - 90; // nav offset
+        mainEl.scrollTo({ top, behavior:'smooth' });
+      }else{
+        el.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+      setTimeout(() => transitionEl.classList.remove('on'), 260);
+    }, 140);
   }
 
+  // ======================
+  // Tabs
+  // ======================
   function openTab(evt, tabName){
     document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -567,9 +617,9 @@
     evt.currentTarget.classList.add('active');
   }
 
-  // =========
-  // STRONGER PARALLAX (optimized with requestAnimationFrame)
-  // =========
+  // ======================
+  // Strong parallax (background + slabs only)
+  // ======================
   const layers = {
     one: document.querySelector('.layer.one'),
     two: document.querySelector('.layer.two'),
@@ -581,13 +631,17 @@
 
   let latestScrollY = 0;
   let ticking = false;
+  const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
 
-  function clamp(n, min, max){ return Math.min(max, Math.max(min, n)); }
+  function getScrollY(){
+    const prefersMainScroll = document.body.classList.contains('snap') && window.matchMedia('(min-width: 980px)').matches;
+    return prefersMainScroll ? mainEl.scrollTop : (window.scrollY || window.pageYOffset);
+  }
 
   function onScroll(){
-    latestScrollY = window.scrollY || window.pageYOffset;
+    latestScrollY = getScrollY();
     if(!ticking){
-      window.requestAnimationFrame(updateParallax);
+      requestAnimationFrame(updateParallax);
       ticking = true;
     }
   }
@@ -595,37 +649,42 @@
   function updateParallax(){
     const y = latestScrollY;
 
-    // STRONGER than before (medium+)
-    layers.one.style.transform   = `translate3d(0, ${y * 0.22}px, 0)`;
-    layers.two.style.transform   = `translate3d(0, ${y * 0.34}px, 0)`;
-    layers.three.style.transform = `translate3d(0, ${y * 0.46}px, 0)`;
-    layers.four.style.transform  = `translate3d(0, ${y * 0.58}px, 0)`;
+    layers.one.style.transform   = `translate3d(0, ${y * 0.28}px, 0)`;
+    layers.two.style.transform   = `translate3d(0, ${y * 0.42}px, 0)`;
+    layers.three.style.transform = `translate3d(0, ${y * 0.58}px, 0)`;
+    layers.four.style.transform  = `translate3d(0, ${y * 0.74}px, 0)`;
 
-    // float slabs slightly with scroll for depth
     slabs.forEach((s, i) => {
       const depth = Number(s.dataset.depth || (0.3 + i * 0.1));
-      const drift = clamp(y * depth * 0.08, -90, 120);
-      s.style.transform = `translate3d(0, ${drift}px, ${20 + i*10}px) rotateZ(${(i%2?1:-1) * drift * 0.02}deg)`;
+      const drift = clamp(y * depth * 0.10, -140, 160);
+      s.style.transform = `translate3d(0, ${drift}px, ${25 + i*12}px) rotateZ(${(i%2?1:-1) * drift * 0.018}deg)`;
     });
 
-    // hero card tiny lift on scroll (kept subtle to avoid text mixing)
     if(heroCard){
-      const lift = clamp(y * 0.03, 0, 22);
+      const lift = clamp(y * 0.03, 0, 24);
       heroCard.style.transform = `translate3d(0, ${lift}px, 0)`;
     }
 
     ticking = false;
   }
 
-  window.addEventListener('scroll', onScroll, { passive:true });
+  // listen on correct scroller
+  function bindScroll(){
+    const prefersMainScroll = document.body.classList.contains('snap') && window.matchMedia('(min-width: 980px)').matches;
+    if(prefersMainScroll){
+      mainEl.addEventListener('scroll', onScroll, { passive:true });
+    }else{
+      window.addEventListener('scroll', onScroll, { passive:true });
+    }
+  }
+  bindScroll();
   updateParallax();
 
-  // =========
-  // IMMERSIVE 3D: Mouse tilt for hero scene
-  // =========
+  // ======================
+  // Immersive 3D: mouse tilt for hero scene
+  // ======================
   const scene = document.getElementById('heroScene');
   let sceneRect = null;
-
   function setSceneRect(){ sceneRect = scene ? scene.getBoundingClientRect() : null; }
   window.addEventListener('resize', setSceneRect, { passive:true });
   window.addEventListener('load', setSceneRect);
@@ -640,23 +699,22 @@
     const dx = (e.clientX - cx) / (sceneRect.width/2);
     const dy = (e.clientY - cy) / (sceneRect.height/2);
 
-    const rotY = clamp(dx * 10, -10, 10);
-    const rotX = clamp(-dy * 10, -10, 10);
+    const rotY = clamp(dx * 11, -11, 11);
+    const rotX = clamp(-dy * 11, -11, 11);
 
     scene.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(0)`;
 
-    // micro-parallax inside scene elements based on data-depth
     slabs.forEach((s) => {
       const depth = Number(s.dataset.depth || 0.4);
-      const tx = clamp(dx * depth * 18, -16, 16);
-      const ty = clamp(dy * depth * 18, -16, 16);
+      const tx = clamp(dx * depth * 22, -20, 20);
+      const ty = clamp(dy * depth * 22, -20, 20);
       s.style.translate = `${tx}px ${ty}px`;
     });
   });
 
-  // =========
-  // 3D tilt for cards on hover (immersive, but controlled)
-  // =========
+  // ======================
+  // 3D tilt for cards on hover
+  // ======================
   document.querySelectorAll('.tilt').forEach((card) => {
     let r = null;
     card.addEventListener('mouseenter', () => { r = card.getBoundingClientRect(); });
@@ -674,17 +732,48 @@
     });
   });
 
-  // =========
-  // SCROLL REVEAL
-  // =========
+  // ======================
+  // Scroll reveal (observes within correct root)
+  // ======================
   const reveals = document.querySelectorAll('.reveal');
+  const prefersMainScroll = document.body.classList.contains('snap') && window.matchMedia('(min-width: 980px)').matches;
   const obs = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if(entry.isIntersecting) entry.target.classList.add('active');
     });
-  }, { threshold: 0.14 });
+  }, { threshold: 0.14, root: prefersMainScroll ? mainEl : null });
 
   reveals.forEach(el => obs.observe(el));
+
+  // ======================
+  // CV download (real)
+  // ======================
+  const cvPath = "assets/Shreeya-Jangid-CV.pdf";
+  const cvBtn = document.getElementById('cvBtn');
+  const cvStatus = document.getElementById('cvStatus');
+
+  async function downloadCV(){
+    cvStatus.style.display = 'none';
+    try{
+      const res = await fetch(cvPath, { method:'GET' });
+      if(!res.ok) throw new Error("CV not found yet.");
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "Shreeya-Jangid-CV.pdf";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      URL.revokeObjectURL(url);
+    }catch(err){
+      cvStatus.textContent = "CV download isn’t set up yet. Add your PDF at: " + cvPath;
+      cvStatus.style.display = 'block';
+    }
+  }
+  cvBtn.addEventListener('click', downloadCV);
 </script>
 </body>
 </html>
