@@ -8,385 +8,683 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body {
-        font-family:'Inter',sans-serif;
-        background:#f6f9ff;
-        color:#27303a;
-        overflow-x:hidden;
-    }
+  :root{
+    /* cool serene palette */
+    --ink:#253041;
+    --muted:#5b6f8a;
+    --muted2:#7f93ad;
 
-    /* PARALLAX BACKGROUND */
-    .parallax-bg {
-        position:fixed;
-        inset:0;
-        z-index:-3;
-        overflow:hidden;
-    }
-    .layer {
-        position:absolute;
-        width:120%;
-        height:120%;
-        top:-10%;
-        left:-10%;
-        opacity:.6;
-        filter:blur(60px);
-        mix-blend-mode:multiply;
-    }
-    .layer.one { background:radial-gradient(circle,#b3d9ff,transparent 60%); }
-    .layer.two { background:radial-gradient(circle,#c7b8ff,transparent 60%); }
-    .layer.three { background:radial-gradient(circle,#bff0f3,transparent 60%); }
-    .layer.four { background:radial-gradient(circle,#d8f5e3,transparent 60%); }
+    --lav:#c9c2ff;
+    --sky:#b6ddff;
+    --aqua:#bff3f2;
+    --mint:#d8f6e7;
 
-    /* NAV */
-    nav {
-        position:fixed;
-        top:0; left:0; right:0;
-        padding:30px 80px;
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        background:rgba(246,249,255,0.85);
-        backdrop-filter:blur(20px);
-        border-bottom:1px solid rgba(120,140,180,0.15);
-        z-index:999;
-    }
-    .logo {
-        font-family:'Playfair Display',serif;
-        font-size:28px;
-        font-weight:900;
-        color:#4456a8;
-        cursor:pointer;
-    }
-    .nav-links {
-        display:flex;
-        gap:40px;
-        list-style:none;
-    }
-    .nav-links a {
-        text-decoration:none;
-        font-family:'Space Mono',monospace;
-        font-size:11px;
-        letter-spacing:2px;
-        text-transform:uppercase;
-        color:#5a6b85;
-        transition:all .3s ease;
-        position:relative;
-    }
-    .nav-links a::after {
-        content:'';
-        position:absolute;
-        bottom:-6px; left:0;
-        width:0; height:2px;
-        background:#7a95ff;
-        transition:.4s;
-    }
-    .nav-links a:hover { color:#4456a8; }
-    .nav-links a:hover::after { width:100%; }
+    --brand:#6f86ff;
+    --brand2:#6ad7dd;
 
-    /* SECTIONS */
-    section {
-        padding:140px 100px;
-        position:relative;
-    }
-    .content {
-        max-width:1200px;
-        margin:0 auto;
-    }
+    --glass: rgba(255,255,255,.56);
+    --glass2: rgba(255,255,255,.72);
+    --stroke: rgba(120,140,180,.16);
 
-    h1 {
-        font-family:'Playfair Display',serif;
-        font-size:clamp(52px,10vw,140px);
-        line-height:1;
-        font-weight:900;
-        color:#27303a;
-        margin-bottom:20px;
-    }
-    h2 {
-        font-family:'Playfair Display',serif;
-        font-size:clamp(38px,6vw,90px);
-        margin-bottom:30px;
-        color:#27303a;
-    }
-    .lead {
-        font-size:18px;
-        color:#5a6b85;
-        line-height:1.8;
-        max-width:700px;
-        margin-bottom:40px;
-    }
+    --shadow: 0 30px 80px rgba(50,70,110,.16);
+    --shadow2: 0 18px 45px rgba(50,70,110,.14);
+  }
 
-    /* HERO */
-    .hero {
-        display:grid;
-        grid-template-columns:1.2fr .8fr;
-        align-items:center;
-        gap:60px;
-        min-height:100vh;
-        padding-top:180px;
-    }
-    .hero-card {
-        background:rgba(255,255,255,0.6);
-        border:1px solid rgba(120,140,180,0.15);
-        padding:40px;
-        box-shadow:0 20px 60px rgba(100,120,160,0.15);
-        backdrop-filter:blur(15px);
-    }
-    .hero-sub { font-size:18px; color:#5a6b85; margin-bottom:40px; }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color:var(--ink);
+    background: linear-gradient(135deg, #f7f9ff 0%, #f3f7ff 40%, #f6fffe 100%);
+    overflow-x:hidden;
+  }
 
-    /* BUTTONS */
-    .btn {
-        padding:14px 36px;
-        border:2px solid #7a95ff;
-        background:transparent;
-        color:#4456a8;
-        font-family:'Space Mono',monospace;
-        font-size:11px;
-        letter-spacing:2px;
-        text-transform:uppercase;
-        cursor:pointer;
-        transition:.4s;
-        margin-right:15px;
-    }
-    .btn:hover {
-        background:#7a95ff;
-        color:#fff;
-        transform:translateY(-4px);
-        box-shadow:0 12px 40px rgba(122,149,255,0.3);
-    }
+  /* =========================
+     PARALLAX BACKGROUND (STRONGER)
+     ========================= */
+  .parallax-bg{
+    position:fixed;
+    inset:0;
+    z-index:-5;
+    overflow:hidden;
+  }
+  .layer{
+    position:absolute;
+    width:140%;
+    height:140%;
+    top:-20%;
+    left:-20%;
+    filter: blur(70px);
+    opacity:.72;
+    mix-blend-mode:multiply;
+    will-change: transform;
+  }
+  .layer.one{  background: radial-gradient(circle at 25% 35%, var(--sky), transparent 55%); }
+  .layer.two{  background: radial-gradient(circle at 70% 20%, var(--lav), transparent 55%); }
+  .layer.three{background: radial-gradient(circle at 60% 70%, var(--aqua), transparent 55%); }
+  .layer.four{ background: radial-gradient(circle at 25% 75%, var(--mint), transparent 55%); }
 
-    /* EDITORIAL BLOCKS */
-    .grid {
-        display:grid;
-        grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-        gap:35px;
-    }
-    .card {
-        background:rgba(255,255,255,0.7);
-        border:1px solid rgba(120,140,180,0.12);
-        padding:30px;
-        transition:.4s;
-    }
-    .card:hover {
-        transform:translateY(-10px);
-        box-shadow:0 20px 50px rgba(100,120,160,0.15);
-    }
+  /* faint grain for depth */
+  .grain{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-4;
+    opacity:.09;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;
+  }
 
-    /* TABS */
-    .tabs { display:flex; gap:15px; flex-wrap:wrap; margin-bottom:30px; }
-    .tab-btn {
-        padding:10px 24px;
-        border:1px solid rgba(120,140,180,0.3);
-        background:transparent;
-        color:#5a6b85;
-        font-family:'Space Mono',monospace;
-        font-size:11px;
-        cursor:pointer;
-        transition:.3s;
-    }
-    .tab-btn.active {
-        background:#7a95ff;
-        color:#fff;
-        border-color:#7a95ff;
-    }
-    .tab-content { display:none; }
-    .tab-content.active { display:grid; gap:30px; }
+  /* =========================
+     NAV
+     ========================= */
+  nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    padding:22px 72px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background: rgba(247,249,255,.78);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--stroke);
+    z-index:999;
+  }
+  .logo{
+    font-family:"Playfair Display", serif;
+    font-weight:900;
+    font-size:28px;
+    letter-spacing:-.6px;
+    cursor:pointer;
+    color: #2a3a6b;
+  }
+  .nav-links{
+    list-style:none;
+    display:flex;
+    gap:34px;
+  }
+  .nav-links a{
+    font-family:"Space Mono", monospace;
+    font-size:11px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    text-decoration:none;
+    color: var(--muted);
+    position:relative;
+    cursor:pointer;
+    transition: color .25s ease;
+    padding:6px 0;
+  }
+  .nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0; bottom:-6px;
+    width:0; height:2px;
+    background: linear-gradient(90deg, var(--brand), var(--brand2));
+    transition: width .35s ease;
+  }
+  .nav-links a:hover{ color:#334a86; }
+  .nav-links a:hover::after{ width:100%; }
 
-    /* PARALLAX PANELS */
-    .panel {
-        position:absolute;
-        width:400px;
-        height:500px;
-        border:1px solid rgba(120,140,180,0.15);
-        background:rgba(255,255,255,0.6);
-        backdrop-filter:blur(15px);
-        z-index:-1;
-    }
-    .panel.one { right:5%; top:10%; }
-    .panel.two { left:5%; top:30%; }
-    .panel.three { right:10%; top:20%; }
+  /* =========================
+     GLOBAL LAYOUT
+     ========================= */
+  section{
+    padding: 140px 84px;
+    position:relative;
+  }
+  .content{
+    max-width: 1200px;
+    margin: 0 auto;
+    position:relative;
+    z-index:2;
+  }
 
-    /* SCROLL REVEAL */
-    .reveal {
-        opacity:0;
-        transform:translateY(50px);
-        transition:all 0.8s ease;
-    }
-    .reveal.active {
-        opacity:1;
-        transform:translateY(0);
-    }
+  /* reveal */
+  .reveal{
+    opacity:0;
+    transform: translateY(28px);
+    transition: opacity .75s ease, transform .75s ease;
+  }
+  .reveal.active{
+    opacity:1;
+    transform: translateY(0);
+  }
 
-    footer {
-        padding:60px 100px;
-        text-align:center;
-        color:#5a6b85;
-        border-top:1px solid rgba(120,140,180,0.1);
-        background:rgba(246,249,255,0.8);
-    }
+  /* =========================
+     3D STAGE + HERO SCENE
+     ========================= */
+  .stage{
+    perspective: 1100px;
+    perspective-origin: 50% 30%;
+  }
+  .hero{
+    min-height: 100vh;
+    padding-top: 170px;
+    display:grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap: 54px;
+    align-items:center;
+  }
 
-    @media(max-width:900px){
-        nav { padding:20px 40px; }
-        section { padding:100px 40px; }
-        .hero { grid-template-columns:1fr; text-align:center; }
-        .btn { margin-bottom:10px; }
-    }
+  .kicker{
+    font-family:"Space Mono", monospace;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    font-size:11px;
+    color: #4a63b0;
+    margin-bottom: 18px;
+  }
+
+  h1{
+    font-family:"Playfair Display", serif;
+    font-weight:900;
+    letter-spacing:-1.2px;
+    font-size: clamp(54px, 7vw, 110px);
+    line-height: 1.02;
+    margin-bottom: 14px;
+  }
+  .sub{
+    font-size:18px;
+    line-height:1.8;
+    color: var(--muted);
+    max-width: 640px;
+    margin-bottom: 30px;
+  }
+
+  .btns{ display:flex; gap:14px; flex-wrap:wrap; }
+
+  .btn{
+    border: 2px solid rgba(111,134,255,.55);
+    background: transparent;
+    color:#2f448b;
+    padding: 14px 30px;
+    font-family:"Space Mono", monospace;
+    font-size:11px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition: transform .3s ease, box-shadow .3s ease, background .3s ease, color .3s ease;
+  }
+  .btn.primary{
+    background: linear-gradient(135deg, rgba(111,134,255,.95), rgba(106,215,221,.9));
+    border-color: transparent;
+    color:white;
+    box-shadow: 0 18px 55px rgba(111,134,255,.25);
+  }
+  .btn:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 18px 55px rgba(111,134,255,.18);
+  }
+
+  /* 3D scene card that tilts with mouse */
+  .scene{
+    position:relative;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+  .scene-card{
+    background: var(--glass);
+    border: 1px solid var(--stroke);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(16px);
+    padding: 34px;
+    transform-style: preserve-3d;
+  }
+  .scene-card h3{
+    font-family:"Playfair Display", serif;
+    font-weight:700;
+    font-size: 26px;
+    letter-spacing:-.3px;
+    margin-bottom: 10px;
+    color:#2a3a6b;
+    transform: translateZ(18px);
+  }
+  .scene-card p{
+    color: var(--muted);
+    line-height: 1.8;
+    transform: translateZ(10px);
+  }
+
+  /* floating deco slabs inside scene (parallax + 3D) */
+  .slab{
+    position:absolute;
+    inset:auto;
+    width: 240px;
+    height: 160px;
+    background: rgba(255,255,255,.42);
+    border: 1px solid var(--stroke);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--shadow2);
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+  .slab.a{ top:-22px; right:-18px; }
+  .slab.b{ bottom:-22px; left:-18px; width: 280px; height: 120px; }
+  .slab.c{ top: 44%; right: -34px; width: 180px; height: 220px; }
+
+  /* =========================
+     SECTION HEADINGS (NO PARALLAX ON FULL BLOCKS)
+     Keep text clean: only small drift on decorative spans
+     ========================= */
+  h2{
+    font-family:"Playfair Display", serif;
+    font-weight:900;
+    letter-spacing:-.8px;
+    font-size: clamp(38px, 5.2vw, 82px);
+    line-height:1.05;
+    margin-bottom: 18px;
+  }
+  .lead{
+    font-size:18px;
+    line-height:1.85;
+    color: var(--muted);
+    max-width: 760px;
+    margin-bottom: 38px;
+  }
+
+  /* editorial grids */
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 22px;
+  }
+
+  /* 3D cards */
+  .card{
+    background: var(--glass2);
+    border: 1px solid var(--stroke);
+    backdrop-filter: blur(14px);
+    padding: 26px;
+    box-shadow: 0 18px 50px rgba(50,70,110,.12);
+    transform-style: preserve-3d;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    will-change: transform;
+  }
+  .card:hover{
+    box-shadow: 0 26px 70px rgba(50,70,110,.16);
+    border-color: rgba(111,134,255,.35);
+  }
+
+  .meta{
+    font-family:"Space Mono", monospace;
+    font-size: 11px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:#4a63b0;
+    margin-bottom: 10px;
+  }
+  .card h4{
+    font-family:"Playfair Display", serif;
+    font-weight:700;
+    font-size: 22px;
+    letter-spacing:-.3px;
+    margin-bottom: 8px;
+    color:#2a3a6b;
+    transform: translateZ(10px);
+  }
+  .card p{
+    color: var(--muted);
+    line-height: 1.75;
+    transform: translateZ(6px);
+  }
+
+  /* tabs */
+  .tabs{
+    display:flex;
+    gap: 10px;
+    flex-wrap:wrap;
+    margin: 18px 0 22px;
+  }
+  .tab-btn{
+    padding: 10px 18px;
+    border: 1px solid rgba(120,140,180,.35);
+    background: rgba(255,255,255,.40);
+    backdrop-filter: blur(10px);
+    color: var(--muted);
+    font-family:"Space Mono", monospace;
+    font-size: 11px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition: .25s ease;
+  }
+  .tab-btn.active{
+    background: linear-gradient(135deg, rgba(111,134,255,.95), rgba(106,215,221,.9));
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 14px 40px rgba(111,134,255,.20);
+  }
+  .tab-content{ display:none; }
+  .tab-content.active{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 22px;
+    animation: tabIn .35s ease;
+  }
+  @keyframes tabIn{
+    from{ opacity:0; transform: translateY(10px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  footer{
+    padding: 64px 84px;
+    text-align:center;
+    color: var(--muted);
+    border-top: 1px solid var(--stroke);
+    background: rgba(247,249,255,.75);
+    backdrop-filter: blur(14px);
+  }
+
+  /* responsive */
+  @media (max-width: 980px){
+    nav{ padding: 18px 26px; }
+    section{ padding: 110px 26px; }
+    .hero{ grid-template-columns: 1fr; padding-top: 150px; }
+  }
 </style>
 </head>
 <body>
-<div class="parallax-bg">
+  <div class="parallax-bg" aria-hidden="true">
     <div class="layer one"></div>
     <div class="layer two"></div>
     <div class="layer three"></div>
     <div class="layer four"></div>
-</div>
+  </div>
+  <div class="grain" aria-hidden="true"></div>
 
-<nav>
+  <nav>
     <div class="logo" onclick="scrollToSection('hero')">SJ</div>
     <ul class="nav-links">
-        <li><a onclick="scrollToSection('about')">About</a></li>
-        <li><a onclick="scrollToSection('experience')">Experience</a></li>
-        <li><a onclick="scrollToSection('research')">Research</a></li>
-        <li><a onclick="scrollToSection('cv')">CV</a></li>
-        <li><a onclick="scrollToSection('contact')">Contact</a></li>
+      <li><a onclick="scrollToSection('about')">About</a></li>
+      <li><a onclick="scrollToSection('experience')">Experience</a></li>
+      <li><a onclick="scrollToSection('research')">Research</a></li>
+      <li><a onclick="scrollToSection('cv')">CV</a></li>
+      <li><a onclick="scrollToSection('contact')">Contact</a></li>
     </ul>
-</nav>
+  </nav>
 
-<section id="hero" class="reveal">
-    <div class="content hero">
-        <div>
-            <h1 class="parallax-text">Where Brain<br>Meets Boardrooms</h1>
-            <p class="hero-sub">Clinical Neuropsychiatry • Luxury Strategy • Human Performance</p>
-            <div>
-                <button class="btn" onclick="scrollToSection('about')">Explore</button>
-                <button class="btn" onclick="scrollToSection('cv')">View CV</button>
-            </div>
+  <!-- HERO (3D stage) -->
+  <section id="hero" class="stage">
+    <div class="content hero reveal">
+      <div>
+        <div class="kicker">Clinical Neuropsychiatry • Strategy</div>
+        <h1>
+          Where Brain<br/>Meets Boardrooms
+        </h1>
+        <p class="sub">
+          Clinical Neuropsychiatrist × Luxury Strategist × Human Performance Researcher
+        </p>
+        <div class="btns">
+          <button class="btn primary" onclick="scrollToSection('about')">Explore</button>
+          <button class="btn" onclick="scrollToSection('cv')">View CV</button>
         </div>
-        <div class="hero-card">
-            <p class="lead">I'm Shreeya Jangid — a clinical neuropsychiatrist and people strategist pursuing MSc Clinical Neuropsychiatry at the University of Birmingham.</p>
+      </div>
+
+      <div class="scene" id="heroScene" aria-label="3D hero scene">
+        <div class="slab a" data-depth="0.55"></div>
+        <div class="slab b" data-depth="0.35"></div>
+        <div class="slab c" data-depth="0.75"></div>
+
+        <div class="scene-card" data-depth="0.22">
+          <h3>Shreeya Jangid</h3>
+          <p>
+            Clinical neuropsychiatrist and people strategist from India, pursuing an MSc in Clinical Neuropsychiatry at the University of Birmingham.
+            I’m fascinated by how the brain shapes behavior and performance in high‑stakes environments.
+          </p>
         </div>
+      </div>
     </div>
-</section>
+  </section>
 
-<section id="about" class="reveal">
-    <div class="panel one"></div>
-    <div class="content">
-        <h2 class="parallax-text">About Me</h2>
-        <p class="lead">Clinical neuropsychiatrist and people strategist bridging neuroscience, emotional regulation, and organizational excellence.</p>
-        <div class="grid">
-            <div class="card">MSc Clinical Neuropsychiatry at University of Birmingham.</div>
-            <div class="card">Research: executive dysfunction post-mTBI and occupational impact.</div>
-            <div class="card">Luxury strategy, motorsports, HR operations.</div>
-            <div class="card">Student Rep & Ambassador. English/Hindi. Learning French.</div>
-        </div>
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="content reveal">
+      <h2>About Me</h2>
+      <p class="lead">
+        I focus on executive dysfunction following mild traumatic brain injury (mTBI) and its occupational impact, while exploring leadership, luxury strategy, and high‑performance team building.
+      </p>
+
+      <div class="grid">
+        <article class="card tilt">
+          <div class="meta">Identity</div>
+          <h4>Clinical + Strategic</h4>
+          <p>Clinical neuropsychiatrist and people strategist bridging neuroscience with real-world performance.</p>
+        </article>
+
+        <article class="card tilt">
+          <div class="meta">Research</div>
+          <h4>mTBI & Executive Function</h4>
+          <p>How executive dysfunction cascades into emotional regulation and occupational functioning.</p>
+        </article>
+
+        <article class="card tilt">
+          <div class="meta">Interests</div>
+          <h4>Luxury & Motorsports</h4>
+          <p>Luxury strategy, motorsports culture, and the psychology of elite experience and precision.</p>
+        </article>
+
+        <article class="card tilt">
+          <div class="meta">Roles</div>
+          <h4>Advocacy & Ambassadorship</h4>
+          <p>Elected Student Representative and Student Ambassador — improving student experience and outreach.</p>
+        </article>
+      </div>
     </div>
-</section>
+  </section>
 
-<section id="experience" class="reveal">
-    <div class="panel two"></div>
-    <div class="content">
-        <h2 class="parallax-text">Experience</h2>
-        <div class="tabs">
-            <button class="tab-btn active" onclick="openTab(event, 'uk-tab')">UK Based</button>
-            <button class="tab-btn" onclick="openTab(event, 'clinical-tab')">Clinical</button>
-            <button class="tab-btn" onclick="openTab(event, 'org-tab')">Organisational</button>
-            <button class="tab-btn" onclick="openTab(event, 'vol-tab')">Volunteering</button>
-        </div>
-        <div id="uk-tab" class="tab-content active">
-            <div class="card">Student Ambassador — University of Birmingham (2024–Present)</div>
-            <div class="card">Student Representative — MSc Clinical Neuropsychiatry (2024–Present)</div>
-            <div class="card">Academic Shadowing — NHS Neuropsychiatry (2024–Present)</div>
-        </div>
-        <div id="clinical-tab" class="tab-content">
-            <div class="card">Clinical & Counselling Psychology Intern — Cognizavest (2023–2024)</div>
-            <div class="card">NHS Academic Shadowing — Neuropsychiatry (2024–Present)</div>
-        </div>
-        <div id="org-tab" class="tab-content">
-            <div class="card">Studio Ops & Client Experience — Abhinav Designs (2023)</div>
-            <div class="card">Operations & Sponsorships — Coreografia MUJ (2021–2023)</div>
-            <div class="card">Organisational Psychology Intern — Remote (2022–2023)</div>
-        </div>
-        <div id="vol-tab" class="tab-content">
-            <div class="card">Wellness Program Volunteer — Aashray Care Home (2022–2023)</div>
-            <div class="card">Social Outreach Volunteer — Jeevan Jyothi Old Age Home (2021–2022)</div>
-        </div>
+  <!-- EXPERIENCE (tabs) -->
+  <section id="experience">
+    <div class="content reveal">
+      <h2>Experience</h2>
+      <p class="lead">A curated set of roles across UK-based academic work, clinical exposure, organisational operations, and volunteering.</p>
+
+      <div class="tabs" role="tablist" aria-label="Experience tabs">
+        <button class="tab-btn active" onclick="openTab(event,'uk-tab')" role="tab" aria-controls="uk-tab">UK Based</button>
+        <button class="tab-btn" onclick="openTab(event,'clinical-tab')" role="tab" aria-controls="clinical-tab">Clinical</button>
+        <button class="tab-btn" onclick="openTab(event,'org-tab')" role="tab" aria-controls="org-tab">Organisational</button>
+        <button class="tab-btn" onclick="openTab(event,'vol-tab')" role="tab" aria-controls="vol-tab">Volunteering</button>
+      </div>
+
+      <div id="uk-tab" class="tab-content active" role="tabpanel">
+        <article class="card tilt"><div class="meta">2024–Present</div><h4>Student Ambassador</h4><p>College of Medicine & Health · University of Birmingham.</p></article>
+        <article class="card tilt"><div class="meta">2024–Present</div><h4>Student Representative</h4><p>MSc Clinical Neuropsychiatry · University of Birmingham.</p></article>
+        <article class="card tilt"><div class="meta">2024–Present</div><h4>Academic Shadowing</h4><p>Birmingham & Solihull Mental Health NHS Trust (Neuropsychiatry).</p></article>
+      </div>
+
+      <div id="clinical-tab" class="tab-content" role="tabpanel">
+        <article class="card tilt"><div class="meta">2023–2024</div><h4>Clinical & Counselling Psychology Intern</h4><p>Cognizavest · India.</p></article>
+        <article class="card tilt"><div class="meta">2024–Present</div><h4>NHS Academic Shadowing</h4><p>Neuropsychiatry · MDT exposure and specialist observation.</p></article>
+      </div>
+
+      <div id="org-tab" class="tab-content" role="tabpanel">
+        <article class="card tilt"><div class="meta">2023</div><h4>Studio Ops & Client Experience</h4><p>Abhinav Designs · India (Luxury interior design context).</p></article>
+        <article class="card tilt"><div class="meta">2021–2023</div><h4>Operations & Sponsorships</h4><p>Coreografia MUJ · Manipal University Jaipur.</p></article>
+        <article class="card tilt"><div class="meta">2022–2023</div><h4>Organisational Psychology Intern</h4><p>Remote · India (workflow & communication).</p></article>
+      </div>
+
+      <div id="vol-tab" class="tab-content" role="tabpanel">
+        <article class="card tilt"><div class="meta">2022–2023</div><h4>Wellness Program Volunteer</h4><p>Aashray Care Home · India (HIV/AIDS awareness + psychosocial wellness).</p></article>
+        <article class="card tilt"><div class="meta">2021–2022</div><h4>Social Outreach Volunteer</h4><p>Jeevan Jyothi Old Age Home · India.</p></article>
+      </div>
     </div>
-</section>
+  </section>
 
-<section id="research" class="reveal">
-    <div class="panel three"></div>
-    <div class="content">
-        <h2 class="parallax-text">Research</h2>
-        <div class="grid">
-            <div class="card">Executive Dysfunction Following mTBI — MSc Dissertation (Aug 2025)</div>
-            <div class="card">Environmental Perspectives: Attitudes, Values & Self‑Control (Jan–Apr 2024)</div>
-        </div>
+  <!-- RESEARCH -->
+  <section id="research">
+    <div class="content reveal">
+      <h2>Research & Projects</h2>
+      <div class="grid">
+        <article class="card tilt">
+          <div class="meta">MSc Dissertation • Aug 2025</div>
+          <h4>Executive Dysfunction Following mTBI</h4>
+          <p>Systematic review on executive dysfunction, emotional regulation, and occupational functioning.</p>
+        </article>
+        <article class="card tilt">
+          <div class="meta">Jan–Apr 2024</div>
+          <h4>Environmental Perspectives</h4>
+          <p>Attitudes, values & self-control among students using mixed-methods approaches.</p>
+        </article>
+      </div>
     </div>
-</section>
+  </section>
 
-<section id="cv" class="reveal">
-    <div class="content">
-        <h2 class="parallax-text">Curriculum Vitae</h2>
-        <p class="lead">Download my CV for full academic, clinical, and research details.</p>
-        <button class="btn" onclick="alert('Upload CV and update link')">Download CV</button>
+  <!-- CV -->
+  <section id="cv">
+    <div class="content reveal">
+      <h2>Curriculum Vitae</h2>
+      <p class="lead">Hook your CV file here once you have it ready.</p>
+      <button class="btn primary" onclick="alert('Upload your CV file and replace this handler with a download link.')">Download CV</button>
     </div>
-</section>
+  </section>
 
-<section id="contact" class="reveal">
-    <div class="content">
-        <h2 class="parallax-text">Let’s Connect</h2>
-        <p class="lead">Research collaboration, career opportunities, or conversations in neuroscience × luxury.</p>
-        <button class="btn">Email</button>
-        <button class="btn">LinkedIn</button>
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="content reveal">
+      <h2>Let’s Connect</h2>
+      <p class="lead">Research collaboration, career opportunities, or conversations at the intersection of neuroscience and luxury.</p>
+      <div class="btns">
+        <a class="btn primary" href="mailto:shreeyaj232@gmail.com">Email</a>
+        <a class="btn" target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/shreeya-jangid">LinkedIn</a>
+      </div>
     </div>
-</section>
+  </section>
 
-<footer>
-    © 2026 Shreeya Jangid
-</footer>
+  <footer>© 2026 Shreeya Jangid</footer>
 
 <script>
-    function scrollToSection(id){
-        document.getElementById(id).scrollIntoView({behavior:'smooth'});
+  function scrollToSection(id){
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  function openTab(evt, tabName){
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    const tab = document.getElementById(tabName);
+    if(tab) tab.classList.add('active');
+    evt.currentTarget.classList.add('active');
+  }
+
+  // =========
+  // STRONGER PARALLAX (optimized with requestAnimationFrame)
+  // =========
+  const layers = {
+    one: document.querySelector('.layer.one'),
+    two: document.querySelector('.layer.two'),
+    three: document.querySelector('.layer.three'),
+    four: document.querySelector('.layer.four'),
+  };
+  const slabs = document.querySelectorAll('.slab');
+  const heroCard = document.querySelector('.scene-card');
+
+  let latestScrollY = 0;
+  let ticking = false;
+
+  function clamp(n, min, max){ return Math.min(max, Math.max(min, n)); }
+
+  function onScroll(){
+    latestScrollY = window.scrollY || window.pageYOffset;
+    if(!ticking){
+      window.requestAnimationFrame(updateParallax);
+      ticking = true;
     }
+  }
 
-    function openTab(evt, tabName) {
-        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-        document.getElementById(tabName).classList.add('active');
-        evt.currentTarget.classList.add('active');
-    }
+  function updateParallax(){
+    const y = latestScrollY;
 
-    // PARALLAX + TEXT DRIFT
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
+    // STRONGER than before (medium+)
+    layers.one.style.transform   = `translate3d(0, ${y * 0.22}px, 0)`;
+    layers.two.style.transform   = `translate3d(0, ${y * 0.34}px, 0)`;
+    layers.three.style.transform = `translate3d(0, ${y * 0.46}px, 0)`;
+    layers.four.style.transform  = `translate3d(0, ${y * 0.58}px, 0)`;
 
-        document.querySelector('.layer.one').style.transform = `translateY(${scrolled * 0.15}px)`;
-        document.querySelector('.layer.two').style.transform = `translateY(${scrolled * 0.25}px)`;
-        document.querySelector('.layer.three').style.transform = `translateY(${scrolled * 0.35}px)`;
-        document.querySelector('.layer.four').style.transform = `translateY(${scrolled * 0.45}px)`;
-
-        document.querySelectorAll('.panel').forEach((p,i)=>{
-            p.style.transform = `translateY(${scrolled * (0.1 + i*0.05)}px)`;
-        });
-
-        document.querySelectorAll('.parallax-text').forEach((t,i)=>{
-            t.style.transform = `translateY(${scrolled * (0.08 + i*0.02)}px)`;
-        });
+    // float slabs slightly with scroll for depth
+    slabs.forEach((s, i) => {
+      const depth = Number(s.dataset.depth || (0.3 + i * 0.1));
+      const drift = clamp(y * depth * 0.08, -90, 120);
+      s.style.transform = `translate3d(0, ${drift}px, ${20 + i*10}px) rotateZ(${(i%2?1:-1) * drift * 0.02}deg)`;
     });
 
-    // SCROLL REVEAL
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if(entry.isIntersecting){
-                entry.target.classList.add('active');
-            }
-        });
-    }, { threshold: 0.15 });
+    // hero card tiny lift on scroll (kept subtle to avoid text mixing)
+    if(heroCard){
+      const lift = clamp(y * 0.03, 0, 22);
+      heroCard.style.transform = `translate3d(0, ${lift}px, 0)`;
+    }
 
-    reveals.forEach(el => observer.observe(el));
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', onScroll, { passive:true });
+  updateParallax();
+
+  // =========
+  // IMMERSIVE 3D: Mouse tilt for hero scene
+  // =========
+  const scene = document.getElementById('heroScene');
+  let sceneRect = null;
+
+  function setSceneRect(){ sceneRect = scene ? scene.getBoundingClientRect() : null; }
+  window.addEventListener('resize', setSceneRect, { passive:true });
+  window.addEventListener('load', setSceneRect);
+
+  document.addEventListener('mousemove', (e) => {
+    if(!scene) return;
+    if(!sceneRect) setSceneRect();
+
+    const cx = sceneRect.left + sceneRect.width/2;
+    const cy = sceneRect.top + sceneRect.height/2;
+
+    const dx = (e.clientX - cx) / (sceneRect.width/2);
+    const dy = (e.clientY - cy) / (sceneRect.height/2);
+
+    const rotY = clamp(dx * 10, -10, 10);
+    const rotX = clamp(-dy * 10, -10, 10);
+
+    scene.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(0)`;
+
+    // micro-parallax inside scene elements based on data-depth
+    slabs.forEach((s) => {
+      const depth = Number(s.dataset.depth || 0.4);
+      const tx = clamp(dx * depth * 18, -16, 16);
+      const ty = clamp(dy * depth * 18, -16, 16);
+      s.style.translate = `${tx}px ${ty}px`;
+    });
+  });
+
+  // =========
+  // 3D tilt for cards on hover (immersive, but controlled)
+  // =========
+  document.querySelectorAll('.tilt').forEach((card) => {
+    let r = null;
+    card.addEventListener('mouseenter', () => { r = card.getBoundingClientRect(); });
+    card.addEventListener('mousemove', (e) => {
+      if(!r) r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width;
+      const y = (e.clientY - r.top) / r.height;
+      const rx = clamp((0.5 - y) * 10, -10, 10);
+      const ry = clamp((x - 0.5) * 10, -10, 10);
+      card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      r = null;
+    });
+  });
+
+  // =========
+  // SCROLL REVEAL
+  // =========
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if(entry.isIntersecting) entry.target.classList.add('active');
+    });
+  }, { threshold: 0.14 });
+
+  reveals.forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
