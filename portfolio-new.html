@@ -9,41 +9,49 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --bg0:#f7f9ff;
-    --bg1:#f1f6ff;
-    --ink:#1f2a38;
-    --muted:#5f728c;
-    --muted2:#7f93ad;
+    --bg0:#0e0b2a;
+    --bg1:#1a103d;
+    --bg2:#2b1548;
 
-    --lav:#c9c2ff;
-    --sky:#b6ddff;
-    --aqua:#bff3f2;
-    --mint:#d8f6e7;
+    --plum:#4d1d57;
+    --wine:#7b2f59;
+    --rose:#a8496d;
+    --violet:#5b3a92;
+    --navy:#1a1b45;
 
-    --brand:#6f86ff;
-    --brand2:#6ad7dd;
+    --ink:#f6f2ff;
+    --muted:#c8bdd8;
+    --muted2:#a79ebf;
 
-    --glass: rgba(255,255,255,.58);
-    --glass2: rgba(255,255,255,.74);
-    --stroke: rgba(120,140,180,.18);
+    --brand:#9b86ff;
+    --brand2:#d56b8a;
 
-    --shadow: 0 34px 90px rgba(40,60,100,.16);
-    --shadow2: 0 18px 45px rgba(40,60,100,.14);
+    --glass: rgba(255,255,255,.08);
+    --glass2: rgba(255,255,255,.12);
+    --stroke: rgba(255,255,255,.14);
+
+    --shadow: 0 36px 110px rgba(0,0,0,.55);
+    --shadow2: 0 18px 55px rgba(0,0,0,.45);
   }
 
   *{ box-sizing:border-box; margin:0; padding:0; }
-  html, body{ height:100%; }
+  html{ scroll-behavior:smooth; }
   body{
-    background: linear-gradient(135deg, var(--bg0), var(--bg1));
+    background:
+      radial-gradient(900px 700px at 20% 20%, rgba(123,47,89,.45), transparent 55%),
+      radial-gradient(900px 700px at 80% 30%, rgba(91,58,146,.35), transparent 55%),
+      radial-gradient(800px 600px at 70% 80%, rgba(213,107,138,.28), transparent 55%),
+      linear-gradient(135deg, var(--bg0), var(--bg1) 55%, var(--bg2));
     color: var(--ink);
     font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     overflow-x:hidden;
   }
 
   /* ===== Loader ===== */
+  body.loading{ overflow:hidden; }
   .loader{
     position:fixed; inset:0;
-    background: linear-gradient(135deg, rgba(201,194,255,.35), rgba(182,221,255,.35), rgba(191,243,242,.35));
+    background: linear-gradient(135deg, rgba(123,47,89,.45), rgba(91,58,146,.45), rgba(213,107,138,.35));
     display:grid;
     place-items:center;
     z-index:4000;
@@ -53,8 +61,8 @@
   .loaderCard{
     width:min(720px, 92vw);
     padding:34px 28px;
-    border:1px solid rgba(120,140,180,.18);
-    background: rgba(255,255,255,.62);
+    border:1px solid rgba(255,255,255,.12);
+    background: rgba(10,10,18,.35);
     backdrop-filter: blur(18px);
     box-shadow: var(--shadow);
   }
@@ -64,12 +72,11 @@
     letter-spacing: -1px;
     font-size: 28px;
   }
-  .mono{ font-family: "Space Mono", monospace; letter-spacing:2px; text-transform:uppercase; font-size:11px; color: var(--muted); }
   .bar{
     height:10px; margin-top:22px;
-    background: rgba(111,134,255,.16);
+    background: rgba(155,134,255,.18);
     overflow:hidden;
-    border:1px solid rgba(111,134,255,.25);
+    border:1px solid rgba(155,134,255,.28);
   }
   .bar > i{
     display:block;
@@ -83,19 +90,14 @@
   .parallax-bg{ position:fixed; inset:0; z-index:-6; overflow:hidden; }
   .layer{
     position:absolute; width:150%; height:150%; top:-25%; left:-25%;
-    filter: blur(80px);
-    opacity:.75; mix-blend-mode:multiply;
+    filter: blur(90px);
+    opacity:.85; mix-blend-mode:screen;
     will-change: transform;
   }
-  .layer.one{ background: radial-gradient(circle at 20% 30%, var(--sky), transparent 56%); }
-  .layer.two{ background: radial-gradient(circle at 75% 22%, var(--lav), transparent 56%); }
-  .layer.three{ background: radial-gradient(circle at 60% 75%, var(--aqua), transparent 56%); }
-  .layer.four{ background: radial-gradient(circle at 20% 78%, var(--mint), transparent 56%); }
-
-  .grain{
-    position:fixed; inset:0; z-index:-5; pointer-events:none; opacity:.085; mix-blend-mode:multiply;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
-  }
+  .layer.one{ background: radial-gradient(circle at 20% 30%, rgba(91,58,146,.55), transparent 56%); }
+  .layer.two{ background: radial-gradient(circle at 75% 22%, rgba(213,107,138,.45), transparent 56%); }
+  .layer.three{ background: radial-gradient(circle at 60% 75%, rgba(123,47,89,.42), transparent 56%); }
+  .layer.four{ background: radial-gradient(circle at 20% 78%, rgba(26,27,69,.45), transparent 56%); }
 
   /* ===== Scroll pattern overlay ===== */
   .scroll-pattern{
@@ -106,8 +108,8 @@
     opacity:.08;
     background-image: repeating-linear-gradient(
       90deg,
-      rgba(111,134,255,.25) 0px,
-      rgba(111,134,255,.25) 1px,
+      rgba(155,134,255,.25) 0px,
+      rgba(155,134,255,.25) 1px,
       transparent 1px,
       transparent 120px
     );
@@ -118,9 +120,9 @@
     position:fixed; top:0; left:0; right:0;
     padding:18px 70px;
     display:flex; align-items:center; justify-content:space-between;
-    background: rgba(247,249,255,.72);
+    background: rgba(10,10,18,.35);
     backdrop-filter: blur(18px);
-    border-bottom: 1px solid var(--stroke);
+    border-bottom: 1px solid rgba(255,255,255,.10);
     z-index:1200;
   }
   .logo{
@@ -128,7 +130,7 @@
     font-weight: 900;
     letter-spacing: -1px;
     font-size: 26px;
-    color:#2a3a6b;
+    color: #f5f1ff;
     cursor:pointer;
   }
   .navLinks{ list-style:none; display:flex; gap:26px; }
@@ -138,7 +140,7 @@
     font-size:11px;
     letter-spacing:2px;
     text-transform:uppercase;
-    color: var(--muted);
+    color: var(--muted2);
     padding:10px 0;
     position:relative;
     cursor:pointer;
@@ -148,32 +150,28 @@
     background: linear-gradient(90deg, var(--brand), var(--brand2));
     transition: width .35s ease;
   }
-  .navLinks a:hover{ color:#2f448b; }
-  .navLinks a.active::after{ width:100%; }
+  .navLinks a:hover{ color: var(--ink); }
+  .navLinks a:hover::after{ width:100%; }
 
-  /* ===== Multi page ===== */
-  main{ padding-top:74px; }
-  .page{
-    min-height: calc(100vh - 74px);
-    display:none;
-    padding: 90px 84px 84px;
+  /* ===== Sections ===== */
+  section{
+    min-height:100vh;
+    padding: 120px 84px 90px;
+    display:flex;
+    align-items:center;
+    position:relative;
   }
-  .page.active{
-    display:block;
-    animation: pageIn .55s cubic-bezier(.2,.8,.2,1);
+  .wrap{
+    width:100%;
+    max-width: 1180px;
+    margin:0 auto;
   }
-  @keyframes pageIn{
-    from{ opacity:0; transform: translateY(14px) scale(.99); filter: blur(4px); }
-    to{ opacity:1; transform: translateY(0) scale(1); filter: blur(0); }
-  }
-
-  .wrap{ width:100%; max-width:1180px; margin:0 auto; }
 
   /* ===== Typography ===== */
   .kicker{
     font-family:"Space Mono", monospace;
     font-size:11px; letter-spacing:3px; text-transform:uppercase;
-    color:#4a63b0;
+    color: rgba(155,134,255,.95);
     margin-bottom: 16px;
   }
   h1{
@@ -215,59 +213,19 @@
     font-family:"Space Mono", monospace;
     font-size:11px; letter-spacing:2px; text-transform:uppercase;
     text-decoration:none;
-    border: 2px solid rgba(111,134,255,.55);
-    color:#2f448b;
-    background:transparent;
+    border: 2px solid rgba(155,134,255,.55);
+    color: #f3f0ff;
+    background: transparent;
     cursor:pointer;
     transition: transform .3s ease, box-shadow .3s ease, background .3s ease, color .3s ease;
   }
   .btn.primary{
     border-color:transparent;
-    color:#fff;
-    background: linear-gradient(135deg, rgba(111,134,255,.95), rgba(106,215,221,.92));
-    box-shadow: 0 18px 55px rgba(111,134,255,.22);
+    color:#0f1017;
+    background: linear-gradient(135deg, rgba(155,134,255,.95), rgba(213,107,138,.92));
+    box-shadow: 0 18px 55px rgba(0,0,0,.35);
   }
-  .btn:hover{ transform: translateY(-4px); box-shadow: 0 18px 55px rgba(111,134,255,.18); }
-
-  /* ===== 3D scene ===== */
-  .stage{ perspective: 1100px; perspective-origin: 50% 30%; }
-  .heroGrid{ display:grid; grid-template-columns: 1.1fr .9fr; gap: 46px; align-items:center; }
-  @media (max-width: 980px){ .heroGrid{ grid-template-columns:1fr; } }
-  .scene{ position:relative; transform-style:preserve-3d; will-change: transform; }
-  .sceneCard{
-    background: var(--glass);
-    border: 1px solid var(--stroke);
-    backdrop-filter: blur(18px);
-    box-shadow: var(--shadow);
-    padding: 34px;
-    transform-style:preserve-3d;
-    will-change: transform;
-  }
-  .sceneCard h3{
-    font-family: Fraunces, serif;
-    font-weight: 800;
-    font-size: 26px;
-    margin-bottom: 10px;
-    color:#2a3a6b;
-    transform: translateZ(18px);
-  }
-  .sceneCard p{
-    color: var(--muted);
-    line-height: 1.9;
-    transform: translateZ(10px);
-  }
-  .slab{
-    position:absolute;
-    background: rgba(255,255,255,.06);
-    border: 1px solid rgba(255,255,255,.12);
-    backdrop-filter: blur(14px);
-    box-shadow: var(--shadow2);
-    transform-style:preserve-3d;
-    will-change: transform, translate;
-  }
-  .slab.a{ width:240px; height:160px; top:-20px; right:-16px; }
-  .slab.b{ width:290px; height:120px; bottom:-20px; left:-16px; }
-  .slab.c{ width:180px; height:220px; top:44%; right:-32px; }
+  .btn:hover{ transform: translateY(-4px); box-shadow: 0 18px 55px rgba(0,0,0,.42); }
 
   /* ===== Cards ===== */
   .grid{
@@ -277,60 +235,48 @@
   }
   .card{
     background: var(--glass2);
-    border: 1px solid var(--stroke);
+    border: 1px solid rgba(255,255,255,.12);
     backdrop-filter: blur(16px);
     padding: 24px;
-    box-shadow: 0 16px 44px rgba(40,60,100,.12);
-    transform-style:preserve-3d;
-    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-    will-change: transform;
-  }
-  .card:hover{
-    border-color: rgba(111,134,255,.34);
-    box-shadow: 0 24px 64px rgba(40,60,100,.16);
+    box-shadow: 0 16px 44px rgba(0,0,0,.35);
   }
   .meta{
     font-family:"Space Mono", monospace;
     font-size:11px;
     letter-spacing:2px;
     text-transform:uppercase;
-    color:#4a63b0;
+    color: rgba(98,211,215,.95);
     margin-bottom: 10px;
   }
   .card h4{
     font-family: Fraunces, serif;
     font-weight: 800;
     font-size: 22px;
-    color:#2a3a6b;
+    color:#f6f2ff;
     margin-bottom: 8px;
-    transform: translateZ(10px);
   }
-  .card p{
-    color: var(--muted);
-    line-height: 1.8;
-    transform: translateZ(6px);
-  }
+  .card p{ color: var(--muted); line-height: 1.8; }
 
   /* ===== Tabs ===== */
   .tabs{ display:flex; gap:10px; flex-wrap:wrap; margin:18px 0 16px; }
   .tabBtn{
     padding: 10px 16px;
-    border: 1px solid rgba(120,140,180,.35);
-    background: rgba(255,255,255,.40);
+    border: 1px solid rgba(255,255,255,.18);
+    background: rgba(255,255,255,.06);
     backdrop-filter: blur(10px);
     font-family:"Space Mono", monospace;
     font-size:11px;
     letter-spacing:1.5px;
     text-transform:uppercase;
-    color: var(--muted);
+    color: var(--muted2);
     cursor:pointer;
     transition: .25s ease;
   }
   .tabBtn.active{
-    background: linear-gradient(135deg, rgba(111,134,255,.95), rgba(106,215,221,.92));
+    background: linear-gradient(135deg, rgba(155,134,255,.95), rgba(213,107,138,.92));
     border-color: transparent;
-    color: white;
-    box-shadow: 0 14px 40px rgba(111,134,255,.20);
+    color: #10111a;
+    box-shadow: 0 14px 40px rgba(0,0,0,.35);
   }
   .tabContent{ display:none; }
   .tabContent.active{
@@ -347,20 +293,20 @@
   footer{
     padding: 44px 84px;
     text-align:center;
-    color: var(--muted);
-    border-top: 1px solid var(--stroke);
-    background: rgba(247,249,255,.70);
+    color: var(--muted2);
+    border-top: 1px solid rgba(255,255,255,.10);
+    background: rgba(10,10,18,.35);
     backdrop-filter: blur(14px);
   }
 
   @media (max-width: 980px){
-    .page{ padding: 76px 18px 64px; }
+    section{ padding: 105px 18px 80px; }
     footer{ padding: 34px 18px; }
     nav{ padding:14px 18px; }
   }
 </style>
 </head>
-<body>
+<body class="loading">
   <div class="loader" id="loader" aria-hidden="true">
     <div class="loaderCard">
       <div class="loaderTop">
@@ -370,152 +316,135 @@
     </div>
   </div>
 
-  <div class="transition" id="transition" aria-hidden="true"></div>
-
   <div class="parallax-bg" aria-hidden="true">
     <div class="layer one"></div>
     <div class="layer two"></div>
     <div class="layer three"></div>
     <div class="layer four"></div>
   </div>
-  <div class="grain" aria-hidden="true"></div>
   <div class="scroll-pattern" aria-hidden="true"></div>
 
   <nav>
-    <div class="logo" onclick="route('home')">SJ</div>
+    <div class="logo" onclick="scrollToSection('home')">SJ</div>
     <ul class="navLinks">
-      <li><a id="nav-home" onclick="route('home')">Home</a></li>
-      <li><a id="nav-about" onclick="route('about')">About</a></li>
-      <li><a id="nav-experience" onclick="route('experience')">Experience</a></li>
-      <li><a id="nav-research" onclick="route('research')">Research</a></li>
-      <li><a id="nav-cv" onclick="route('cv')">CV</a></li>
-      <li><a id="nav-contact" onclick="route('contact')">Contact</a></li>
+      <li><a onclick="scrollToSection('home')">Home</a></li>
+      <li><a onclick="scrollToSection('about')">About</a></li>
+      <li><a onclick="scrollToSection('experience')">Experience</a></li>
+      <li><a onclick="scrollToSection('research')">Research</a></li>
+      <li><a onclick="scrollToSection('cv')">CV</a></li>
+      <li><a onclick="scrollToSection('contact')">Contact</a></li>
     </ul>
   </nav>
 
-  <main>
-    <!-- HOME -->
-    <section id="page-home" class="page active stage" data-route="home">
-      <div class="wrap heroGrid">
-        <div>
-          <div class="kicker">Clinical Neuropsychiatry • Strategy</div>
-          <h1>Where Brain<br/>Meets Boardrooms</h1>
-          <p class="sub">Clinical Neuropsychiatrist × Luxury Strategist × Human Performance Researcher</p>
-          <div class="cta">
-            <button class="btn primary" onclick="route('about')">Explore</button>
-            <button class="btn" onclick="route('cv')">View CV</button>
-          </div>
-        </div>
-
-        <div class="scene" id="heroScene">
-          <div class="slab a" data-depth="0.55"></div>
-          <div class="slab b" data-depth="0.35"></div>
-          <div class="slab c" data-depth="0.75"></div>
-
-          <div class="sceneCard" data-depth="0.22">
-            <h3>Shreeya Jangid</h3>
-            <p>
-              Clinical neuropsychiatrist and people strategist from India, pursuing an MSc in Clinical Neuropsychiatry at the University of Birmingham.
-              Fascinated by how the brain shapes behaviour and performance in high‑stakes environments.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="page-about" class="page" data-route="about">
-      <div class="wrap">
-        <h2>About Me</h2>
-        <p class="lead">
-          I focus on executive dysfunction following mild traumatic brain injury (mTBI) and its occupational impact, while exploring leadership, luxury strategy, and high‑performance team building.
-        </p>
-        <div class="grid">
-          <article class="card tilt"><div class="meta">Identity</div><h4>Clinical + Strategic</h4><p>Bridging neuroscience with real-world performance.</p></article>
-          <article class="card tilt"><div class="meta">Research</div><h4>mTBI & Executive Function</h4><p>Executive dysfunction → emotional regulation → occupational functioning.</p></article>
-          <article class="card tilt"><div class="meta">Interests</div><h4>Luxury & Motorsports</h4><p>Elite experience, precision culture, and psychology.</p></article>
-          <article class="card tilt"><div class="meta">Roles</div><h4>Student Rep & Ambassador</h4><p>Advocacy, outreach, and programme feedback loops.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <!-- EXPERIENCE -->
-    <section id="page-experience" class="page" data-route="experience">
-      <div class="wrap">
-        <h2>Experience</h2>
-        <p class="lead">Roles across UK-based academic work, clinical exposure, organisational operations, and volunteering.</p>
-
-        <div class="tabs">
-          <button class="tabBtn active" onclick="openTab(event,'uk')">UK Based</button>
-          <button class="tabBtn" onclick="openTab(event,'clinical')">Clinical</button>
-          <button class="tabBtn" onclick="openTab(event,'org')">Organisational</button>
-          <button class="tabBtn" onclick="openTab(event,'vol')">Volunteering</button>
-        </div>
-
-        <div id="uk" class="tabContent active">
-          <article class="card tilt"><div class="meta">2024–Present</div><h4>Student Ambassador</h4><p>College of Medicine & Health · University of Birmingham.</p></article>
-          <article class="card tilt"><div class="meta">2024–Present</div><h4>Student Representative</h4><p>MSc Clinical Neuropsychiatry · University of Birmingham.</p></article>
-          <article class="card tilt"><div class="meta">2024–Present</div><h4>Academic Shadowing</h4><p>Birmingham & Solihull Mental Health NHS Trust (Neuropsychiatry).</p></article>
-        </div>
-
-        <div id="clinical" class="tabContent">
-          <article class="card tilt"><div class="meta">2023–2024</div><h4>Clinical & Counselling Psychology Intern</h4><p>Cognizavest · India.</p></article>
-          <article class="card tilt"><div class="meta">2024–Present</div><h4>NHS Academic Shadowing</h4><p>Neuropsychiatry · MDT observation and specialist exposure.</p></article>
-        </div>
-
-        <div id="org" class="tabContent">
-          <article class="card tilt"><div class="meta">2023</div><h4>Studio Ops & Client Experience</h4><p>Abhinav Designs · India (luxury interior design context).</p></article>
-          <article class="card tilt"><div class="meta">2021–2023</div><h4>Operations & Sponsorships</h4><p>Coreografia MUJ · Manipal University Jaipur.</p></article>
-          <article class="card tilt"><div class="meta">2022–2023</div><h4>Organisational Psychology Intern</h4><p>Remote · India (workflow & communication).</p></article>
-        </div>
-
-        <div id="vol" class="tabContent">
-          <article class="card tilt"><div class="meta">2022–2023</div><h4>Wellness Program Volunteer</h4><p>Aashray Care Home · India (HIV/AIDS awareness + psychosocial wellness).</p></article>
-          <article class="card tilt"><div class="meta">2021–2022</div><h4>Social Outreach Volunteer</h4><p>Jeevan Jyothi Old Age Home · India.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <!-- RESEARCH -->
-    <section id="page-research" class="page" data-route="research">
-      <div class="wrap">
-        <h2>Research & Projects</h2>
-        <div class="grid">
-          <article class="card tilt"><div class="meta">MSc Dissertation • Aug 2025</div><h4>Executive Dysfunction Following mTBI</h4><p>Systematic review: executive dysfunction, emotional regulation, occupational functioning.</p></article>
-          <article class="card tilt"><div class="meta">Jan–Apr 2024</div><h4>Environmental Perspectives</h4><p>Attitudes, values & self-control (mixed methods).</p></article>
-        </div>
-      </div>
-    </section>
-
-    <!-- CV -->
-    <section id="page-cv" class="page" data-route="cv">
-      <div class="wrap">
-        <h2>Curriculum Vitae</h2>
-        <p class="lead">Place your PDF at <strong>assets/Shreeya-Jangid-CV.pdf</strong> to enable downloads.</p>
+  <!-- HOME -->
+  <section id="home">
+    <div class="wrap heroGrid">
+      <div>
+        <div class="kicker">Clinical Neuropsychiatry • Strategy</div>
+        <h1>Where Brain<br/>Meets Boardrooms</h1>
+        <p class="sub">Clinical Neuropsychiatrist × Luxury Strategist × Human Performance Researcher</p>
         <div class="cta">
-          <button class="btn primary" id="cvBtn">Download CV</button>
-          <span class="mono" id="cvStatus" style="display:none;"></span>
+          <button class="btn primary" onclick="scrollToSection('about')">Explore</button>
+          <button class="btn" onclick="scrollToSection('cv')">View CV</button>
         </div>
       </div>
-    </section>
+      <div class="card">
+        <h4>Shreeya Jangid</h4>
+        <p>Clinical neuropsychiatrist and people strategist from India, pursuing an MSc in Clinical Neuropsychiatry at the University of Birmingham.</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- CONTACT + FOOTER -->
-    <section id="page-contact" class="page" data-route="contact">
-      <div class="wrap">
-        <h2>Let’s Connect</h2>
-        <p class="lead">Research collaboration, career opportunities, or conversations at the intersection of neuroscience and luxury.</p>
-        <div class="cta">
-          <a class="btn primary" href="mailto:shreeyaj232@gmail.com">Email</a>
-          <a class="btn" href="https://www.linkedin.com/in/shreeya-jangid" target="_blank" rel="noreferrer">LinkedIn</a>
-        </div>
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <h2>About Me</h2>
+      <p class="lead">I focus on executive dysfunction following mild traumatic brain injury (mTBI) and its occupational impact.</p>
+      <div class="grid">
+        <article class="card"><div class="meta">Identity</div><h4>Clinical + Strategic</h4><p>Bridging neuroscience with performance.</p></article>
+        <article class="card"><div class="meta">Research</div><h4>mTBI & Executive Function</h4><p>Executive dysfunction and emotional regulation.</p></article>
+        <article class="card"><div class="meta">Interests</div><h4>Luxury & Motorsports</h4><p>Elite experience & precision psychology.</p></article>
+        <article class="card"><div class="meta">Roles</div><h4>Student Rep</h4><p>Outreach and advocacy.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="wrap">
+      <h2>Experience</h2>
+      <p class="lead">Roles across UK academic work, clinical exposure, organisational ops, and volunteering.</p>
+
+      <div class="tabs">
+        <button class="tabBtn active" onclick="openTab(event,'uk')">UK Based</button>
+        <button class="tabBtn" onclick="openTab(event,'clinical')">Clinical</button>
+        <button class="tabBtn" onclick="openTab(event,'org')">Organisational</button>
+        <button class="tabBtn" onclick="openTab(event,'vol')">Volunteering</button>
       </div>
 
-      <footer>
-        © 2026 Shreeya Jangid<br/>
-        <span id="visitorCount">Visitors: 0</span>
-      </footer>
-    </section>
-  </main>
+      <div id="uk" class="tabContent active">
+        <article class="card"><div class="meta">2024–Present</div><h4>Student Ambassador</h4><p>University of Birmingham.</p></article>
+        <article class="card"><div class="meta">2024–Present</div><h4>Student Representative</h4><p>MSc Clinical Neuropsychiatry.</p></article>
+        <article class="card"><div class="meta">2024–Present</div><h4>Academic Shadowing</h4><p>NHS Neuropsychiatry.</p></article>
+      </div>
+
+      <div id="clinical" class="tabContent">
+        <article class="card"><div class="meta">2023–2024</div><h4>Clinical Psychology Intern</h4><p>Cognizavest · India.</p></article>
+        <article class="card"><div class="meta">2024–Present</div><h4>NHS Academic Shadowing</h4><p>Neuropsychiatry.</p></article>
+      </div>
+
+      <div id="org" class="tabContent">
+        <article class="card"><div class="meta">2023</div><h4>Studio Ops</h4><p>Abhinav Designs.</p></article>
+        <article class="card"><div class="meta">2021–2023</div><h4>Operations & Sponsorships</h4><p>Coreografia MUJ.</p></article>
+        <article class="card"><div class="meta">2022–2023</div><h4>Org Psychology Intern</h4><p>Remote.</p></article>
+      </div>
+
+      <div id="vol" class="tabContent">
+        <article class="card"><div class="meta">2022–2023</div><h4>Wellness Volunteer</h4><p>Aashray Care Home.</p></article>
+        <article class="card"><div class="meta">2021–2022</div><h4>Social Outreach</h4><p>Jeevan Jyothi Old Age Home.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section id="research">
+    <div class="wrap">
+      <h2>Research & Projects</h2>
+      <div class="grid">
+        <article class="card"><div class="meta">MSc Dissertation</div><h4>Executive Dysfunction Following mTBI</h4><p>Systematic review.</p></article>
+        <article class="card"><div class="meta">Jan–Apr 2024</div><h4>Environmental Perspectives</h4><p>Values & self-control study.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CV -->
+  <section id="cv">
+    <div class="wrap">
+      <h2>Curriculum Vitae</h2>
+      <p class="lead">Place your PDF at <strong>assets/Shreeya-Jangid-CV.pdf</strong> to enable downloads.</p>
+      <div class="cta">
+        <button class="btn primary" id="cvBtn">Download CV</button>
+        <span class="mono" id="cvStatus" style="display:none;"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <h2>Let’s Connect</h2>
+      <p class="lead">Research collaboration, career opportunities, or conversations at the intersection of neuroscience and luxury.</p>
+      <div class="cta">
+        <a class="btn primary" href="mailto:shreeyaj232@gmail.com">Email</a>
+        <a class="btn" href="https://www.linkedin.com/in/shreeya-jangid" target="_blank" rel="noreferrer">LinkedIn</a>
+      </div>
+    </div>
+
+    <footer>
+      © 2026 Shreeya Jangid<br/>
+      <span id="visitorCount">Visitors: 0</span>
+    </footer>
+  </section>
 
 <script>
   // ===== Loader =====
@@ -527,50 +456,28 @@
     bar.style.width = p + "%";
     if (p === 100){
       clearInterval(t);
-      setTimeout(() => loader.classList.add('done'), 250);
+      setTimeout(() => {
+        loader.classList.add('done');
+        document.body.classList.remove('loading');
+      }, 350);
     }
   }, 120);
 
-  // ===== Route system (multi-page feel) =====
-  const transitionEl = document.getElementById('transition');
-  const pages = Array.from(document.querySelectorAll('.page'));
-  const navIds = ["home","about","experience","research","cv","contact"];
-
-  function setActiveNav(routeName){
-    navIds.forEach(r => {
-      const a = document.getElementById("nav-" + r);
-      if(!a) return;
-      a.classList.toggle("active", r === routeName);
-    });
-  }
-
-  function route(name){
-    const page = document.querySelector(`.page[data-route="${name}"]`);
-    if(!page) return;
-
-    transitionEl.classList.add('on');
-    setTimeout(() => {
-      pages.forEach(p => p.classList.remove('active'));
-      page.classList.add('active');
-      setActiveNav(name);
-      history.replaceState(null, "", "#" + name);
-      window.scrollTo({ top: 0, behavior: 'auto' });
-      setTimeout(() => transitionEl.classList.remove('on'), 260);
-    }, 140);
-  }
-
-  const initial = (location.hash || "#home").slice(1);
-  route(navIds.includes(initial) ? initial : "home");
-
   // ===== Tabs =====
   function openTab(evt, id){
-    document.querySelectorAll('#page-experience .tabContent').forEach(x => x.classList.remove('active'));
-    document.querySelectorAll('#page-experience .tabBtn').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('#experience .tabContent').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('#experience .tabBtn').forEach(x => x.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     evt.currentTarget.classList.add('active');
   }
 
-  // ===== 3D scrolling pattern (immersive) =====
+  // ===== Smooth scroll nav =====
+  function scrollToSection(id){
+    const el = document.getElementById(id);
+    if(el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  // ===== 3D parallax drift =====
   let mx=0, my=0, ax=0, ay=0;
   document.addEventListener('mousemove', (e) => {
     mx = (e.clientX / window.innerWidth) * 2 - 1;
@@ -583,10 +490,6 @@
     three: document.querySelector('.layer.three'),
     four: document.querySelector('.layer.four'),
   };
-  const slabs = document.querySelectorAll('.slab');
-
-  function clamp(n, min, max){ return Math.min(max, Math.max(min, n)); }
-
   function animate(){
     ax += (mx - ax) * 0.06;
     ay += (my - ay) * 0.06;
@@ -596,55 +499,9 @@
     layers.three.style.transform = `translate3d(${ax * 42}px, ${ay * 42}px, 0)`;
     layers.four.style.transform  = `translate3d(${ax * 60}px, ${ay * 60}px, 0)`;
 
-    slabs.forEach((s, i) => {
-      const depth = Number(s.dataset.depth || (0.35 + i * 0.12));
-      const tx = clamp(ax * depth * 35, -30, 30);
-      const ty = clamp(ay * depth * 35, -30, 30);
-      s.style.translate = `${tx}px ${ty}px`;
-    });
-
     requestAnimationFrame(animate);
   }
   animate();
-
-  // ===== Immersive 3D: hero tilt =====
-  const scene = document.getElementById('heroScene');
-  let rect = null;
-  function setRect(){ rect = scene ? scene.getBoundingClientRect() : null; }
-  window.addEventListener('resize', setRect, { passive:true });
-  window.addEventListener('load', setRect);
-
-  document.addEventListener('mousemove', (e) => {
-    if(!scene) return;
-    if(!rect) setRect();
-    const cx = rect.left + rect.width/2;
-    const cy = rect.top + rect.height/2;
-    const dx = (e.clientX - cx) / (rect.width/2);
-    const dy = (e.clientY - cy) / (rect.height/2);
-
-    const rotY = clamp(dx * 11, -11, 11);
-    const rotX = clamp(-dy * 11, -11, 11);
-
-    scene.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(0)`;
-  });
-
-  // ===== 3D tilt cards =====
-  document.querySelectorAll('.tilt').forEach((card) => {
-    let r = null;
-    card.addEventListener('mouseenter', () => r = card.getBoundingClientRect());
-    card.addEventListener('mousemove', (e) => {
-      if(!r) r = card.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width;
-      const y = (e.clientY - r.top) / r.height;
-      const rx = clamp((0.5 - y) * 9, -9, 9);
-      const ry = clamp((x - 0.5) * 9, -9, 9);
-      card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px)`;
-    });
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-      r = null;
-    });
-  });
 
   // ===== Visitor counter =====
   const countEl = document.getElementById('visitorCount');
@@ -657,7 +514,6 @@
   const cvPath = "assets/Shreeya-Jangid-CV.pdf";
   const cvBtn = document.getElementById('cvBtn');
   const cvStatus = document.getElementById('cvStatus');
-
   async function downloadCV(){
     cvStatus.style.display = 'none';
     try{
