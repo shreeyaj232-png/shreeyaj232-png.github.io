@@ -18,11 +18,17 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{font-family:"Barlow",sans-serif;font-weight:400;color:var(--text);background:var(--bg);overflow-x:hidden;cursor:none;}
+body{font-family:"Barlow",sans-serif;font-weight:400;color:var(--text);background:var(--bg);overflow-x:hidden;}
 
-/* CUSTOM CURSOR */
-#cursor-dot{position:fixed;width:8px;height:8px;background:var(--br);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:background .2s;mix-blend-mode:multiply;}
-#cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(139,94,60,.55);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .18s,height .18s,border-color .2s;}
+/* CUSTOM CURSOR — pointer devices only; falls back to system cursor on touch/coarse devices */
+@media(pointer:fine){
+  body{cursor:none;}
+  a,button,[role="button"]{cursor:none;}
+}
+#cursor-dot{position:fixed;width:8px;height:8px;background:var(--br);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:background .2s;mix-blend-mode:multiply;display:none;}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(139,94,60,.55);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .18s,height .18s,border-color .2s;display:none;}
+@media(pointer:fine){#cursor-dot,#cursor-ring{display:block;}}
+@media(pointer:coarse){body,a,button,[role="button"],canvas{cursor:auto!important;}}
 body:hover #cursor-ring{border-color:rgba(139,94,60,.45);}
 a,button,[role="button"]{cursor:none;}
 a:hover ~ #cursor-ring,button:hover ~ #cursor-ring{width:52px;height:52px;}
@@ -705,7 +711,7 @@ document.querySelectorAll(".tab-btn").forEach(btn=>{
         if(Math.sqrt((p.tx-p.x)**2+(p.ty-p.y)**2)<1.5&&Math.abs(p.vx)<.4&&Math.abs(p.vy)<.4){p.settled=true;p.bx=p.x;p.by=p.y;}
       } else{p.x=p.bx+Math.sin(p.phase*.55)*.4;p.y=p.by+Math.cos(p.phase*.4)*.4;}
       if(p.opacity<1)p.opacity=Math.min(1,p.opacity+.025);
-      // brown-to-cream color based on position
+      // Gradient left→right: brown #c4956a (196,149,106) → cream #faf6f0 (250,246,240)
       const pct = p.x/W;
       const r=Math.round(196+pct*54),g=Math.round(149+pct*97),b=Math.round(106+pct*134);
       ctx.fillStyle=`rgba(${r},${g},${b},${p.opacity})`;
