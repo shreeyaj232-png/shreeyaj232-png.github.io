@@ -23,8 +23,8 @@ body{font-family:"Barlow",sans-serif;font-weight:400;color:var(--text);backgroun
 /* CUSTOM CURSOR */
 @media(pointer:fine){body{cursor:none;}a,button,[role="button"]{cursor:none;}}
 @media(pointer:coarse){body,a,button,[role="button"],canvas{cursor:auto!important;}}
-#cursor-tip{position:fixed;width:6px;height:6px;background:var(--br-light);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s,transform .15s;display:none;}
-#cursor-blob{position:fixed;width:44px;height:44px;border-radius:50%;background:radial-gradient(circle,rgba(196,149,106,.16) 0%,transparent 70%);pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .38s cubic-bezier(.22,1,.36,1),height .38s cubic-bezier(.22,1,.36,1),background .3s;display:none;}
+#cursor-tip{position:fixed;left:0;top:0;width:6px;height:6px;background:var(--br-light);border-radius:50%;pointer-events:none;z-index:9999;will-change:transform;transition:width .2s,height .2s,background .2s;display:none;}
+#cursor-blob{position:fixed;left:0;top:0;width:44px;height:44px;border-radius:50%;background:radial-gradient(circle,rgba(196,149,106,.16) 0%,transparent 70%);pointer-events:none;z-index:9997;will-change:transform;transition:width .38s cubic-bezier(.22,1,.36,1),height .38s cubic-bezier(.22,1,.36,1),background .3s;display:none;}
 @media(pointer:fine){#cursor-tip,#cursor-blob{display:block;}}
 body.cursor-hover #cursor-tip{width:10px;height:10px;background:var(--cream);transform:translate(-50%,-50%) scale(1);}
 body.cursor-hover #cursor-blob{width:90px;height:90px;background:radial-gradient(circle,rgba(250,246,240,.1) 0%,transparent 70%);}
@@ -479,9 +479,12 @@ function downloadCV() {
   const tip = document.getElementById("cursor-tip");
   const blob = document.getElementById("cursor-blob");
   let mx=0,my=0,bx=0,by=0;
+  // use transform for GPU-composited movement, avoid left/top layout recalc
+  tip.style.left="0";tip.style.top="0";tip.style.transform="translate(-9999px,-9999px)";
+  blob.style.left="0";blob.style.top="0";blob.style.transform="translate(-9999px,-9999px)";
   document.addEventListener("mousemove",e=>{
     mx=e.clientX;my=e.clientY;
-    tip.style.left=mx+"px";tip.style.top=my+"px";
+    tip.style.transform=`translate(calc(${mx}px - 50%),calc(${my}px - 50%))`;
   });
   document.querySelectorAll("a,button,[role='button']").forEach(el=>{
     el.addEventListener("mouseenter",()=>document.body.classList.add("cursor-hover"));
@@ -489,11 +492,11 @@ function downloadCV() {
   });
   document.addEventListener("click",e=>{
     const r=document.createElement("div");
-    r.style.cssText="position:fixed;left:"+e.clientX+"px;top:"+e.clientY+"px;width:6px;height:6px;border:1.5px solid rgba(196,149,106,.75);border-radius:50%;pointer-events:none;z-index:9996;transform:translate(-50%,-50%);animation:cursorRipple .55s ease-out forwards;";
+    r.style.cssText="position:fixed;left:0;top:0;width:6px;height:6px;border:1.5px solid rgba(196,149,106,.75);border-radius:50%;pointer-events:none;z-index:9996;transform:translate(calc("+e.clientX+"px - 50%),calc("+e.clientY+"px - 50%));animation:cursorRipple .55s ease-out forwards;";
     document.body.appendChild(r);
     setTimeout(()=>r.remove(),580);
   });
-  function lerpBlob(){bx+=(mx-bx)*.1;by+=(my-by)*.1;blob.style.left=bx+"px";blob.style.top=by+"px";requestAnimationFrame(lerpBlob);}
+  function lerpBlob(){bx+=(mx-bx)*.1;by+=(my-by)*.1;blob.style.transform=`translate(calc(${bx}px - 50%),calc(${by}px - 50%))`;requestAnimationFrame(lerpBlob);}
   lerpBlob();
 })();
 
@@ -735,12 +738,9 @@ document.querySelectorAll(".tab-btn").forEach(btn=>{
       o.fillText(L2,W/2,H/2+ld*.5);
       const d=o.getImageData(0,0,W,H).data;
       const pts=[];
-      // sample every pixel for tight letter-filling density
-      for(let y=0;y<H;y++){for(let x=0;x<W;x++){const i=(y*W+x)*4;if(d[i+3]>110)pts.push({x,y});}}
-      // thin to a manageable count while keeping even distribution
-      const step=Math.max(1,Math.round(pts.length/6000));
-      pts.forEach((pt,idx)=>{
-        if(idx%step!==0)return;
+      // sample at 2px stride for dense fill without a huge intermediate array
+      for(let y=0;y<H;y+=2){for(let x=0;x<W;x+=2){const i=(y*W+x)*4;if(d[i+3]>110)pts.push({x,y});}}
+      pts.forEach(pt=>{
         particles.push({x:Math.random()*W,y:Math.random()>.5?-20:H+20,
           tx:pt.x,ty:pt.y,vx:0,vy:0,r:Math.random()*0.45+0.45,
           opacity:0,phase:Math.random()*Math.PI*2,settled:false,bx:0,by:0});
