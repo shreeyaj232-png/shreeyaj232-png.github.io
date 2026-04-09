@@ -18,7 +18,7 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{font-family:"Barlow",sans-serif;font-weight:400;color:var(--text);background:var(--bg);overflow-x:hidden;}
+body{font-family:"Barlow",sans-serif;font-weight:400;color:var(--text);background:var(--blk);overflow-x:hidden;}
 
 /* CUSTOM CURSOR */
 @media(pointer:fine){body{cursor:none;}a,button,[role="button"]{cursor:none;}}
@@ -61,7 +61,7 @@ a,button,[role="button"]{cursor:none;}
 .hero{position:relative;min-height:100vh;overflow:hidden;background:var(--blk);}
 #hero-3d{position:absolute;inset:0;width:100%;height:100%;z-index:0;}
 .hero-fade-bottom{position:absolute;bottom:0;left:0;right:0;height:35%;z-index:1;
-  background:linear-gradient(to bottom,transparent 0%,var(--bg) 100%);pointer-events:none;}
+  background:linear-gradient(to bottom,transparent 0%,var(--blk) 100%);pointer-events:none;}
 .hero-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;
   min-height:100vh;padding:8rem 1.5rem 6rem;text-align:center;}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;
@@ -124,16 +124,16 @@ section{position:relative;overflow:hidden;}
   padding:.28rem .72rem;border-radius:9999px;border:1px solid rgba(250,246,240,.13);
   color:rgba(250,246,240,.45);background:rgba(250,246,240,.05);}
 .tag.br{border-color:rgba(196,149,106,.32);color:var(--br-light);background:rgba(196,149,106,.09);}
-.about-bio{font-size:1.03rem;line-height:1.86;color:rgba(250,246,240,.6);margin-bottom:1.2rem;}
+.about-bio{font-size:1.03rem;line-height:1.86;color:rgba(250,246,240,.72);margin-bottom:1.2rem;}
 .about-bio strong{color:var(--cream);font-weight:600;}
 .about-interests{margin-top:1.8rem;padding-top:1.8rem;border-top:1px solid rgba(250,246,240,.08);}
 .about-interests h4{font-size:.68rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:rgba(250,246,240,.33);margin-bottom:.85rem;}
 .interests-list{display:flex;flex-wrap:wrap;gap:.75rem;}
-.int-item{display:flex;align-items:center;gap:.4rem;font-size:.88rem;font-weight:500;color:rgba(250,246,240,.58);}
+.int-item{display:flex;align-items:center;gap:.4rem;font-size:.88rem;font-weight:500;color:rgba(250,246,240,.7);}
 .int-dot{width:4px;height:4px;border-radius:50%;background:var(--br-light);flex-shrink:0;}
 
 /* EXPERIENCE */
-.work-section{background:var(--blk2);padding:7rem 1.5rem 8rem;}
+.work-section{background:var(--blk);padding:7rem 1.5rem 8rem;}
 .work-bg-lines{position:absolute;inset:0;z-index:0;
   background-image:linear-gradient(rgba(250,246,240,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(250,246,240,.03) 1px,transparent 1px);
   background-size:48px 48px;}
@@ -157,14 +157,14 @@ section{position:relative;overflow:hidden;}
 .exp-role{font-size:1rem;font-weight:700;color:var(--cream);letter-spacing:-.01em;}
 .exp-date{font-size:.72rem;font-weight:500;color:rgba(250,246,240,.36);letter-spacing:.04em;white-space:nowrap;margin-top:.12rem;}
 .exp-org{font-size:.85rem;font-weight:500;color:var(--br-light);margin-bottom:.75rem;}
-.exp-desc{font-size:.9rem;line-height:1.76;color:rgba(250,246,240,.55);}
+.exp-desc{font-size:.9rem;line-height:1.76;color:rgba(250,246,240,.7);}
 .exp-tags{display:flex;flex-wrap:wrap;gap:.42rem;margin-top:.85rem;}
 .exp-tag{font-size:.64rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
   padding:.2rem .62rem;border-radius:9999px;border:1px solid rgba(196,149,106,.25);
   color:var(--br-light);background:rgba(196,149,106,.08);}
 
 /* PROJECTS */
-.projects-section{background:var(--blk2);padding:7rem 1.5rem 8rem;}
+.projects-section{background:var(--blk);padding:7rem 1.5rem 8rem;}
 .proj-bg{position:absolute;inset:0;z-index:0;overflow:hidden;}
 .proj-orb{position:absolute;border-radius:50%;filter:blur(90px);}
 .proj-orb-1{width:500px;height:400px;background:radial-gradient(circle,rgba(139,94,60,.14),transparent);top:-8%;right:-3%;}
@@ -182,11 +182,11 @@ section{position:relative;overflow:hidden;}
 .proj-badge.ongoing{border-color:rgba(196,149,106,.32);color:var(--br-light);background:rgba(196,149,106,.09);}
 .proj-title{font-size:1.06rem;font-weight:700;color:var(--cream);margin-bottom:.38rem;letter-spacing:-.01em;line-height:1.42;}
 .proj-meta{font-size:.77rem;color:rgba(250,246,240,.36);font-weight:500;margin-bottom:.85rem;letter-spacing:.02em;}
-.proj-desc{font-size:.9rem;line-height:1.78;color:rgba(250,246,240,.55);}
+.proj-desc{font-size:.9rem;line-height:1.78;color:rgba(250,246,240,.7);}
 .proj-tags{display:flex;flex-wrap:wrap;gap:.42rem;margin-top:.95rem;}
 
 /* CV SECTION */
-.cv-section{background:linear-gradient(140deg,var(--blk) 0%,var(--br-deep) 50%,var(--blk) 100%);padding:6rem 1.5rem 7rem;text-align:center;}
+.cv-section{background:var(--blk);padding:6rem 1.5rem 7rem;text-align:center;}
 .cv-dots{position:absolute;inset:0;z-index:0;opacity:.04;
   background-image:radial-gradient(circle,rgba(196,149,106,1) 1px,transparent 1px);background-size:20px 20px;}
 .cv-inner{position:relative;z-index:1;max-width:44rem;margin:0 auto;}
@@ -206,7 +206,7 @@ section{position:relative;overflow:hidden;}
 #contact-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;}
 .contact-inner{position:relative;z-index:1;max-width:40rem;margin:0 auto;text-align:center;}
 .contact-h2{font-size:clamp(2.2rem,4.5vw,4rem);margin-bottom:1rem;}
-.contact-p{font-size:1.02rem;color:rgba(250,246,240,.55);line-height:1.8;max-width:28rem;margin:0 auto 2.2rem;}
+.contact-p{font-size:1.02rem;color:rgba(250,246,240,.68);line-height:1.8;max-width:28rem;margin:0 auto 2.2rem;}
 .contact-btns{display:flex;justify-content:center;gap:.8rem;flex-wrap:wrap;}
 .btn-email{display:inline-flex;align-items:center;gap:.45rem;background:var(--br);color:#fff;
   border-radius:9999px;padding:.85rem 2rem;font-size:.92rem;font-weight:600;
@@ -602,6 +602,15 @@ document.querySelectorAll(".tab-btn").forEach(btn=>{
   const camera = new THREE.PerspectiveCamera(70,1,0.1,200);
   camera.position.set(0,0,32);
 
+  // Circular sprite texture so points render as circles not squares
+  const spriteSize=64;
+  const spriteCanvas=document.createElement("canvas");spriteCanvas.width=spriteSize;spriteCanvas.height=spriteSize;
+  const sCtx=spriteCanvas.getContext("2d");
+  const sg=sCtx.createRadialGradient(spriteSize/2,spriteSize/2,0,spriteSize/2,spriteSize/2,spriteSize/2);
+  sg.addColorStop(0,"rgba(255,255,255,1)");sg.addColorStop(.5,"rgba(255,255,255,.8)");sg.addColorStop(1,"rgba(255,255,255,0)");
+  sCtx.fillStyle=sg;sCtx.fillRect(0,0,spriteSize,spriteSize);
+  const spriteTexture=new THREE.CanvasTexture(spriteCanvas);
+
   // Particle cloud
   const COUNT = 2800;
   const positions = new Float32Array(COUNT*3);
@@ -625,7 +634,7 @@ document.querySelectorAll(".tab-btn").forEach(btn=>{
   const ptGeo = new THREE.BufferGeometry();
   ptGeo.setAttribute("position",new THREE.BufferAttribute(positions,3));
   ptGeo.setAttribute("color",   new THREE.BufferAttribute(colors,3));
-  const ptMat = new THREE.PointsMaterial({size:0.18,vertexColors:true,transparent:true,opacity:0.75,sizeAttenuation:true});
+  const ptMat = new THREE.PointsMaterial({size:0.22,vertexColors:true,transparent:true,opacity:0.82,sizeAttenuation:true,map:spriteTexture,alphaTest:0.05,depthWrite:false});
   const pts = new THREE.Points(ptGeo,ptMat);
   scene.add(pts);
 
@@ -726,10 +735,14 @@ document.querySelectorAll(".tab-btn").forEach(btn=>{
       o.fillText(L2,W/2,H/2+ld*.5);
       const d=o.getImageData(0,0,W,H).data;
       const pts=[];
-      for(let y=0;y<H;y+=2){for(let x=0;x<W;x+=2){const i=(y*W+x)*4;if(d[i+3]>100)pts.push({x,y});}}
-      pts.forEach(pt=>{
+      // sample every pixel for tight letter-filling density
+      for(let y=0;y<H;y++){for(let x=0;x<W;x++){const i=(y*W+x)*4;if(d[i+3]>110)pts.push({x,y});}}
+      // thin to a manageable count while keeping even distribution
+      const step=Math.max(1,Math.round(pts.length/6000));
+      pts.forEach((pt,idx)=>{
+        if(idx%step!==0)return;
         particles.push({x:Math.random()*W,y:Math.random()>.5?-20:H+20,
-          tx:pt.x,ty:pt.y,vx:0,vy:0,r:Math.random()*1.1+1.0,
+          tx:pt.x,ty:pt.y,vx:0,vy:0,r:Math.random()*0.45+0.45,
           opacity:0,phase:Math.random()*Math.PI*2,settled:false,bx:0,by:0});
       });
       loop();
