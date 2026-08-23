@@ -4,10 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shreeya Jangid, Portfolio</title>
-<meta name="google-site-verification" content="YxkzZyOhHhVppV-PkNnU3vOxLnNTTJnihXARTf7XUFw" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Allura&display=swap" rel="stylesheet">
 <style>
   :root{
     --beige:#FFF1B5;
@@ -48,7 +47,7 @@
 
   #sections{
     position:absolute; inset:0;
-    transition: transform 1.05s var(--ease), filter 1.05s var(--ease);
+    transition: transform .62s var(--ease), filter .62s var(--ease);
     transform-style: preserve-3d;
     will-change: transform, filter;
   }
@@ -103,6 +102,10 @@
     filter: blur(18px);
     opacity:.45;
   }
+  .streak{
+    border-radius:100px; opacity:.28; filter:blur(1px);
+    background:linear-gradient(90deg, transparent, rgba(79,114,136,.55) 40%, rgba(255,209,102,.65) 60%, transparent);
+  }
   @keyframes drift1{ 0%,100%{transform:translate(0,0) rotate(0deg);} 50%{transform:translate(18px,-24px) rotate(6deg);} }
   @keyframes drift2{ 0%,100%{transform:translate(0,0) rotate(0deg);} 50%{transform:translate(-22px,20px) rotate(-5deg);} }
   @keyframes drift3{ 0%,100%{transform:translate(0,0);} 50%{transform:translate(14px,16px);} }
@@ -125,6 +128,23 @@
     font-family:var(--serif); font-weight:400; font-size:clamp(2.6rem, 6.4vw, 5.6rem);
     line-height:.98; letter-spacing:-.01em; margin:0 0 20px; color:var(--ink);
   }
+  h1.hero-name .kletter{
+    display:inline-block; transform-style:preserve-3d; will-change:transform, background-position;
+    opacity:0; transform:perspective(600px) rotateX(-80deg) translateY(14px);
+    background-image:linear-gradient(100deg, var(--apricot) 0%, var(--olive) 32%, var(--apricot) 58%, var(--olive) 84%, var(--apricot) 100%);
+    background-size:1400px 100%; background-attachment:fixed;
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+    animation-name: letterDrop, nameShimmer;
+    animation-duration: .78s, 16s;
+    animation-timing-function: var(--ease), linear;
+    animation-iteration-count: 1, infinite;
+    animation-fill-mode: forwards, none;
+    animation-play-state: running, paused;
+  }
+  .section.active h1.hero-name .kletter{ animation-play-state: running, running; }
+  body:not(.site-ready) h1.hero-name .kletter{ animation-play-state: paused, paused; }
+  @keyframes letterDrop{ to{ opacity:1; transform:perspective(600px) rotateX(0deg) translateY(0); } }
+  @keyframes nameShimmer{ 0%{ background-position:0px 0; } 100%{ background-position:1400px 0; } }
   .hero-tag{
     font-family:var(--serif); font-style:italic; font-weight:400;
     font-size:clamp(1.2rem, 2vw, 1.7rem); color:var(--olive); margin:0 0 22px;
@@ -349,18 +369,93 @@
   }
 
   /* ---------- signature flourish ---------- */
-  .signature-svg{ width:170px; height:auto; margin:0 auto 6px; display:block; }
-  .signature-svg path{
-    fill:none; stroke:var(--apricot); stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round;
-    stroke-dasharray:480; stroke-dashoffset:480; animation:signDraw 2.2s var(--ease) .25s forwards;
+  .signature-name{
+    font-family:'Allura', cursive; font-weight:400;
+    font-size:clamp(2.2rem, 5vw, 3.4rem); line-height:1;
+    color:var(--apricot); margin:0 auto 10px; display:block; text-align:center;
   }
-  .section.active .signature-svg path{ animation-play-state:running; }
-  @keyframes signDraw{ to{ stroke-dashoffset:0; } }
 
   /* ---------- dotnav connecting thread ---------- */
   #dotnav::before{
     content:''; position:absolute; left:50%; top:-16px; bottom:-16px; width:1px;
     transform:translateX(-50%); background:linear-gradient(rgba(193,219,232,0), rgba(67,48,46,.28), rgba(193,219,232,0));
+  }
+  /* ---------- lap-marker: a racing pip that glides to the active dot ---------- */
+  .lap-marker{
+    position:absolute; left:50%; top:0; width:20px; height:20px; margin:-10px 0 0 -10px;
+    border-radius:50%; pointer-events:none; z-index:-1;
+    background:radial-gradient(circle at 40% 35%, rgba(255,255,255,.9), var(--apricot) 45%, transparent 72%);
+    box-shadow:0 0 16px rgba(67,48,46,.5), 0 0 3px rgba(67,48,46,.7);
+    transition: top .62s var(--ease);
+  }
+  .lap-marker::after{
+    content:''; position:absolute; inset:-6px; border-radius:50%; border:1px solid rgba(255,209,102,.55);
+    animation: lapPulse 1.8s ease-out infinite;
+  }
+  @keyframes lapPulse{ 0%{ transform:scale(.55); opacity:.9; } 100%{ transform:scale(1.5); opacity:0; } }
+
+  /* ---------- transition pulse (fires on section change) ---------- */
+  #transPulse{
+    position:fixed; inset:0; z-index:40; pointer-events:none;
+    background:radial-gradient(circle at 50% 50%, rgba(255,209,102,0.22), transparent 60%);
+    opacity:0; transform:scale(.85);
+  }
+  #transPulse.fire{ animation: pulseFlash .5s var(--ease); }
+  @keyframes pulseFlash{
+    0%{ opacity:0; transform:scale(.82); }
+    35%{ opacity:1; transform:scale(1.05); }
+    100%{ opacity:0; transform:scale(1.3); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+    .p-el, .orbit-ring, h1.hero-name, .lap-marker::after, #transPulse{ animation:none !important; }
+  }
+
+  /* ---------- landing animation (preloader) ---------- */
+  #preloader{
+    position:fixed; inset:0; z-index:300; display:flex; align-items:center; justify-content:center;
+    pointer-events:auto; cursor:pointer;
+  }
+  .preload-panel{
+    position:absolute; top:0; bottom:0; width:50%;
+    background:
+      radial-gradient(circle at 16% 18%, rgba(255,241,181,0.40), transparent 45%),
+      radial-gradient(circle at 84% 82%, rgba(193,219,232,0.55), transparent 50%),
+      linear-gradient(160deg, var(--bg-1) 0%, var(--bg-2) 55%, var(--bg-3) 100%);
+    transition: transform .82s var(--ease);
+  }
+  .preload-panel-l{ left:0; background-position:left; }
+  .preload-panel-r{ right:0; }
+  #preloader.leaving .preload-panel-l{ transform:translateX(-100%); }
+  #preloader.leaving .preload-panel-r{ transform:translateX(100%); }
+  .preload-content{
+    position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:16px;
+    transition: opacity .4s var(--ease), transform .4s var(--ease);
+  }
+  #preloader.leaving .preload-content{ opacity:0; transform:scale(.94) translateY(-6px); }
+  .preload-signature{
+    font-family:'Allura', cursive; font-weight:400;
+    font-size:clamp(2.1rem, 6vw, 3rem); line-height:1; color:var(--apricot);
+    opacity:0; filter:blur(8px); transform:translateY(10px) scale(.94);
+    animation:signatureIn 1.05s var(--ease) .1s forwards;
+  }
+  @keyframes signatureIn{ to{ opacity:1; filter:blur(0); transform:translateY(0) scale(1); } }
+  .preload-label{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.32em; text-transform:uppercase;
+    color:var(--ink-soft); opacity:0; animation:fadeUp .6s var(--ease) .5s forwards;
+  }
+  @keyframes fadeUp{ to{ opacity:1; } }
+  .preload-bar{ width:150px; height:2px; border-radius:2px; background:rgba(67,48,46,.14); overflow:hidden; }
+  .preload-bar-fill{
+    height:100%; width:0%; border-radius:2px;
+    background:linear-gradient(90deg, var(--apricot), var(--olive));
+    animation:preloadFill 1.25s var(--ease) .25s forwards;
+  }
+  @keyframes preloadFill{ to{ width:100%; } }
+  @media (prefers-reduced-motion: reduce){
+    .preload-signature{ animation-duration:.01s; }
+    .preload-bar-fill{ animation-duration:.01s; }
   }
 
   @media (max-width: 880px){
@@ -392,8 +487,33 @@
 </head>
 <body>
 
+<div id="preloader" role="status" aria-label="Loading Shreeya Jangid's portfolio">
+  <div class="preload-panel preload-panel-l"></div>
+  <div class="preload-panel preload-panel-r"></div>
+  <div class="grain" style="opacity:.035;"></div>
+  <div class="preload-content">
+    <div class="preload-signature">Shreeya Jangid</div>
+    <div class="preload-label">S. Jangid — Portfolio</div>
+    <div class="preload-bar"><div class="preload-bar-fill"></div></div>
+  </div>
+</div>
+<script>
+  // skip the landing animation on repeat visits within the same tab session,
+  // runs immediately so there's no flash of the intro before it hides
+  (function(){
+    try{
+      if(sessionStorage.getItem('sj_intro_seen')){
+        var p = document.getElementById('preloader');
+        if(p) p.style.display = 'none';
+        document.body.classList.add('site-ready');
+      }
+    }catch(e){}
+  })();
+</script>
+
 <div id="app">
   <div id="spotlight"></div>
+  <div id="transPulse"></div>
   <div id="logo" data-goto="0">S. JANGID</div>
   <div id="dotnav"></div>
 
@@ -413,11 +533,11 @@
       <div class="section-inner">
         <div class="hero-grid">
           <div>
-            <div class="eyebrow reveal r1">PORTFOLIO · 2026 · BIRMINGHAM, UK</div>
-            <h1 class="hero-name reveal r2">SHREEYA<br>JANGID</h1>
+            <div class="eyebrow reveal r1">PORTFOLIO · 2026 · OPEN TO RELOCATE</div>
+            <h1 class="hero-name reveal r2" id="heroName" aria-label="SHREEYA JANGID"></h1>
             <p class="hero-tag reveal r3">The mind behind the move.</p>
-            <p class="hero-roles reveal r4">MSc Clinical Neuropsychiatry candidate &amp; HR practitioner, building people strategy for organisations where performance is measured in milliseconds and margins. Focused on luxury and motorsport, across the EU, ready to go wherever the calendar demands.</p>
-            <div class="hero-current reveal r4"><span class="dotpulse"></span>Currently auditing estates by day, chasing dissertation data by night, and counting laps to the next race weekend.</div>
+            <p class="hero-roles reveal r4">Neuroscience postgraduate (MSc, graduating December 2026) &amp; HR practitioner, building people strategy for organisations where performance is measured in milliseconds and margins. Focused on luxury and motorsport, open to relocating anywhere, UK or abroad, for the right opportunity.</p>
+            <div class="hero-current reveal r4"><span class="dotpulse"></span>Actively looking for my next role in HR, talent, or hospitality, and open to relocating anywhere for it.</div>
             <div class="row reveal r5">
               <a class="glass-btn solid" href="https://www.linkedin.com/in/shreeya-jangid" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.15 1.45-2.15 2.94v5.67H9.33V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
@@ -493,44 +613,44 @@
         <div class="glass-card reveal r3">
           <div class="exp-scroll">
             <div class="exp-item">
-              <div class="exp-top"><span class="exp-title">Estates Audit Team (Operational)</span><span class="exp-dates">Jun 2026 to Present</span></div>
+              <div class="exp-top"><span class="exp-title">Estates Audit Team (Operational)</span><span class="exp-dates">Jun 2026 to Aug 2026</span></div>
               <div class="exp-org">University of Birmingham · Part Time · On Site</div>
-              <div class="exp-desc">Auditing operational compliance across university estate and facilities sites, checking conditions against health, safety, and maintenance standards, logging findings, and working directly with estates staff to close out actions on a rolling schedule.</div>
+              <div class="exp-desc">Delivered operational compliance audits across 10+ sites on the university estate, tracking facility conditions against health, safety, and maintenance standards. Partnered with estates and operations teams to flag issues early, contributing to faster resolution cycles across the portfolio.</div>
             </div>
             <div class="exp-item">
               <div class="exp-top"><span class="exp-title">Human Resources Intern</span><span class="exp-dates">May 2026 to Jul 2026</span></div>
               <div class="exp-org">Blackmont Consulting, Birmingham Branch · Remote</div>
-              <div class="exp-desc">Screened and shortlisted candidates across live vacancies, sourcing talent directly through LinkedIn. Owned HR administration and documentation, and supported onboarding from offer through first week, entirely remotely for a branch based in Birmingham.</div>
+              <div class="exp-desc">Screened and shortlisted candidates across live vacancies, sourcing talent directly through LinkedIn, and owned HR administration and onboarding for a branch based in Birmingham, entirely remotely. Came out of it with a Talent Acquisition Practitioner Certificate.</div>
             </div>
             <div class="exp-item">
-              <div class="exp-top"><span class="exp-title">CMH Student Ambassador</span><span class="exp-dates">Jan 2026 to Present</span></div>
+              <div class="exp-top"><span class="exp-title">CMH Student Ambassador</span><span class="exp-dates">Jan 2026 to Aug 2026</span></div>
               <div class="exp-org">University of Birmingham</div>
-              <div class="exp-desc">Represent the College of Medicine and Health to prospective students and families, leading campus tours and answering course-specific questions across open days and applicant visit days.</div>
+              <div class="exp-desc">Represented the College of Medicine and Health to prospective students and families, leading campus tours and answering course-specific questions across open days and applicant visit days.</div>
             </div>
             <div class="exp-item">
               <div class="exp-top"><span class="exp-title">Academic Shadowing</span><span class="exp-dates">Jan 2026 to Apr 2026</span></div>
               <div class="exp-org">Birmingham and Solihull Mental Health NHS Foundation Trust · On Site</div>
-              <div class="exp-desc">Observed clinical assessments and multidisciplinary team discussions in a live neuropsychiatry setting, giving firsthand exposure to how cognitive and behavioural presentation is actually assessed, now informing how I think about capability, adjustment, and wellbeing in a workplace context.</div>
+              <div class="exp-desc">Observed clinical consultations and ward rounds within neuropsychiatry, direct exposure to diagnostic and treatment approaches for complex presentations, and supported case discussion documentation for multidisciplinary review. That grounding in executive dysfunction and cognitive assessment now shapes my dissertation research on mild TBI outcomes.</div>
             </div>
             <div class="exp-item">
-              <div class="exp-top"><span class="exp-title">Student Representative</span><span class="exp-dates">Oct 2025 to Present</span></div>
+              <div class="exp-top"><span class="exp-title">Student Representative</span><span class="exp-dates">Oct 2025 to Aug 2026</span></div>
               <div class="exp-org">University of Birmingham</div>
-              <div class="exp-desc">Sole liaison between the postgraduate cohort and programme leadership, gathering feedback each term and escalating recurring issues to faculty before they affect the wider cohort experience.</div>
+              <div class="exp-desc">Represent a cohort of 30+ MSc students as the liaison to faculty and programme leadership, gathering feedback each term and escalating recurring issues before they affect the wider cohort experience.</div>
             </div>
             <div class="exp-item">
               <div class="exp-top"><span class="exp-title">Human Resources and Partnership Manager</span><span class="exp-dates">Jun 2024 to Aug 2025</span></div>
               <div class="exp-org">Abhinav Designs, India · Full Time · On Site</div>
-              <div class="exp-desc">Owned end to end hiring for the studio, independently recruiting 7 employees including 2 contract technical hires, and managed onboarding, employee records, payroll, and contracts. Extended the remit into partnerships, managing external stakeholder relationships alongside day to day studio operations and logistics.</div>
+              <div class="exp-desc">Co-led HR and partnerships in a 2-manager structure, independently recruiting 7 employees including 2 contract technical hires and reducing new-hire time-to-productivity by 30%. Owned onboarding, employee records, payroll, and contracts, and managed partnerships with state government officials and VIP clients on the studio's behalf.</div>
             </div>
             <div class="exp-item">
               <div class="exp-top"><span class="exp-title">HR and Talent Acquisition Intern</span><span class="exp-dates">May 2023 to May 2024</span></div>
               <div class="exp-org">Abhinav Designs, India · Part Time · On Site</div>
-              <div class="exp-desc">Supported recruitment and onboarding ahead of stepping into the HR and Partnership Manager role, screening applicants, maintaining employee records, and assisting with day-to-day HR administration.</div>
+              <div class="exp-desc">Supported end-to-end recruitment: candidate screening, interview coordination, and hiring administration, plus maintained employee records for a 30+ person boutique interior design studio, ahead of stepping up into the Partnership Manager role.</div>
             </div>
             <div class="exp-item">
               <div class="exp-top"><span class="exp-title">Hospitality and Events Lead</span><span class="exp-dates">Nov 2021 to May 2024</span></div>
               <div class="exp-org">Coreografia, Manipal University Jaipur</div>
-              <div class="exp-desc">Ran hospitality, logistics, and front of house operations for dance society events across 3 consecutive years, managing footfall ranging from 4,000 to 9,000 attendees per event.</div>
+              <div class="exp-desc">Delivered end-to-end guest experience for sports and fashion activations, VIP suites, hospitality lounges, and arrival journeys, managing 10-15 person on-ground teams across football, basketball, cricket, and runway and pop-up fashion events. Secured and ran brand sponsor placements on-site, and grew activation footfall past 500+ per event year on year. Also ran hospitality for the university's annual cultural fest, 1,000+ footfall, VIP guests, performers. Pitched Coreo Camp as a minor one-off; it's now a permanent fixture on the annual calendar.</div>
             </div>
           </div>
         </div>
@@ -627,10 +747,8 @@
         <div style="max-width:600px; text-align:center;">
           <div class="eyebrow reveal r1">CONNECT</div>
           <h2 class="page-title reveal r2" style="font-size:clamp(1.9rem,3.6vw,3.2rem);">Big things start with one conversation.</h2>
-          <p class="lede reveal r3" style="margin:0 auto 30px; max-width:520px;">Whether it's research, career opportunities, or a shared obsession with motorsports and the luxury world, I'd love to hear from you.</p>
-          <svg class="signature-svg reveal r4" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 44C14 20 22 10 28 10C34 10 34 30 30 44C26 56 20 50 24 38C30 20 46 8 58 12C68 15 60 34 50 40C64 44 78 20 86 14C90 26 84 42 90 42C96 42 104 22 108 14C110 24 108 40 114 40C120 40 128 20 132 12C130 24 132 40 140 38C150 35 158 16 164 12C168 22 166 40 172 40C178 40 186 24 190 16"/>
-          </svg>
+          <p class="lede reveal r3" style="margin:0 auto 30px; max-width:520px;">I'm actively looking for my next role in HR, talent, or hospitality, and open to relocating anywhere for it. Whether it's an opportunity, research, or a shared obsession with motorsports and the luxury world, I'd love to hear from you.</p>
+          <div class="signature-name reveal r4">Shreeya Jangid</div>
           <div class="row reveal r4" style="justify-content:center;">
             <a class="glass-btn solid" href="https://www.linkedin.com/in/shreeya-jangid" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.15 1.45-2.15 2.94v5.67H9.33V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
@@ -649,6 +767,29 @@
 </div>
 
 <script>
+// ---- landing animation ----
+(function(){
+  const pre = document.getElementById('preloader');
+  if(!pre || pre.style.display === 'none'){
+    document.body.classList.add('site-ready');
+    return;
+  }
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let left = false;
+  function leave(){
+    if(left) return;
+    left = true;
+    pre.classList.add('leaving');
+    try{ sessionStorage.setItem('sj_intro_seen', '1'); }catch(e){}
+    setTimeout(()=>{
+      pre.style.display = 'none';
+      document.body.classList.add('site-ready');
+    }, reduced ? 60 : 820);
+  }
+  pre.addEventListener('click', leave);
+  setTimeout(leave, reduced ? 250 : 1650);
+})();
+
 (function(){
   const TOTAL = 7;
   let idx = 0;
@@ -668,11 +809,25 @@
   });
   document.getElementById('logo').addEventListener('click', ()=> goTo(0));
 
+  // lap-marker: a small glowing pip that races along the dotnav to the active section,
+  // a quiet nod to the motorsport thread running through the rest of the page
+  const lapMarker = document.createElement('div');
+  lapMarker.className = 'lap-marker';
+  dotnav.appendChild(lapMarker);
+  const dotEls = Array.from(document.querySelectorAll('.dot'));
+  function placeLapMarker(){
+    const d = dotEls[idx];
+    if(d) lapMarker.style.top = d.offsetTop + d.offsetHeight/2 + 'px';
+  }
+
+  const transPulse = document.getElementById('transPulse');
+
   function render(rotate, scale, blur){
     wrap.style.transform = 'translateY(-' + (idx*100) + 'vh) rotateX(' + (rotate||0) + 'deg) scale(' + (scale||1) + ')';
     wrap.style.filter = 'blur(' + (blur||0) + 'px)';
     document.querySelectorAll('.dot').forEach((d,i)=> d.classList.toggle('on', i===idx));
     sections.forEach((s,i)=> s.classList.toggle('active', i===idx));
+    placeLapMarker();
   }
 
   function goTo(n, dir){
@@ -683,13 +838,14 @@
     animating = true;
     // 3D wave: kick into a tilted, blurred, slightly scaled-down state, then land
     render(direction*-3.2, 0.965, 5);
+    transPulse.classList.remove('fire'); void transPulse.offsetWidth; transPulse.classList.add('fire');
     requestAnimationFrame(()=>{
       idx = next;
       requestAnimationFrame(()=>{
         render(0, 1, 0);
       });
     });
-    setTimeout(()=> animating = false, 1080);
+    setTimeout(()=> animating = false, 660);
   }
 
   // initial reveal
@@ -721,6 +877,51 @@
   }
   document.querySelectorAll('.glass-card:not(.flip-front), .media-card').forEach(attachTilt);
 
+  // ---- kinetic hero name: split into letters, each flips up into place ----
+  (function(){
+    const el = document.getElementById('heroName');
+    if(!el) return;
+    const words = ['SHREEYA','JANGID'];
+    let i = 0;
+    words.forEach((word, wi)=>{
+      if(wi>0) el.appendChild(document.createElement('br'));
+      word.split('').forEach(ch=>{
+        const s = document.createElement('span');
+        s.className = 'kletter';
+        s.setAttribute('aria-hidden','true');
+        s.textContent = ch;
+        s.style.animationDelay = (0.15 + i*0.045) + 's, 0s';
+        el.appendChild(s);
+        i++;
+      });
+    });
+  })();
+
+  // ---- magnetic buttons: nudge toward the cursor within their own bounds ----
+  const EASE_VAR = getComputedStyle(document.documentElement).getPropertyValue('--ease').trim();
+  function attachMagnet(el, strength){
+    strength = strength || 0.28;
+    el.style.transition = 'transform .12s ' + EASE_VAR;
+    let raf = null, tx = 0, ty = 0;
+    el.addEventListener('mousemove', e=>{
+      const r = el.getBoundingClientRect();
+      tx = (e.clientX - r.left - r.width/2) * strength;
+      ty = (e.clientY - r.top - r.height/2) * strength;
+      if(raf) return;
+      raf = requestAnimationFrame(()=>{
+        el.style.transform = 'translate(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px)';
+        raf = null;
+      });
+    });
+    el.addEventListener('mouseleave', ()=>{
+      if(raf){ cancelAnimationFrame(raf); raf = null; }
+      el.style.transition = 'transform .5s ' + EASE_VAR;
+      el.style.transform = 'translate(0,0)';
+      setTimeout(()=>{ el.style.transition = 'transform .12s ' + EASE_VAR; }, 520);
+    });
+  }
+  document.querySelectorAll('.glass-btn').forEach(el=> attachMagnet(el, 0.22));
+
   // wheel navigation with circular wrap, but let internal scroll areas
   // (the experience list, or any page whose content runs taller than the
   // viewport) scroll themselves until they hit an edge
@@ -737,17 +938,34 @@
   let wheelLock = false;
   let wheelAccum = 0;
   let wheelResetTimer = null;
-  const WHEEL_THRESHOLD = 55;
+  let atEdgeSince = 0;
+  let wasAtEdge = false;
+  const WHEEL_THRESHOLD = 170;
+  const EDGE_GRACE_MS = 260;
   window.addEventListener('wheel', function(e){
+    if(!document.body.classList.contains('site-ready')) return;
     const scrollArea = findScrollable(e.target);
     if(scrollArea){
       const atTop = scrollArea.scrollTop <= 0;
       const atBottom = scrollArea.scrollTop + scrollArea.clientHeight >= scrollArea.scrollHeight - 1;
-      if(!((e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom))){
+      const atEdge = (e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom);
+      if(!atEdge){
         // let the area scroll natively, don't hijack for page nav
+        wheelAccum = 0;
+        wasAtEdge = false;
+        return;
+      }
+      // just arrived at the edge: swallow this event so scroll inertia from
+      // reaching the bottom of the list doesn't immediately flip the page
+      if(!wasAtEdge){
+        wasAtEdge = true;
+        atEdgeSince = Date.now();
         wheelAccum = 0;
         return;
       }
+      if(Date.now() - atEdgeSince < EDGE_GRACE_MS) return;
+    } else {
+      wasAtEdge = false;
     }
     if(wheelLock) return;
     // accumulate small trackpad deltas; only fire once a real "swipe" of
@@ -759,7 +977,7 @@
     wheelLock = true;
     if(wheelAccum > 0){ goTo(idx+1); } else { goTo(idx-1); }
     wheelAccum = 0;
-    setTimeout(()=> wheelLock = false, 1300);
+    setTimeout(()=> wheelLock = false, 700);
   }, {passive:true});
 
   // touch navigation
@@ -768,6 +986,7 @@
     touchStartY = e.touches[0].clientY;
   }, {passive:true});
   window.addEventListener('touchend', e=>{
+    if(!document.body.classList.contains('site-ready')) return;
     if(touchStartY===null) return;
     const dy = touchStartY - e.changedTouches[0].clientY;
     const scrollArea = findScrollable(e.target);
@@ -784,6 +1003,7 @@
 
   // keyboard navigation
   window.addEventListener('keydown', e=>{
+    if(!document.body.classList.contains('site-ready')) return;
     const tag = e.target && e.target.tagName;
     const isTyping = tag === 'INPUT' || tag === 'TEXTAREA' || (e.target && e.target.isContentEditable);
     if(isTyping) return;
@@ -806,6 +1026,8 @@
     {type:'bokeh', top:'8%', left:'30%', w:160, h:160, depth:10, color:'rgba(255,241,181,0.5)', anim:'drift2', dur:14},
     {type:'bokeh', top:'62%', left:'12%', w:200, h:200, depth:8, color:'rgba(193,219,232,0.55)', anim:'drift3', dur:16},
     {type:'bokeh', top:'75%', left:'55%', w:140, h:140, depth:14, color:'rgba(67,48,46,0.12)', anim:'drift1', dur:12},
+    {type:'streak', top:'24%', left:'54%', w:180, h:2, rot:-8, depth:20, anim:'drift2', dur:10},
+    {type:'streak', top:'66%', left:'30%', w:130, h:2, rot:-6, depth:26, anim:'drift3', dur:8},
   ];
   shardDefs.forEach((def,i)=>{
     const el = document.createElement('div');
@@ -817,6 +1039,7 @@
       el.style.clipPath = 'polygon(20% 0%, 100% 15%, 80% 100%, 0% 85%)';
     }
     if(def.type==='bokeh'){ el.style.background = def.color; }
+    if(def.type==='streak'){ el.style.transform = 'rotate('+def.rot+'deg)'; }
     const inner = document.createElement('div');
     inner.style.width='100%'; inner.style.height='100%';
     inner.style.animation = def.anim+' '+def.dur+'s ease-in-out infinite';
